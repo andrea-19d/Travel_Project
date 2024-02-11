@@ -11,6 +11,7 @@ namespace App.Controllers
         // GET: About
         public ActionResult About()
         {
+            Console.WriteLine(View());
             return View();
         }
     }
