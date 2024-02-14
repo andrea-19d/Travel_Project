@@ -43,5 +43,30 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Guides() 
+        {
+            return View();
+        }
+
+        public ActionResult Packages() 
+        {
+            return View();
+        }
+
+        public ActionResult Services() 
+        {
+            return View();
+        }
+
+        public ActionResult Testimonials() 
+        {
+            return View();
+        }
+
+        public ActionResult Tour()
+        {
+            return View();
+        } 
     }
 }
