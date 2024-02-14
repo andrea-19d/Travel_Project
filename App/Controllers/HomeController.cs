@@ -14,5 +14,10 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult About ()
+        {
+            return View();
+        }
     }
 }
