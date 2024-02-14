@@ -19,5 +19,29 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Blog()
+        {
+            return View();
+        }
+
+        public ActionResult Contact() 
+        {
+            return View();
+        }
+
+        public ActionResult Booking()
+        {
+            return View();
+        }
+        public ActionResult Destination() 
+        {
+            return View();
+        }
+
+        public ActionResult Gallery() 
+        {
+            return View();
+        }
     }
 }

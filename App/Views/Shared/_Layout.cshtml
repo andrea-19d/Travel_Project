@@ -31,63 +31,56 @@
 
     @if(IsSectionDefined("Styles"))
     { @RenderSection("Styles", required: false)}
+
 </head>
 
 
 <body>
-    <!-- Spinner Start -->
-    
+    <!-- Spinner Start  idk when to put it  -->
+
     <!-- Spinner End -->
-
     <!-- Topbar Start -->
-    <div class="container-fluid bg-primary px-5 d-none d-lg-block">
-       @Html.Partial("_Topbar")
-    </div>
+    @Html.Partial("_Topbar")
     <!-- Topbar End -->
-
     <!-- Navbar & Hero Start -->
-    <div class="container-fluid position-relative p-0">
-        @Html.Partial("_NavbarHero")
-        <!-- Navbar & Hero End -->
+    @Html.Partial("_NavbarHero")
+    <!-- Navbar & Hero End -->
+    <!-- Header Start -->
+    @Html.Partial("_Header")/
+    <!-- Header End -->
+    <!-- Content -->
+    @RenderBody();
+    <!-- End Content -->
+    <!-- Subscribe Start -->
+    @Html.Partial("_Subscribe")
+    <!-- Subscribe End -->
+    <!-- Footer Start -->
 
-        <!-- Header Start -->
-        @Html.Partial("_Header")/
-        <!-- Header End -->
-  
-        @RenderBody();
+    @Html.Partial("_Footer")
 
-        <!-- Subscribe Start -->
-        <div class="container-fluid subscribe py-5">
-            @Html.Partial("_Subscribe")
-        </div>
-        <!-- Subscribe End -->
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5">
-            @Html.Partial("_Footer")
-        </div>
-        <!-- Footer End -->
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright text-body py-4">
-            @Html.Partial("_Copyright")
-        </div>
-        <!-- Copyright End -->
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+    <!-- Footer End -->
+    <!-- Copyright Start -->
+
+    @Html.Partial("_Copyright")
+    <!-- Copyright End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        @Scripts.Render("~/bundle/easing")
-        @Scripts.Render("~/bundle/waypoints")
-        @Scripts.Render("~/bundle/owlcarousel")
-        @Scripts.Render("~/bundle/lightbox")
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    @Scripts.Render("~/bundle/easing")
+    @Scripts.Render("~/bundle/waypoints")
+    @Scripts.Render("~/bundle/owlcarousel")
+    @Scripts.Render("~/bundle/lightbox")
 
 
-        <!-- Template Javascript -->
-        @Scripts.Render("~/bundle/main")
+    <!-- Template Javascript -->
+    @Scripts.Render("~/bundle/main")
 
-        @RenderSection("scripts", required: false);
+    @RenderSection("scripts", required: false);
 
 
 </body>
