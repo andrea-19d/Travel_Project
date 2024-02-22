@@ -7,23 +7,27 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
         </button>
-
+@*hdjsdhajdiadha*@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link active" })
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link active" })@*aici*@
                 @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
                 @Html.ActionLink("Services", "Services", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
                 @Html.ActionLink("Packages", "Services", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
-                <a href="Blog" class="nav-item nav-link">Blog</a>
+                @Html.ActionLink("Blog", "Blog", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-0">
-                        <a href="Destination" class="dropdown-item">Destination</a>
-                        <a href="Tour" class="dropdown-item">Explore Tour</a>
-                        <a href="Booking" class="dropdown-item">Travel Booking</a>
-                        <a href="Gallery" class="dropdown-item">Our Gallery</a>
-                        <a href="Guides" class="dropdown-item">Travel Guides</a>
-                        <a href="Testimonials" class="dropdown-item">Testimonial</a>
+                        @Html.ActionLink("Destinations", "Destination", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Tour", "Tour", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Booking", "Booking", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Gallery", "Gallery", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Guides", "Guides", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Testimonials", "Testimonials", "Home", new { area = "" }, new { @class = "dropdown-item" })
+
+
+
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
