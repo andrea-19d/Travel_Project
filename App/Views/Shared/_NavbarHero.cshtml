@@ -10,10 +10,10 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="Index" class="nav-item nav-link active">Home</a>
-                <a href="About" class="nav-item nav-link">About</a>
-                <a href="Services" class="nav-item nav-link">Services</a>
-                <a href="Services" class="nav-item nav-link">Packages</a>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link active" })
+                @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Services", "Services", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Packages", "Services", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
                 <a href="Blog" class="nav-item nav-link">Blog</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
