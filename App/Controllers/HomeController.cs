@@ -73,5 +73,9 @@ namespace App.Controllers
         {
             return View();
         }
+        public ActionResult LogIn()
+        {
+            return View();
+        }
     }
 }
