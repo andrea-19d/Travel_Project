@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\Register.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\about-img-1.png" />
     <Content Include="Content\img\about-img.jpg" />
@@ -221,6 +222,7 @@
     <Content Include="Content\lib\owlcarousel\owl.carousel.js" />
     <Content Include="Content\lib\owlcarousel\owl.carousel.min.js" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
+    <Content Include="Content\css\LogIn.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -344,6 +346,7 @@
     <Content Include="Views\Shared\LayoutNoHeader.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
+    <Content Include="Views\Shared\RegistrationLogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -353,7 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\lib\LogIN\" />
+    <Folder Include="Content\lib\LogIn\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
