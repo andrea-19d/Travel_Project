@@ -28,9 +28,10 @@
 
     <!-- Template Stylesheet -->
     @Styles.Render("~/bundle/style/css")
+  
 
-    @if(IsSectionDefined("Styles"))
-    { @RenderSection("Styles", required: false)}
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
 
 </head>
 
