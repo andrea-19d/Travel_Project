@@ -250,6 +250,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionStatus.cs" />
+    <Compile Include="Models\LevelAcces.cs" />
+    <Compile Include="Models\ULoginData.cs" />
+    <Compile Include="Models\LevelStatus.cs" />
+    <Compile Include="Models\ProductDetail.cs" />
+    <Compile Include="Models\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -377,8 +383,17 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\AcountSettings\" />
     <Folder Include="Content\lib\LogIn\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\LogOut\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{d6417858-cb28-45fb-b9d4-3f93559431d3}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{14503f45-401d-4a76-a2b8-00a2968d3b59}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

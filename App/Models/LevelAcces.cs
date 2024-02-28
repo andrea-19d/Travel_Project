@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace App.Models
 {
-    internal interface UserData
+    public enum LevelAcces
     {
-        public string UserName { get; set; }
-        public List<string> Products { get; set; }
+        Guest,
+        User,
+        Admin
     }
 }

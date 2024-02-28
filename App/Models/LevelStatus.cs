@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace App.Models
 {
-    internal interface UserData
+    public class  LevelStatus
     {
-        public string UserName { get; set; }
-        public List<string> Products { get; set; }
+        public LevelAcces Level {  get; set; }
+        public DateTime SessionTime { get; set; }
     }
 }
