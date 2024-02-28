@@ -1,1 +1,36 @@
-﻿
+﻿<!--
+
+Section: Design Block -->
+<section class="background-radial-gradient overflow-hidden" >
+<style >
+.background-radial-gradient {
+    background-color: -webkit-linear-gradient(to bottom right, rgba(19, 53, 123, 1), rgba(19, 53, 123, 0.8));
+
+    
+
+#radius-shape-1
+{
+    height: 220px;
+    width: 220px;
+    top: -60px;
+    left: -130px;
+    background: radial-gradient(#f093fb, #ad1fff);
+    overflow: hidden;
+}
+
+#radius-shape-2 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(#f093fb, #ad1fff);
+    overflow: hidden;
+}
+
+.bg-glass {
+    background-color: -webkit-linear-gradient(to bottom right, rgba(19, 53, 123, 1), rgba(19, 53, 123, 0.8));
+    backdrop-filter: saturate(200%) blur(25px);
+}
+
+</style >

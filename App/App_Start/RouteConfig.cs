@@ -51,6 +51,8 @@ namespace App
 
             bundles.Add(new StyleBundle("~/bundles/register/css").Include(
                 "~/Content/css/Register.css"));
+            bundles.Add(new StyleBundle("~/bundle/login/css").Include(
+                "~/Content/css/LogIn.css"));
 
             BundleTable.EnableOptimizations = true;
 

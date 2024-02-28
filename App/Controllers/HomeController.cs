@@ -75,7 +75,7 @@ namespace App.Controllers
         }
         public ActionResult LogIn()
         {
-            return View();/*ajutorrr*/
+            return View();
         }
     }
 }
