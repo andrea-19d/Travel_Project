@@ -230,6 +230,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AboutPageController.cs" />
+    <Compile Include="Controllers\AccountSettingsController.cs" />
     <Compile Include="Controllers\BlogPageController.cs" />
     <Compile Include="Controllers\BookingPageController.cs" />
     <Compile Include="Controllers\ContactPageController.cs" />
@@ -238,6 +239,8 @@
     <Compile Include="Controllers\GuidesPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInPageController.cs" />
+    <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PackagesPageController.cs" />
     <Compile Include="Controllers\RegisterPageController.cs" />
     <Compile Include="Controllers\ServicePageController.cs" />
@@ -360,6 +363,8 @@
     <Content Include="Views\RegisterPage\Register.cshtml" />
     <Content Include="Views\LogInPage\LogIn.cshtml" />
     <Content Include="Views\Shared\RegistrationLogIn.cshtml" />
+    <Content Include="Views\AccountSettings\AccountSettings.cshtml" />
+    <Content Include="Views\Notifications\Notifications.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -371,6 +376,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\LogIn\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\LogOut\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
