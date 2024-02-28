@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class TourController : Controller
+    public class TourPageController : Controller
     {
         // GET: Tour
         public ActionResult Tour()
