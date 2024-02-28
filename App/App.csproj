@@ -347,14 +347,14 @@
     <Content Include="Views\Shared\_Copyright.cshtml" />
     <Content Include="Views\AboutPage\About.cshtml" />
     <Content Include="Views\BlogPage\Blog.cshtml" />
-    <Content Include="Views\Home\Booking.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Destination.cshtml" />
-    <Content Include="Views\Home\Gallery.cshtml" />
-    <Content Include="Views\Home\Guides.cshtml" />
-    <Content Include="Views\Home\Packages.cshtml" />
-    <Content Include="Views\Home\Testimonials.cshtml" />
-    <Content Include="Views\Home\Tour.cshtml" />
+    <Content Include="Views\BookingPage\Booking.cshtml" />
+    <Content Include="Views\ContactPage\Contact.cshtml" />
+    <Content Include="Views\DestinationPage\Destination.cshtml" />
+    <Content Include="Views\GalleryPage\Gallery.cshtml" />
+    <Content Include="Views\GuidesPage\Guides.cshtml" />
+    <Content Include="Views\PackagesPage\Packages.cshtml" />
+    <Content Include="Views\TestimonialsPage\Testimonials.cshtml" />
+    <Content Include="Views\TourPage\Tour.cshtml" />
     <Content Include="Views\ServicePage\Services.cshtml" />
     <Content Include="Views\Shared\LayoutNoHeader.cshtml" />
     <Content Include="Views\RegisterPage\Register.cshtml" />
@@ -371,14 +371,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\LogIn\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\BookingPage\" />
-    <Folder Include="Views\ContactPage\" />
-    <Folder Include="Views\DestinationPage\" />
-    <Folder Include="Views\GalleryPage\" />
-    <Folder Include="Views\GuidesPage\" />
-    <Folder Include="Views\PackagesPage\" />
-    <Folder Include="Views\TestimonialsPage\" />
-    <Folder Include="Views\Tour\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
