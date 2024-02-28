@@ -343,6 +343,7 @@
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Shared\LayoutNoHeader.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\LogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
