@@ -242,7 +242,7 @@
     <Compile Include="Controllers\RegisterPageController.cs" />
     <Compile Include="Controllers\ServicePageController.cs" />
     <Compile Include="Controllers\TestimonialsPageController.cs" />
-    <Compile Include="Controllers\TourController.cs" />
+    <Compile Include="Controllers\TourPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
