@@ -357,8 +357,8 @@
     <Content Include="Views\Home\Tour.cshtml" />
     <Content Include="Views\ServicePage\Services.cshtml" />
     <Content Include="Views\Shared\LayoutNoHeader.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\LogIn.cshtml" />
+    <Content Include="Views\RegisterPage\Register.cshtml" />
+    <Content Include="Views\LogInPage\LogIn.cshtml" />
     <Content Include="Views\Shared\RegistrationLogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -376,9 +376,7 @@
     <Folder Include="Views\DestinationPage\" />
     <Folder Include="Views\GalleryPage\" />
     <Folder Include="Views\GuidesPage\" />
-    <Folder Include="Views\LogInPage\" />
     <Folder Include="Views\PackagesPage\" />
-    <Folder Include="Views\RegisterPage\" />
     <Folder Include="Views\TestimonialsPage\" />
     <Folder Include="Views\Tour\" />
   </ItemGroup>
