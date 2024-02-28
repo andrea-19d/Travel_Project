@@ -1,5 +1,4 @@
-﻿using dotless.Core.Parser.Tree;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,10 +6,10 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class HomeController : Controller
+    public class GalleryPageController : Controller
     {
-        // GET: Default
-        public ActionResult Index()
+        // GET: GalleryPage
+        public ActionResult Gallery()
         {
             return View();
         }
