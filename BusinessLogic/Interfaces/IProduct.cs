@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Domain.Entities.Product;
+
 namespace BusinessLogic.Interfaces
 {
-    internal interface IProduct
+    public interface IProduct
     {
-        ProductDetails GetDetailProduct(int id);
+        ProductDetail GetDetailProduct(int id);
     }
 }

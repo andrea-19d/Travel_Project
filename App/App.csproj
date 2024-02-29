@@ -250,11 +250,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ActionStatus.cs" />
-    <Compile Include="Models\LevelAcces.cs" />
-    <Compile Include="Models\ULoginData.cs" />
-    <Compile Include="Models\LevelStatus.cs" />
-    <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

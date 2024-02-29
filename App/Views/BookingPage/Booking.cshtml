@@ -2,6 +2,21 @@
 @{
     ViewBag.Title = "Booking";
 }
+@model App.Models.UserData 
+
+<div>
+    <table>
+    @foreach (var prod in Model.Products)
+            {
+                <tr>
+                    <td>@prod</td>
+                </tr>
+            }
+     </table>
+</div>
+
+
+
 
 <!-- Tour Booking Start -->
 <div class="container-fluid booking py-5">

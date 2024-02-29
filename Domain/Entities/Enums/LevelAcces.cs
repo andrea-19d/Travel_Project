@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Domain.Entities.Enums
 {
-    internal class LevelAcces
+    public enum LevelAcces
     {
+        Guest,
+        User,
+        Admin
     }
 }

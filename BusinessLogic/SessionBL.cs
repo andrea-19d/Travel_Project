@@ -5,12 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Enums;
+using Domain.Entities.Res;
+using Domain.Entities.User;
+using Domain.Entities.User.Global;
+using Domain.Entities.Product;
+
+
 
 namespace BusinessLogic
 {
-    internal class SessionBL : UserApi, ISession
+    public class SessionBL : UserApi, ISession
     {
-        public ActionStatus UserLogin(ULoginData)
+        public ActionStatus UserLogin(ULoginData data)
         {
             return UserLogData(data);
         }

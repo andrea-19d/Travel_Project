@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nest;
 
 namespace BusinessLogic
 {
-    internal class BussinesLogic
+    public class BussinesLogic
     {
         public ISession GetSessionBL() { 
             return new SessionBL ();
@@ -15,7 +16,7 @@ namespace BusinessLogic
         }
         public IProduct GetProductBL()
         {
-            return new ProductBL  ();
+            return new ProductBL ();
         }
     }
 }

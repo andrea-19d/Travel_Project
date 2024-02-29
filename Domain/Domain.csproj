@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Entities\Enums\LevelAcces.cs" />
     <Compile Include="Entities\Product\ProductDetail.cs" />
     <Compile Include="Entities\Res\ActionStatus.cs" />
