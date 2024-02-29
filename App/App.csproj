@@ -256,6 +256,7 @@
     <Compile Include="Models\LevelStatus.cs" />
     <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\UserData.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
