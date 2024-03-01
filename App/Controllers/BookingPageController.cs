@@ -12,10 +12,7 @@ namespace App.Controllers
         // GET: BookingPage
         public ActionResult Booking()
         {
-            UserData u = new UserData();
-            u.UserName = "Customer";
-            u.Products = new List<string> { "Booking 1", "Booking 3" };
-            return View(u);
+            return View();
         }
     }
 }

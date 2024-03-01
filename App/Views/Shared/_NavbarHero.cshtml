@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
         <a href="" class="navbar-brand p-0">
             <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
-            @* <img src="~Content/img/logo.png" alt="Logo"> *@
+           @*  <img src="~/Content/img/logo.png" alt="Logo"> *@
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
@@ -10,28 +10,28 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link active" })
-                @Html.ActionLink("About", "About", "AboutPage", new { area = "" }, new { @class = "nav-item nav-link" })
-                @Html.ActionLink("Services", "Services", "ServicePage", new { area = "" }, new { @class = "nav-item nav-link" })
-                @Html.ActionLink("Packages", "Services", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
-                @Html.ActionLink("Blog", "Blog", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-item nav-link active" })
+                @Html.ActionLink("About", "About", "AboutPage", null, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Services", "Services", "ServicePage", null, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Packages", "Services", "ServicePage", null, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Blog", "Blog", "BlogPage", null, new { @class = "nav-item nav-link" })
 
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-0">
-                        @Html.ActionLink("Destinations", "Destination", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Tour", "Tour", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Booking", "Booking", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Gallery", "Gallery", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Guides", "Guides", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Testimonials", "Testimonials", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Destinations", "Destination", "DestinationPage", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Tour", "Tour", "TourPage", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Booking", "Booking", "BookingPage", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Gallery", "Gallery", "GalleryPage", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Guides", "Guides", "GuidesPage", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Testimonials", "Testimonials", "TestimonialsPage", null, new { @class = "dropdown-item" })
 
 
 
-                        <a href="404.html" class="dropdown-item">404 Page</a>
+                        <a href="404.html" class="dropdown-item">404 Page</a> @*Add this in case of error*@
                     </div>
                 </div>
-                <a href="Contact" class="nav-item nav-link">Contact</a>
+                <a href="Contact" class="nav-item nav-link">Contact</a>@*Don't have this page *@
             </div>
             <a href="" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
         </div>
