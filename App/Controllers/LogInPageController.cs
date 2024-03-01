@@ -5,6 +5,11 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
+using BusinessLogic;
+using BusinessLogic.Interfaces;
+using Domain.Entities.User.Global;
+using Domain.Entities.User;
+using App.Models;
 
 namespace App.Controllers
 {
@@ -15,7 +20,7 @@ namespace App.Controllers
         public LogInPageController()
         {
             var bl = new BussinesLogic();
-            _session = bl.GetSession();
+            _session = bl.GetSessionBL();
         }
         public ActionResult LogIn()
         {
@@ -23,25 +28,26 @@ namespace App.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(UserLogin login)
+        public ActionResult LogIn(userLogin login)
         {
             if (ModelState.IsValid)
             {
                 ULoginData data = new ULoginData
                 {
-                    Credebtial = login.Credential,
+                    Credential = login.Credential,
                     Password = login.Password,
                     LoginIp = Request.UserHostAddress,
                     LoginDateTime = DateTime.Now
                 };
                 var userLogin = _session.UserLogin(data);
-                if(userLogin.Status) { 
+                if(userLogin.Status) {
                     //ADD COKIE
+                    LevelStatus status = _session.CheckLevel(userLogin.SessionKey);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", userLogin.StatusMsg);
+                    ModelState.AddModelError("Nume de utilizator sau parola sunt incorecte", userLogin.StatusMessage);
                     return View();
                 }
                 

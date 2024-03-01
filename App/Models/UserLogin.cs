@@ -9,8 +9,8 @@ namespace App.Models
   
         public class userLogin
         {
-        public string Credential;
-        public string Password;
+            public string Credential;
+            public string Password;
         }
             
 
