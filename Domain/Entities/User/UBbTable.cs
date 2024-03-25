@@ -35,7 +35,7 @@ namespace Domain.Entities.User
         [StringLength(30)]
         public string LastIp { get; set; }
 
-        public URole Level { get; set; }
+       /* public URole Level { get; set; }*/
     }
 }
 

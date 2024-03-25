@@ -37,7 +37,7 @@ namespace BusinessLogic.Core
             UBbTable result;
             using (var db = new UserContext())
             {
-                result = db.Users.FirstOrDefault(u => u.Username == data.Username && u.Password ==
+                result = db.Users.FirstOrDefault(u => u.Username == data.Credential && u.Password ==
                 data.Password);
             }
             if (result == null)

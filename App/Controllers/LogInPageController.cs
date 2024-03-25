@@ -1,59 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
+﻿// LogInPageController.cs
+
+using System;
 using System.Web.Mvc;
-using System.Web.SessionState;
 using BusinessLogic;
-using BusinessLogic.Interfaces;
-using Domain.Entities.User.Global;
-using Domain.Entities.User;
 using App.Models;
+using BusinessLogic.Interfaces;
+using Domain.Entities.User;
 
 namespace App.Controllers
 {
     public class LogInPageController : Controller
     {
-        // GET: LogInPage
         private readonly ISession _session;
+
         public LogInPageController()
         {
             var bl = new BussinesLogic();
             _session = bl.GetSessionBL();
         }
+
+        // GET: LogInPage (assuming you want to display the login form initially)
         public ActionResult LogIn()
         {
             return View();
         }
+
+        public void Usera()
+        {
+            var credential = "dsadsa";
+            var password = "password";
+            var data = new userLogin
+            {
+                Credential = credential,
+                Password = password,
+            };
+            LogIn(data);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogIn(userLogin login)
         {
+            Usera();
             if (ModelState.IsValid)
             {
+                // Assuming userLogin is a model representing user credentials (email and password)
                 ULoginData data = new ULoginData
                 {
                     Credential = login.Credential,
                     Password = login.Password,
                     LoginIp = Request.UserHostAddress,
-                    LoginDateTime = DateTime.Now
+                    LoginDateTime = DateTime.Now,
                 };
+
                 var userLogin = _session.UserLogin(data);
-                if(userLogin.Status) {
-                    //ADD COKIE
-                    LevelStatus status = _session.CheckLevel(userLogin.SessionKey);
+
+                if (userLogin.Status)
+                {
+                    // Successfully logged in, redirect to home or dashboard
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("Nume de utilizator sau parola sunt incorecte", userLogin.StatusMessage);
-                    return View();
+                    // Login failed, add error message to ModelState
+                    ModelState.AddModelError("", "Invalid username or password.");
                 }
-                
             }
-            return View();
+
+            // If ModelState is not valid or login is unsuccessful, return to login view with error messages
+            return View(login);
         }
-        
     }
 }
