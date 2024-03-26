@@ -48,11 +48,12 @@ namespace App.Controllers
                 // Assuming userLogin is a model representing user credentials (email and password)
                 ULoginData data = new ULoginData
                 {
-                    Credential = login.Credential,
-                    Password = login.Password,
-                    LoginIp = Request.UserHostAddress,
+                    Credential = "andrea",
+                    Password = "12345",
+                    LoginIp = "1.1.1.1",
                     LoginDateTime = DateTime.Now,
                 };
+                RResponseData resp = _session.RegisterNewUserAction(regData);
 
                 var userLogin = _session.UserLogin(data);
 

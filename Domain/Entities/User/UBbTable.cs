@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,7 +36,7 @@ namespace Domain.Entities.User
         [StringLength(30)]
         public string LastIp { get; set; }
 
-       /* public URole Level { get; set; }*/
+       public LevelAcces level { get; set; }
     }
 }
 

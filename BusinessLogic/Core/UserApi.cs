@@ -9,6 +9,7 @@ using Domain.Entities.User;
 using Domain.Entities.User.Global;
 using Domain.Entities.Product;
 using BusinessLogic.DBModel.Seed;
+using System.Net;
 
 
 namespace BusinessLogic.Core
@@ -23,6 +24,24 @@ namespace BusinessLogic.Core
         {
             return new LevelStatus();
         }
+
+        internal new RResponceData RegisterUserAction(URegisterData login) 
+        {
+            var newUser = new ULoginData
+            { 
+                Credential = login.Credential,
+                Password = login.Password,
+                LoginIp = Request.UserHostAddress,
+                LoginDateTime = DateTime.Now,
+            };
+            using (var db = new UserContext())
+            {
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
+            return new RResponceData();
+        }
+       
         internal ProductDetail GetProdUser(int id)
         {
             return new ProductDetail();

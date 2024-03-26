@@ -14,5 +14,6 @@ namespace BusinessLogic.Interfaces
     {
         ActionStatus UserLogin(ULoginData data);
         LevelStatus CheckLevel(string key);
+        RResponceData RegisterNewUserAction(URegisterData regData)
     }
 }
