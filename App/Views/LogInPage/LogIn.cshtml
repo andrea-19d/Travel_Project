@@ -18,7 +18,7 @@
 
             <div class="card bg-glass">
                 <div class="card-body px-4 py-5 px-md-5">
-                    @using (Html.BeginForm("LogIn", "LogInPage"))
+                    @using (Html.BeginForm("LogIn", "LogInPage", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
 

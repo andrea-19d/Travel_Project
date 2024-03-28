@@ -11,11 +11,11 @@ namespace BusinessLogic.DBModel.Seed
     public class UserContext : DbContext
     {
         public UserContext() :
-        base("name = eUseControl") //conection string name define in your web.config
+        base("name = App") 
         {
         }
 
-        public virtual DbSet<UBbTable> Users { get; set; }
+        public virtual DbSet<UDbTable> Users { get; set; }
     }
 
 }

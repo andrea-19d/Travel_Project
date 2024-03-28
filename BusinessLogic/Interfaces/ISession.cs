@@ -7,6 +7,7 @@ using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
+using BusinessLogic.Core;
 
 namespace BusinessLogic.Interfaces
 {
@@ -14,6 +15,6 @@ namespace BusinessLogic.Interfaces
     {
         ActionStatus UserLogin(ULoginData data);
         LevelStatus CheckLevel(string key);
-        RResponceData RegisterNewUserAction(URegisterData regData)
-    }
+        ActionStatus RegisterNewUserAction(URegisterData regData);
+    };
 }

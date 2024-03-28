@@ -259,6 +259,7 @@
     </Compile>
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\userRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinesLogic.cs" />
-    <Compile Include="Core\ULoginResp.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />
     <Compile Include="ProductBL.cs" />
     <Compile Include="Core\AdminApi.cs" />

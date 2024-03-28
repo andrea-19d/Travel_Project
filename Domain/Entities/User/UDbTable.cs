@@ -9,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.User
 {
-    public class UBbTable
+    public class UDbTable
     {
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
+        public int Id { get; set; }
+   
         [Required]
         [Display(Name = "Username")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Username cannot be longer than 30 characters.")]
-        public string Username { get; set; }
+        public string Credentials { get; set; }
 
         [Required]
         [Display(Name = "Password")]
@@ -36,7 +37,7 @@ namespace Domain.Entities.User
         [StringLength(30)]
         public string LastIp { get; set; }
 
-       public LevelAcces level { get; set; }
+        public LevelAcces level { get; set; }
     }
 }
 

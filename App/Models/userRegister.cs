@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Domain.Entities.User
+namespace App.Models
 {
-    public class URegisterData
+    public class userRegister
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string LoginIp { get; set; }
-        public DateTime LoginDateTime { get; set; }
     }
 }

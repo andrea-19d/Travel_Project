@@ -10,8 +10,6 @@ namespace App.Models
         {
             public string Credential;
             public string Password;
-         /*   public string LoginIp;
-            public DateTime LoginDateTime;*/
-    }
+        }
 }
 

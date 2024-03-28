@@ -25,23 +25,11 @@ namespace App.Controllers
             return View();
         }
 
-        public void Usera()
-        {
-            var credential = "dsadsa";
-            var password = "password";
-            var data = new userLogin
-            {
-                Credential = credential,
-                Password = password,
-            };
-            LogIn(data);
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogIn(userLogin login)
         {
-            Usera();
             if (ModelState.IsValid)
             {
                 // Assuming userLogin is a model representing user credentials (email and password)

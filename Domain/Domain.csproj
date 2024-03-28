@@ -55,7 +55,7 @@
     <Compile Include="Entities\Product\ProductDetail.cs" />
     <Compile Include="Entities\Res\ActionStatus.cs" />
     <Compile Include="Entities\User\Global\LevelStatus.cs" />
-    <Compile Include="Entities\User\UBbTable.cs" />
+    <Compile Include="Entities\User\UDbTable.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Entities\User\URegisterData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

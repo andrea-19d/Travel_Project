@@ -26,7 +26,7 @@ namespace BusinessLogic
             return CheckLevelLogic(key);
         }
 
-        public RResponceData RegisterNewUserAction (URegisterData regData)
+        public ActionStatus RegisterNewUserAction (URegisterData regData)
         {
             return RegisterUserAction(regData);
         }

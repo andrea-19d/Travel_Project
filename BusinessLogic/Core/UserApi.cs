@@ -10,64 +10,55 @@ using Domain.Entities.User.Global;
 using Domain.Entities.Product;
 using BusinessLogic.DBModel.Seed;
 using System.Net;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace BusinessLogic.Core
 {
     public class UserApi
     {
-        internal ActionStatus UserLogData(ULoginData data)
+        internal ActionStatus UserLogData(ULoginData login)
         {
-            return new ActionStatus();
+            UDbTable result;
+            using (var db = new UserContext())
+            {
+                result = db.Users.FirstOrDefault(u => u.Credentials == login.Credential && u.Password == login.Password);
+            }
+            if (result == null)
+            {
+                return new ActionStatus
+                {
+                    Status = false,
+                    StatusMessage = "The username or password is incorrect"
+                };
+            };
+            return new ActionStatus { Status = true };
+        }
+
+        public ActionStatus RegisterUserAction(URegisterData data)
+        {
+            UDbTable result;
+            using (var db = new UserContext())
+            {
+                result = db.Users.FirstOrDefault();
+            }
+
+            return null;
         }
         internal LevelStatus CheckLevelLogic(string keySession)
         {
             return new LevelStatus();
         }
 
-        internal new RResponceData RegisterUserAction(URegisterData login) 
-        {
-            var newUser = new ULoginData
-            { 
-                Credential = login.Credential,
-                Password = login.Password,
-                LoginIp = Request.UserHostAddress,
-                LoginDateTime = DateTime.Now,
-            };
-            using (var db = new UserContext())
-            {
-                db.Users.Add(newUser);
-                db.SaveChanges();
-            }
-            return new RResponceData();
-        }
-       
         internal ProductDetail GetProdUser(int id)
         {
             return new ProductDetail();
         }
+
+
         public bool UserSessionStatus()
         {
             return true;
-        }
-
-        internal ULoginResp UserSessionData(ULoginData data)
-        {
-            UBbTable result;
-            using (var db = new UserContext())
-            {
-                result = db.Users.FirstOrDefault(u => u.Username == data.Credential && u.Password ==
-                data.Password);
-            }
-            if (result == null)
-            {
-                return new ULoginResp
-                {
-                    Status = false,
-                    StatusMsg = "The username or password is incorrect"
-                };
-            }
-            return new ULoginResp { Status = true };
         }
 
     }
