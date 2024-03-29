@@ -1,14 +1,15 @@
-﻿@{
+﻿@model App.Models.userLogin
+
+@{
     Layout = "~/Views/Shared/RegistrationLogIn.cshtml";
 }
-@model App.Models.userLogin
 
 <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: rgba(19, 53, 123, 1) ">
-                Put your dates here to <br />
-                <span style="color: rgba(19, 53, 123, 1)">LogIn</span>
+            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: rgba(19, 53, 123, 1)">
+                Put your credentials here to <br />
+                <span style="color: rgba(19, 53, 123, 1)">Log In</span>
             </h1>
         </div>
 
@@ -24,22 +25,14 @@
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            @Html.TextBoxFor(m => m.Credential, new { @class = "form-control", id = "form3Example3" })
-                            @Html.LabelFor(m => m.Credential, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "email" })
+                            @Html.LabelFor(m => m.Email, "Email", new { @class = "form-label" })
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "form3Example4" })
-                            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
-                        </div>
-
-                        <!-- Checkbox -->
-                        <div class="form-check d-flex justify-content-center mb-4">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                            <label class="form-check-label" for="form2Example33">
-                                Subscribe to our newsletter
-                            </label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
+                            @Html.LabelFor(m => m.Password, "Password", new { @class = "form-label" })
                         </div>
 
                         <!-- Submit button -->

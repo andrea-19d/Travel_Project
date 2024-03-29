@@ -34,9 +34,6 @@ namespace Domain.Entities.User
         [DataType(DataType.Date)]
         public DateTime LastLogin { get; set; }
 
-        [StringLength(30)]
-        public string LastIp { get; set; }
-
         public LevelAcces level { get; set; }
     }
 }

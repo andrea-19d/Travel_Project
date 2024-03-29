@@ -35,9 +35,8 @@ namespace App.Controllers
                 // Assuming userLogin is a model representing user credentials (email and password)
                 ULoginData data = new ULoginData
                 {
-                    Credential = login.Credential,
+                    Email = login.Email,
                     Password = login.Password,
-                    LoginIp = Request.UserHostAddress,
                     LoginDateTime = DateTime.Now,
                 };
 

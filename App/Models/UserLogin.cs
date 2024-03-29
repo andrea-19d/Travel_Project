@@ -8,8 +8,9 @@ namespace App.Models
 {
         public class userLogin
         {
-            public string Credential;
-            public string Password;
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public DateTime LoginDateTime { get; set; }
         }
 }
 
