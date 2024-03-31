@@ -1,9 +1,7 @@
-﻿@model App.Models.userLogin
-
-@{
+﻿@{
     Layout = "~/Views/Shared/RegistrationLogIn.cshtml";
 }
-
+@model App.Models.userLogin
 <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
@@ -12,34 +10,44 @@
                 <span style="color: rgba(19, 53, 123, 1)">Log In</span>
             </h1>
         </div>
-
         <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
             <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
             <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
             <div class="card bg-glass">
                 <div class="card-body px-4 py-5 px-md-5">
-                    @using (Html.BeginForm("LogIn", "LogInPage", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
 
-                        <!-- Email input -->
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Html.Raw(ViewBag.ErrorMessage)
+                        </div>
+                    }
+                    <form method="post" class="needs-validation" id="registrationForm" novalidate>
+                        @using (Html.BeginForm("LogIn", "LogInPage", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <!-- Email input -->
                         <div class="form-outline mb-4">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "email" })
                             @Html.LabelFor(m => m.Email, "Email", new { @class = "form-label" })
+                            @Html.ValidationMessageFor(m => m.Email)
                         </div>
 
-                        <!-- Password input -->
+                            <!-- Password input -->
                         <div class="form-outline mb-4">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
                             @Html.LabelFor(m => m.Password, "Password", new { @class = "form-label" })
+                            @Html.ValidationMessageFor(m => m.Password)
                         </div>
 
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4">
-                            Sign in
-                        </button>
-                    }
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                                Sign in
+                            </button>
+                        }
+                    </form>
                 </div>
             </div>
         </div>

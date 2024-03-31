@@ -6,6 +6,7 @@ using BusinessLogic;
 using App.Models;
 using BusinessLogic.Interfaces;
 using Domain.Entities.User;
+using System.Web.Security;
 
 namespace App.Controllers
 {
@@ -19,12 +20,10 @@ namespace App.Controllers
             _session = bl.GetSessionBL();
         }
 
-        // GET: LogInPage (assuming you want to display the login form initially)
         public ActionResult LogIn()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -44,13 +43,13 @@ namespace App.Controllers
 
                 if (userLogin.Status)
                 {
-                    // Successfully logged in, redirect to home or dashboard
+                    FormsAuthentication.SetAuthCookie(login.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     // Login failed, add error message to ModelState
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ViewBag.ErrorMessage = userLogin.StatusMessage;
                 }
             }
 

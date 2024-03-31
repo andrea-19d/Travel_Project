@@ -37,7 +37,7 @@ namespace App.Controllers
                 {
                     Username = registerData.Username,
                     Email = registerData.Email,
-                    Password = registerData.Password, 
+                    Password = registerData.Password,
                     LastLogin = DateTime.Now,
                     level = registerData.level,
 
@@ -45,15 +45,17 @@ namespace App.Controllers
 
                 var userRegister = _session.RegisterNewUserAction(data);
 
-                if(userRegister.Status) 
+                if (userRegister.Status)
                 {
+                    ViewBag.SuccessMessage = userRegister.StatusMessage;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid credentials");
+                    ViewBag.ErrorMessage = userRegister.StatusMessage;
                 }
             }
+
             return View(registerData);
         }
     }

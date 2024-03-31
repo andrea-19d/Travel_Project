@@ -10,21 +10,29 @@
             </div>
         </div>
         <div class="col-lg-4 text-center text-lg-end">
-            <div class="d-inline-flex align-items-center" style="height: 45px;">
+            <div class="d-inline-flex align-items-center" style="height: 45px;"
 
-                <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>
+@*Need to do it so it works correclty,
+    The authentification doesn't want to work' *@
 
-                <a href="@Url.Action("LogIn", "LogInPage")" class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
-                    <div class="dropdown-menu rounded">
-                        <a href=@Url.Action("AccountSettings", "AccountSettings") class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
-                        <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
-                        <a href=@Url.Action("Notifications", "Notifications") class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
-                        <a href=@Url.Action("", "")  class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
-                        <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>
+
+                    <a href="@Url.Action("LogIn", "LogInPage")" class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
+                }
+                else
+                {<div class="dropdown">
+                        <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
+                        <div class="dropdown-menu rounded">
+                            <a href=@Url.Action("AccountSettings", "AccountSettings") class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                            <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
+                            <a href=@Url.Action("Notifications", "Notifications") class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
+                            <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                            <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>
