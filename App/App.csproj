@@ -261,6 +261,7 @@
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Controllers\TopuriController.cs" />
     <Compile Include="Controllers\TourPageController.cs" />
+    <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

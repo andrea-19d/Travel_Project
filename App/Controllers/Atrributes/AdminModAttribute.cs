@@ -8,7 +8,7 @@ using BusinessLogic.Interfaces;
 using BusinessLogic;
 using BusinessLogic.Interfaces;
 using Domain.Entities.Enums;
-using eUseControl.Web.Extensions;
+using Extensions;
 
 namespace eUseControl.Web.Controllers.Attributes
 {

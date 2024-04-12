@@ -4,11 +4,11 @@ using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//using App.Controllers.Attributes;
+using eUseControl.Web.Controllers.Attributes;
 //using AutoMapper;
 using App.Models;
 
-namespace eUseControl.Web.Controllers
+namespace App.Controllers
 {
 
     public class AdminController : BaseController
