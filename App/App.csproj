@@ -241,6 +241,7 @@
     <Compile Include="Controllers\AboutPageController.cs" />
     <Compile Include="Controllers\AccountSettingsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogPageController.cs" />
     <Compile Include="Controllers\BookingPageController.cs" />
     <Compile Include="Controllers\ContactPageController.cs" />
@@ -256,6 +257,8 @@
     <Compile Include="Controllers\RegisterPageController.cs" />
     <Compile Include="Controllers\ServicePageController.cs" />
     <Compile Include="Controllers\TestimonialsPageController.cs" />
+    <Compile Include="Controllers\TopController.cs" />
+    <Compile Include="Controllers\TopuriController.cs" />
     <Compile Include="Controllers\TourPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -392,7 +395,10 @@
     <Folder Include="Content\lib\AcountSettings\" />
     <Folder Include="Content\lib\LogIn\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\LogOut\" />
+    <Folder Include="Views\Topuri\" />
+    <Folder Include="Views\Top\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
