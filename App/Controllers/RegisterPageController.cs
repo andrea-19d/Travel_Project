@@ -10,6 +10,7 @@ using System.Web;
 using BusinessLogic.Core;
 using System.Runtime.InteropServices.WindowsRuntime;
 using BusinessLogic.DBModel.Seed;
+using System.Web.UI.WebControls;
 namespace App.Controllers
 {
     public class RegisterPageController : Controller
@@ -27,6 +28,7 @@ namespace App.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(userRegister registerData)
@@ -44,16 +46,17 @@ namespace App.Controllers
                 };
 
                 var userRegister = _session.RegisterNewUserAction(data);
-
                 if (userRegister.Status)
-                {
+                { 
                     ViewBag.SuccessMessage = userRegister.StatusMessage;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("LogIn", "LogInPage");
                 }
                 else
                 {
                     ViewBag.ErrorMessage = userRegister.StatusMessage;
                 }
+
+                System.Diagnostics.Debug.WriteLine($"ViewBag.UserExists value: {ViewBag.UserExists}");
             }
 
             return View(registerData);

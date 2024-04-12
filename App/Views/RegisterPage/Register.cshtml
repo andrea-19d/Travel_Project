@@ -18,49 +18,57 @@
                             </div>
                         }
 
-                        <form method="post" class="needs-validation" id="registrationForm" novalidate>
-                            @Html.AntiForgeryToken()
+                    <form method="post" class="needs-validation" id="registrationForm" novalidate>
+                        @Html.AntiForgeryToken()
 
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    <div class="form-outline">
-                                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-control-lg", id = "username", required = "required" })
-                                        <label class="form-label" for="username">Username</label>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                        @Html.ValidationMessageFor(m => m.Username)
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="form-outline">
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-control-lg", id = "username", required = "required" })
+                                    <label class="form-label" for="username">Username</label>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    @Html.ValidationMessageFor(m => m.Username)
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    <div class="form-outline">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", id = "emailAddress", required = "required" })
-                                        <label class="form-label" for="emailAddress">Email</label>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                        @Html.ValidationMessageFor(m => m.Email)
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="form-outline">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", id = "emailAddress", required = "required" })
+                                    <label class="form-label" for="emailAddress">Email</label>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    @Html.ValidationMessageFor(m => m.Email)
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-4">
-                                    <div class="form-outline">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", id = "password", required = "required" })
-                                        <label class="form-label" for="password">Password</label>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                        @Html.ValidationMessageFor(m => m.Password)
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="form-outline">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", id = "password", required = "required" })
+                                    <label class="form-label" for="password">Password</label>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    @Html.ValidationMessageFor(m => m.Password)
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="mt-4 pt-2">
-                                <input class="btn btn-primary btn-lg" type="submit" value="Register" />
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        { 
+
+                            <div class="mt-2 pt-2">
+                                Already have an account? <a href="@Url.Action("LogIn", "LogInPage")" class="btn btn-secondary">Login</a>
                             </div>
-                        </form>
+                        }
+
+                        <div class="mt-4 pt-2">
+                            <input class="btn btn-primary btn-lg" type="submit" value="Register" />
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
 using Domain.Entities.Product;
+using System.Web;
 
 
 
@@ -26,9 +27,20 @@ namespace BusinessLogic
             return CheckLevelLogic(key);
         }
 
+        public HttpCookie GenCookie(string loginCredential)
+        {
+            return Cookie(loginCredential);
+        }
+
         public ActionStatus RegisterNewUserAction (URegisterData regData)
         {
             return RegisterUserAction(regData);
         }
+
+/*        object ISession.ServiceToList()
+        {
+            throw new System.NotImplementedException();
+        }*/
+
     }
 }

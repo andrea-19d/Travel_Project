@@ -11,14 +11,13 @@
         </div>
         <div class="col-lg-4 text-center text-lg-end">
             <div class="d-inline-flex align-items-center" style="height: 45px;"
-
-@*Need to do it so it works correclty,
+                 @*Need to do it so it works correclty,
     The authentification doesn't want to work' *@
+                 @if (!User.Identity.IsAuthenticated) {
+                <button onclick="location.href='@Url.Action("Register", "RegisterPage")'" class="btn btn-close-white"> <i class="fa fa-user me-2"></i> </button>
 
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>
 
+                   @* <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>*@
                     <a href="@Url.Action("LogIn", "LogInPage")" class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
                 }
                 else

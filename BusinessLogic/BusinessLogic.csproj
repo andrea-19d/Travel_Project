@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinesLogic.cs" />
+    <Compile Include="DBModel\Seed\SessionContext.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />
     <Compile Include="ProductBL.cs" />
     <Compile Include="Core\AdminApi.cs" />

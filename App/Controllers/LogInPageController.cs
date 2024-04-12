@@ -7,6 +7,7 @@ using App.Models;
 using BusinessLogic.Interfaces;
 using Domain.Entities.User;
 using System.Web.Security;
+using System.Web;
 
 namespace App.Controllers
 {
@@ -25,6 +26,7 @@ namespace App.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogIn(userLogin login)
@@ -34,7 +36,7 @@ namespace App.Controllers
                 // Assuming userLogin is a model representing user credentials (email and password)
                 ULoginData data = new ULoginData
                 {
-                    Email = login.Email,
+                    Username = login.Username,
                     Password = login.Password,
                     LoginDateTime = DateTime.Now,
                 };
@@ -43,17 +45,19 @@ namespace App.Controllers
 
                 if (userLogin.Status)
                 {
-                    FormsAuthentication.SetAuthCookie(login.Email, false);
+                    FormsAuthentication.SetAuthCookie(login.Username, false);
+                    HttpCookie cookie = _session.GenCookie(login.Username);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                    Session["Username"] = login.Username;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     // Login failed, add error message to ModelState
                     ViewBag.ErrorMessage = userLogin.StatusMessage;
+                    return View();
                 }
             }
-
-            // If ModelState is not valid or login is unsuccessful, return to login view with error messages
             return View(login);
         }
     }

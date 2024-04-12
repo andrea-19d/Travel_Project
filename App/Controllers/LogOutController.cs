@@ -10,11 +10,22 @@ namespace App.Controllers
     public class LogOutController : Controller
     {
         // GET: LogOut
+
+        /* nu lucreasa inca, mai incercam */
         public ActionResult LogOut()
         {
+            Session.Abandon();
             FormsAuthentication.SignOut();
-            return RedirectToAction("LogIn", "LogInPage");
-            /* return View();*/
+            if (Response.Cookies["X-KEY"] != null)
+            {
+                var cookie = new HttpCookie("X-KEY")
+                {
+                    Expires = DateTime.Now.AddDays(-1),
+                    HttpOnly = true
+                };
+                Response.Cookies.Add(cookie);
+            }
+            return RedirectToAction("LogIn", "Login");
         }
     }
 }

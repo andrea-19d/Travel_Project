@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\MyProfileStyles.css" />
     <Content Include="Content\css\Register.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\about-img-1.png" />
@@ -248,6 +249,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInPageController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\MyProfilePageController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PackagesPageController.cs" />
     <Compile Include="Controllers\RegisterPageController.cs" />
@@ -376,6 +378,7 @@
     <Content Include="Views\Shared\RegistrationLogIn.cshtml" />
     <Content Include="Views\AccountSettings\AccountSettings.cshtml" />
     <Content Include="Views\Notifications\Notifications.cshtml" />
+    <Content Include="Views\MyProfilePage\MyProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,6 +8,7 @@ using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
 using BusinessLogic.Core;
+using System.Web;
 
 namespace BusinessLogic.Interfaces
 {
@@ -15,6 +16,7 @@ namespace BusinessLogic.Interfaces
     {
         ActionStatus UserLogin(ULoginData data);
         LevelStatus CheckLevel(string key);
+        HttpCookie GenCookie(string loginCredential);
         ActionStatus RegisterNewUserAction(URegisterData regData);
     };
 }
