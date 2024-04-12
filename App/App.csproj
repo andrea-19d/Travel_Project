@@ -241,6 +241,7 @@
     <Compile Include="Controllers\AboutPageController.cs" />
     <Compile Include="Controllers\AccountSettingsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Atrributes\AdminModAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogPageController.cs" />
     <Compile Include="Controllers\BookingPageController.cs" />
