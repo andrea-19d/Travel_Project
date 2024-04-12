@@ -240,6 +240,7 @@
     <Content Include="Content\css\AcountSettings.css" />
     <Compile Include="Controllers\AboutPageController.cs" />
     <Compile Include="Controllers\AccountSettingsController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogPageController.cs" />
     <Compile Include="Controllers\BookingPageController.cs" />
     <Compile Include="Controllers\ContactPageController.cs" />
@@ -390,6 +391,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\AcountSettings\" />
     <Folder Include="Content\lib\LogIn\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\LogOut\" />
   </ItemGroup>
   <ItemGroup>
