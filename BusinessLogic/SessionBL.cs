@@ -37,10 +37,15 @@ namespace BusinessLogic
             return RegisterUserAction(regData);
         }
 
-/*        object ISession.ServiceToList()
+        public UserMinimal GetUserByCookie(string apiCookieValue)
         {
-            throw new System.NotImplementedException();
-        }*/
+            return UserCookie(apiCookieValue);
+        }
+
+        /*        object ISession.ServiceToList()
+                {
+                    throw new System.NotImplementedException();
+                }*/
 
     }
 }

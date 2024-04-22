@@ -11,6 +11,7 @@ using System.Data.Entity;
 using Helpers;
 using System.Web;
 using Domain.Entities.Enums;
+using AutoMapper;
 
 
 namespace BusinessLogic.Core
@@ -27,9 +28,9 @@ namespace BusinessLogic.Core
             using (var db = new UserContext())
             {
                 result = isValidEmail
-                    ? db.Users.FirstOrDefault(u => u.Email == login.Username)
+                    ? db.Users.FirstOrDefault(u => u.Email == login.Email)
                     : db.Users.FirstOrDefault(u => u.Credentials == login.Username && u.Password == pass);
-            }
+            } 
 
             if (result == null)
             {
@@ -40,11 +41,20 @@ namespace BusinessLogic.Core
                 };
             }
 
-            using (var db = new UserContext())
+            if (result != null && result.Password == pass)
             {
-                result.LastLogin = DateTime.Now;
-                db.Entry(result).State = EntityState.Modified;
-                db.SaveChanges();
+                using (var todo = new UserContext())
+                {
+
+                  /*  result. = login.LoginIp;*/
+                    result.LastLogin = login.LoginDateTime;
+                    todo.Entry(result).State = EntityState.Modified;
+                    todo.SaveChanges();
+                }
+                if (result.level == LevelAcces.Admin)
+                    return new ActionStatus { Status = true, StatusMessage = "Admin" };
+                else
+                    return new ActionStatus { Status = true, StatusMessage = "User" };
             }
 
             return new ActionStatus { Status = true };
@@ -101,7 +111,6 @@ namespace BusinessLogic.Core
                 var hashedPassword = LoginHelper.HashGen(data.Password);
                 var newUser = new UDbTable
                 {
-
                     Credentials = data.Username,
                     Password = hashedPassword,
                     Email = data.Email,
@@ -124,9 +133,37 @@ namespace BusinessLogic.Core
             }
         }
 
+        internal UserMinimal UserCookie(string cookie)
+        {
+            Session session;
+            UDbTable curentUser;
 
+            using (var db = new SessionContext())
+            {
+                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
+            }
 
-    internal LevelStatus CheckLevelLogic(string keySession)
+            if (session == null) return null;
+            using (var db = new UserContext())
+            {
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(session.Username))
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.Username);
+                }
+                else
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Credentials == session.Username);
+                }
+            }
+
+            if (curentUser == null) return null;
+            var userminimal = Mapper.Map<UserMinimal>(curentUser);
+
+            return userminimal;
+        }
+
+        internal LevelStatus CheckLevelLogic(string keySession)
         {
             return new LevelStatus();
         }
@@ -141,6 +178,7 @@ namespace BusinessLogic.Core
         {
             return true;
         }
+
 
     }
 }

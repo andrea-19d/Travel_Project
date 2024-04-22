@@ -8,10 +8,24 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        // GET: Default
         public ActionResult Index()
+        {
+            string role = SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return View();
+            }
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult AccountSettings()
         {
             return View();
         }

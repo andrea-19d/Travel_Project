@@ -16,6 +16,7 @@ namespace BusinessLogic.Interfaces
     {
         ActionStatus UserLogin(ULoginData data);
         LevelStatus CheckLevel(string key);
+        UserMinimal GetUserByCookie(string apiCookieValue);
         HttpCookie GenCookie(string loginCredential);
         ActionStatus RegisterNewUserAction(URegisterData regData);
     };

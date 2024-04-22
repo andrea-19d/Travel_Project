@@ -10,25 +10,35 @@
             </div>
         </div>
         <div class="col-lg-4 text-center text-lg-end">
-            <div class="d-inline-flex align-items-center" style="height: 45px;"
-                 @*Need to do it so it works correclty,
-    The authentification doesn't want to work' *@
-                 @if (!User.Identity.IsAuthenticated) {
-                <button onclick="location.href='@Url.Action("Register", "RegisterPage")'" class="btn btn-close-white"> <i class="fa fa-user me-2"></i> </button>
+            <div class="d-inline-flex align-items-center" style="height: 45px;">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <button onclick="location.href='@Url.Action("Register", "RegisterPage")'" class="btn btn-close-white"> <i class="fa fa-user me-2"></i>Register </button>
 
 
-                   @* <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>*@
+                    @* <a href="@Url.Action("Register", "RegisterPage")" class="me-3 text-light"><i class="fa fa-sign me-2"></i>Register</a>*@
                     <a href="@Url.Action("LogIn", "LogInPage")" class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
                 }
                 else
-                {<div class="dropdown">
+                {
+                    <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
                         <div class="dropdown-menu rounded">
                             <a href=@Url.Action("AccountSettings", "AccountSettings") class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
                             <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
                             <a href=@Url.Action("Notifications", "Notifications") class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
-                            <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
-                            <a href=@Url.Action("", "") class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Action("Admin", "Admin")" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> Admin Profile</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("", "")" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                            }
+
+                            <a href="javascript:void(0);" onclick="logout()" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+
                         </div>
                     </div>
                 }
@@ -36,3 +46,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    function logout() {
+        $.ajax({
+            url: '/Logout/Logout',
+            type: 'POST',
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = '/Home/Index'; 
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            },
+            error: function () {
+                alert('An error occurred during logout. Please try again.');
+            }
+        });
+    }
+</script>

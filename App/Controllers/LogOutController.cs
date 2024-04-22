@@ -12,7 +12,7 @@ namespace App.Controllers
         // GET: LogOut
 
         /* nu lucreasa inca, mai incercam */
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
@@ -25,7 +25,8 @@ namespace App.Controllers
                 };
                 Response.Cookies.Add(cookie);
             }
-            return RedirectToAction("LogIn", "Login");
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

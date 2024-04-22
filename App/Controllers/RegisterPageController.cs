@@ -11,6 +11,7 @@ using BusinessLogic.Core;
 using System.Runtime.InteropServices.WindowsRuntime;
 using BusinessLogic.DBModel.Seed;
 using System.Web.UI.WebControls;
+using AutoMapper;
 namespace App.Controllers
 {
     public class RegisterPageController : Controller
@@ -35,17 +36,9 @@ namespace App.Controllers
         {
             if (ModelState.IsValid)
             {
-                URegisterData data = new URegisterData
-                {
-                    Username = registerData.Username,
-                    Email = registerData.Email,
-                    Password = registerData.Password,
-                    LastLogin = DateTime.Now,
-                    level = registerData.level,
+                var registredUser = Mapper.Map<URegisterData>(registerData);
 
-                };
-
-                var userRegister = _session.RegisterNewUserAction(data);
+                var userRegister = _session.RegisterNewUserAction(registredUser);
                 if (userRegister.Status)
                 { 
                     ViewBag.SuccessMessage = userRegister.StatusMessage;

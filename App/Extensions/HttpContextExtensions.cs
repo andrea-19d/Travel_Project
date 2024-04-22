@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Domain.Entities.User;
 
-namespace eUseControl.Web.Extension
+namespace App.Extension
 {
     public static class HttpContextExtensions
     {

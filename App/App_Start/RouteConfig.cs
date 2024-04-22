@@ -38,6 +38,17 @@ namespace App
                 "~/Content/lib/lightbox/js/lightbox.min.js"));
             bundles.Add(new ScriptBundle("~/bundle/main").Include(
                 "~/Content/js/main.js"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/assets/js/core/jquery.min.js",
+                "~/assets/js/core/popper.min.js",
+                "~/assets/js/core/bootstrap.min.js",
+                "~/assets/js/plugins/perfect-scrollbar.jquery.min.js",
+                // Add more script paths as needed
+                "~/assets/js/plugins/chartjs.min.js",
+                "~/assets/js/plugins/bootstrap-notify.js",
+                "~/assets/js/now-ui-dashboard.min.js?v=1.5.0",
+                "~/assets/demo/demo.js"
+            ));
 
             // Styles 
             bundles.Add(new StyleBundle("~/bundle/owlcarousel/css").Include(
@@ -55,6 +66,12 @@ namespace App
                 "~/Content/css/LogIn.css"));
             bundles.Add(new StyleBundle("~/bundle/accountSettings/css").Include(
                 "~/Content/css/AcountSettings.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+               "~/assets/css/bootstrap.min.css",
+               "~/assets/css/now-ui-dashboard.css?v=1.5.0",
+               "~/assets/demo/demo.css"
+           ));
 
 
             BundleTable.EnableOptimizations = true;

@@ -6,11 +6,12 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class AboutPageController : Controller
+    public class AboutPageController : BaseController
     {
         // GET: About
         public ActionResult About()
         {
+            string role = SessionStatus();
             return View();
         }
     }
