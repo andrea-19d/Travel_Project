@@ -39,15 +39,15 @@ namespace App
             bundles.Add(new ScriptBundle("~/bundle/main").Include(
                 "~/Content/js/main.js"));
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                "~/assets/js/core/jquery.min.js",
-                "~/assets/js/core/popper.min.js",
-                "~/assets/js/core/bootstrap.min.js",
-                "~/assets/js/plugins/perfect-scrollbar.jquery.min.js",
-                // Add more script paths as needed
-                "~/assets/js/plugins/chartjs.min.js",
-                "~/assets/js/plugins/bootstrap-notify.js",
-                "~/assets/js/now-ui-dashboard.min.js?v=1.5.0",
-                "~/assets/demo/demo.js"
+                "~/Vendor/assets/js/core/jquery.min.js",
+                "~/Vendor/assets/js/core/popper.min.js",
+                "~/Vendor/assets/js/core/bootstrap.min.js",
+                "~/Vendor/assets/js/plugins/perfect-scrollbar.jquery.min.js"
+                "~/Vendor/assets/js/plugins/chartjs.min.js",
+                "~/Vendor/assets/js/plugins/bootstrap-notify.js",
+                "~/Vendor/assets/js/now-ui-dashboard.min.js?v=1.5.0",
+                "~/Vendor/assets/demo/demo.js",
+                "~/Views/Admin/gulpfile.js"
             ));
 
             // Styles 
@@ -68,9 +68,9 @@ namespace App
                 "~/Content/css/AcountSettings.css"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-               "~/assets/css/bootstrap.min.css",
-               "~/assets/css/now-ui-dashboard.css?v=1.5.0",
-               "~/assets/demo/demo.css"
+               "~/Vendor/assets/css/bootstrap.min.css",
+               "~/Vendor/assets/css/now-ui-dashboard.css?v=1.5.0",
+               "~/Vendor/assets/demo/demo.css"
            ));
 
 

@@ -6,9 +6,8 @@ namespace Helpers
 {
     public class CookieGenerator
     {
-        private static readonly byte[] Salt = GenerateRandomBytes(32); // Generate a random 32-byte salt
+        private static readonly byte[] Salt = GenerateRandomBytes(32); 
 
-        // Generate a random key for encryption and decryption
         private static readonly byte[] Key = GenerateRandomBytes(32);
 
         public static string Create(string value)
@@ -26,7 +25,7 @@ namespace Helpers
             using (var aesAlg = new AesManaged())
             {
                 aesAlg.Key = key;
-                aesAlg.IV = new byte[aesAlg.BlockSize / 8]; // Use a random IV for each encryption
+                aesAlg.IV = new byte[aesAlg.BlockSize / 8]; 
 
                 var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
@@ -50,7 +49,7 @@ namespace Helpers
             using (var aesAlg = new AesManaged())
             {
                 aesAlg.Key = key;
-                aesAlg.IV = new byte[aesAlg.BlockSize / 8]; // Use a random IV for each encryption
+                aesAlg.IV = new byte[aesAlg.BlockSize / 8]; 
 
                 var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
