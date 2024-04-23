@@ -115,7 +115,7 @@ namespace BusinessLogic.Core
                     Password = hashedPassword,
                     Email = data.Email,
                     LastLogin = DateTime.Now,
-                    level = LevelAcces.User
+                    level = LevelAcces.Admin
                 };
 
                 using (var db = new UserContext())

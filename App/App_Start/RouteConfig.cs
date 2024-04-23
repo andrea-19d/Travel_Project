@@ -39,16 +39,19 @@ namespace App
             bundles.Add(new ScriptBundle("~/bundle/main").Include(
                 "~/Content/js/main.js"));
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                "~/Vendor/assets/js/core/jquery.min.js",
-                "~/Vendor/assets/js/core/popper.min.js",
-                "~/Vendor/assets/js/core/bootstrap.min.js",
-                "~/Vendor/assets/js/plugins/perfect-scrollbar.jquery.min.js"
-                "~/Vendor/assets/js/plugins/chartjs.min.js",
-                "~/Vendor/assets/js/plugins/bootstrap-notify.js",
-                "~/Vendor/assets/js/now-ui-dashboard.min.js?v=1.5.0",
-                "~/Vendor/assets/demo/demo.js",
-                "~/Views/Admin/gulpfile.js"
-            ));
+                  "~/Content/ADMINNN/assets/js/core/bootstrap.bundle.min.js",
+                   "~/Content/ADMINNN/assets/js/core/bootstrap.bootstrap.min.js",
+                    "~/Content/ADMINNN/assets/js/core/bootstrap.popper.min.js",
+
+                      "~/Content/ADMINNN/assets/js/plugins/bootstrap-notify.js",
+                      "~/Content/ADMINNN/assets/js/plugins/Chart.extension.js",
+                      "~/Content/ADMINNN/assets/js/plugins/chartjs.min.js",
+                        "~/Content/ADMINNN/assets/js/plugins/perfect-scrollbar.min.js",
+                          "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.min.js",
+                           "~/Content/ADMINNN/assets/js/argon-dashboard.js",
+                            "~/Content/ADMINNN/assets/js/argon-dashboard.min.js"
+
+            )) ;
 
             // Styles 
             bundles.Add(new StyleBundle("~/bundle/owlcarousel/css").Include(
@@ -68,9 +71,12 @@ namespace App
                 "~/Content/css/AcountSettings.css"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-               "~/Vendor/assets/css/bootstrap.min.css",
-               "~/Vendor/assets/css/now-ui-dashboard.css?v=1.5.0",
-               "~/Vendor/assets/demo/demo.css"
+                "~/Content/ADMINNN/assers/css/argon-dashboard.css",
+                "~/Content/ADMINNN/assers/css/argon-dashboard.min.css",
+                "~/Content/ADMINNN/assers/css/nucleo-icons.css",
+                 "~/Content/ADMINNN/assers/css/nucleo-svg.css"
+
+
            ));
 
 
