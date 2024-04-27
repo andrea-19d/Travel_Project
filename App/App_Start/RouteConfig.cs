@@ -39,18 +39,21 @@ namespace App
             bundles.Add(new ScriptBundle("~/bundle/main").Include(
                 "~/Content/js/main.js"));
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                  "~/Content/ADMINNN/assets/js/core/bootstrap.bundle.min.js",
-                   "~/Content/ADMINNN/assets/js/core/bootstrap.bootstrap.min.js",
-                    "~/Content/ADMINNN/assets/js/core/bootstrap.popper.min.js",
+                "~/Content/ADMINNN/assets/js/core/bootstrap.bundle.min.js",
+                "~/Content/ADMINNN/assets/js/core/bootstrap.min.js",
+                "~/Content/ADMINNN/assets/js/core/popper.min.js"));
 
-                      "~/Content/ADMINNN/assets/js/plugins/bootstrap-notify.js",
-                      "~/Content/ADMINNN/assets/js/plugins/Chart.extension.js",
-                      "~/Content/ADMINNN/assets/js/plugins/chartjs.min.js",
-                        "~/Content/ADMINNN/assets/js/plugins/perfect-scrollbar.min.js",
-                          "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.min.js",
-                           "~/Content/ADMINNN/assets/js/argon-dashboard.js",
-                            "~/Content/ADMINNN/assets/js/argon-dashboard.min.js"
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Content/ADMINNN/assets/js/plugins/bootstrap-notify.js",
+                "~/Content/ADMINNN/assets/js/plugins/Chart.extention.js",
+                "~/Content/ADMINNN/assets/js/plugins/chartjs.js",
+                "~/Content/ADMINNN/assets/js/plugins/perfect-scrollbar.js",
+                "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                /*"~/Content/ADMINNN/assets/js/argon-dashboard.js",
+                "~/Content/ADMINNN/assets/js/argon-dashboard.min.js"*/
+                "~/Content/ADMINNN/assets/js/*.js"
             )) ;
 
             // Styles 
@@ -71,12 +74,7 @@ namespace App
                 "~/Content/css/AcountSettings.css"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-                "~/Content/ADMINNN/assers/css/argon-dashboard.css",
-                "~/Content/ADMINNN/assers/css/argon-dashboard.min.css",
-                "~/Content/ADMINNN/assers/css/nucleo-icons.css",
-                 "~/Content/ADMINNN/assers/css/nucleo-svg.css"
-
-
+                "~/Content/ADMINNN/assets/css/*.css"
            ));
 
 

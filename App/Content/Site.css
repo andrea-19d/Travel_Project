@@ -16,3 +16,8 @@ textarea {
     max-width: 280px;
 }
 
+
+.validation-error {
+    color: red;
+    font-size: 12px;
+}

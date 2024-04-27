@@ -401,6 +401,14 @@
     background-attachment: fixed;
     padding: 150px 0 50px 0;
 }
+.bg-breadcrumb-2 {
+    background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)),url(../../Content/ADMINNN/assets/img/curved-images/curved-10.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 150px 0 50px 0;
+}
 
 .bg-breadcrumb-new {
     background: #FFF;

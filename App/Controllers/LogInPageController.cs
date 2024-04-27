@@ -9,6 +9,9 @@ using System.Web;
 using Domain.Entities.Enums;
 using AutoMapper;
 using Domain.Entities.Res;
+using System.Web.Management;
+using System.Security.Principal;
+using System.Web.Services.Description;
 
 namespace App.Controllers
 {
@@ -26,6 +29,7 @@ namespace App.Controllers
         {
             return View();
         }
+
 
 
         [HttpPost]
@@ -48,15 +52,24 @@ namespace App.Controllers
                     ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                     Session["Username"] = data.Email;
 
+
                     // Check if the user is an admin
                     if (resp.StatusMessage == "Admin")
                     {
-                        // Set user role to "Admin"
                         FormsAuthentication.SetAuthCookie(data.Email, false);
-                        Session["UserRole"] = "Admin";
+                        Session["Username"] = data.Email;
 
-                        // Redirect to admin dashboard or profile
-                        return RedirectToAction("Admin", "Admin");
+                        // Determine user role
+                        string userRole = "User"; // Default role
+                        if (resp.StatusMessage == "Admin")
+                        {
+                            userRole = "Admin";
+                        }
+
+                        // Set user role
+                        SetUserRole(data.Email, userRole);
+
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -75,8 +88,22 @@ namespace App.Controllers
                     return View(login);
                 }
             }
+            ViewBag.ErrorMessage = "Please input email or password";
             return View(login);
         }
 
+        private void SetUserRole(string email, string role)
+        {
+            FormsAuthentication.SetAuthCookie(email, false);
+            Session["UserRole"] = role;
+
+            // Add the user role to the current identity
+            var identity = new GenericIdentity(email);
+            var principal = new GenericPrincipal(identity, new[] { role });
+            HttpContext.User = principal;
+        }
+
     }
+
+
 }

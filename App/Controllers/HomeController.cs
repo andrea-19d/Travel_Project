@@ -22,11 +22,21 @@ namespace App.Controllers
 
         public ActionResult About()
         {
+            string role = SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return View();
+            }
             return View();
         }
 
         public ActionResult AccountSettings()
         {
+            string role = SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return View();
+            }
             return View();
         }
     }

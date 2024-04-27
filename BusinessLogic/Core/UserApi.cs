@@ -12,6 +12,7 @@ using Helpers;
 using System.Web;
 using Domain.Entities.Enums;
 using AutoMapper;
+using System.Web.UI.WebControls;
 
 
 namespace BusinessLogic.Core
@@ -21,18 +22,27 @@ namespace BusinessLogic.Core
         internal ActionStatus UserLogData(ULoginData login)
         {
             UDbTable result;
-            var pass = LoginHelper.HashGen(login.Password);
-            var validate = new EmailAddressAttribute();
-            var isValidEmail = validate.IsValid(login.Username);
 
+            var pass = LoginHelper.HashGen(login.Password);
+            /*var isValidEmail = new EmailAddressAttribute().IsValid(login.Email);*/
             using (var db = new UserContext())
             {
-                result = isValidEmail
-                    ? db.Users.FirstOrDefault(u => u.Email == login.Email)
-                    : db.Users.FirstOrDefault(u => u.Credentials == login.Username && u.Password == pass);
-            } 
+                result = db.Users.FirstOrDefault(e => e.Email == login.Email);
+            }
+            if (result.Email != null && result.Password == pass)
+            {
+                using (var todo = new UserContext())
+                {
 
-            if (result == null)
+                    /*  result. = login.LoginIp;*/
+                    result.LastLogin = login.LoginDateTime;
+                    todo.Entry(result).State = EntityState.Modified;
+                    todo.SaveChanges();
+                }
+                return new ActionStatus { Status = true, StatusMessage = result.level.ToString() };
+
+            }
+            else
             {
                 return new ActionStatus
                 {
@@ -41,23 +51,6 @@ namespace BusinessLogic.Core
                 };
             }
 
-            if (result != null && result.Password == pass)
-            {
-                using (var todo = new UserContext())
-                {
-
-                  /*  result. = login.LoginIp;*/
-                    result.LastLogin = login.LoginDateTime;
-                    todo.Entry(result).State = EntityState.Modified;
-                    todo.SaveChanges();
-                }
-                if (result.level == LevelAcces.Admin)
-                    return new ActionStatus { Status = true, StatusMessage = "Admin" };
-                else
-                    return new ActionStatus { Status = true, StatusMessage = "User" };
-            }
-
-            return new ActionStatus { Status = true };
         }
 
         internal HttpCookie Cookie(string loginCredential)
@@ -115,7 +108,7 @@ namespace BusinessLogic.Core
                     Password = hashedPassword,
                     Email = data.Email,
                     LastLogin = DateTime.Now,
-                    level = LevelAcces.Admin
+                    level = LevelAcces.User
                 };
 
                 using (var db = new UserContext())
