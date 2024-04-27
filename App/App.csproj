@@ -752,7 +752,7 @@
     <Content Include="Content\ADMINNN\assets\scss\argon-dashboard\_variables.scss" />
     <Content Include="Views\Shared\AdminDashboard.cshtml" />
     <None Include="packages.config" />
-    <Content Include="Views\Admin\_Navbar.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
