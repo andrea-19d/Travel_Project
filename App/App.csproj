@@ -327,8 +327,8 @@
     <Content Include="Content\ADMINNN\assets\js\plugins\perfect-scrollbar.min.js" />
     <Content Include="Content\ADMINNN\assets\js\plugins\smooth-scrollbar.min.js" />
     <Content Include="Content\ADMINNN\docs\documentation.html" />
-    <Content Include="Content\ADMINNN\pages\billing.html" />
-    <Content Include="Content\ADMINNN\pages\dashboard.html" />
+    <None Include="Views\Admin\billing.cshtml" />
+    <Content Include="Views\Admin\dashboard.html" />
     <Content Include="Content\ADMINNN\pages\profile.html" />
     <Content Include="Content\ADMINNN\pages\rtl.html" />
     <Content Include="Content\ADMINNN\pages\sign-in.html" />
@@ -752,6 +752,7 @@
     <Content Include="Content\ADMINNN\assets\scss\argon-dashboard\_variables.scss" />
     <Content Include="Views\Shared\AdminDashboard.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\Admin\_Navbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

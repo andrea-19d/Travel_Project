@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Core
 {
-    internal class AdminApi
+    public class AdminApi
     {
     }
 }

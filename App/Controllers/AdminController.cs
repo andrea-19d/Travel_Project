@@ -33,5 +33,10 @@ namespace App.Controllers
 
         }
 
+        public ActionResult billing() 
+        {
+            return View();
+        }
+
     }
 }
