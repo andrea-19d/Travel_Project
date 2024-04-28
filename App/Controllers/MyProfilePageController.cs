@@ -10,7 +10,7 @@ namespace App.Controllers
 {
     public class MyProfilePageController : Controller
     {
-        private BusinessLogic.DBModel.Seed.UserContext _userContext; // Assuming you have a DbContext configured
+        private BusinessLogic.DBModel.Seed.UserContext _userContext; 
 
         public MyProfilePageController()
         {
@@ -19,9 +19,9 @@ namespace App.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult MyProfile()
         {
-            // Fetch additional user information from the database
             var currentUser = User.Identity.Name;
             var user = _userContext.Users.FirstOrDefault(u => u.Email == currentUser);
 

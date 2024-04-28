@@ -6,7 +6,7 @@
  */
 :root {
   --bs-blue: #63B3ED;
-  --bs-indigo: #596CFF;
+  --bs-indigo: #596cff;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
   --bs-red: #F56565;
@@ -20238,7 +20238,7 @@ fieldset:disabled .btn {
 }
 
 .badge.bg-primary {
-  background: #5e72e4;
+    background: #13357b;
 }
 
 .badge.bg-secondary {

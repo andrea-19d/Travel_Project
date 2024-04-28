@@ -48,7 +48,8 @@ namespace App
                 "~/Content/ADMINNN/assets/js/plugins/Chart.extention.js",
                 "~/Content/ADMINNN/assets/js/plugins/chartjs.js",
                 "~/Content/ADMINNN/assets/js/plugins/perfect-scrollbar.js",
-                "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.js"));
+                "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.js",
+                "~/Content/ADMINNN/assets/js/argon-dashboard.min.js?v=2.0.4"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 /*"~/Content/ADMINNN/assets/js/argon-dashboard.js",
@@ -74,7 +75,8 @@ namespace App
                 "~/Content/css/AcountSettings.css"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-                "~/Content/ADMINNN/assets/css/*.css"
+                "~/Content/ADMINNN/assets/css/*.css",
+                "~/Content/ADMINNN/assets/css/argon-dashboard.css?v=2.0.4"
            ));
 
 
