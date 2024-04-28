@@ -69,7 +69,7 @@ namespace App.Controllers
                         // Set user role
                         SetUserRole(data.Email, userRole);
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Admin", "Admin");
                     }
                     else
                     {

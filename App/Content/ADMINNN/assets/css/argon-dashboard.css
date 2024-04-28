@@ -4651,7 +4651,8 @@ fieldset:disabled .btn {
   --bs-navbar-brand-font-size: 1.125rem;
   --bs-navbar-brand-color: rgba(52, 71, 103, 0.9);
   --bs-navbar-brand-hover-color: rgba(52, 71, 103, 0.9);
-  --bs-navbar-nav-link-padding-x: 0.5rem;
+  --bs-
+      -link-padding-x: 0.5rem;
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
   --bs-navbar-toggler-font-size: 1.125rem;
