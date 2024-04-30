@@ -409,13 +409,11 @@
     <Content Include="Content\lib\owlcarousel\owl.carousel.js" />
     <Content Include="Content\lib\owlcarousel\owl.carousel.min.js" />
     <Content Include="Content\lib\waypoints\waypoints.min.js" />
-    <Content Include="Content\pages\billing.html" />
-    <Content Include="Content\pages\dashboard.html" />
-    <Content Include="Content\pages\profile.html" />
+    <Content Include="Views\Admin\profile.html" />
     <Content Include="Content\pages\rtl.html" />
     <Content Include="Content\pages\sign-in.html" />
     <Content Include="Content\pages\sign-up.html" />
-    <Content Include="Content\pages\tables.html" />
+    <None Include="Views\Admin\tables.cshtml" />
     <Content Include="Content\pages\virtual-reality.html" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
