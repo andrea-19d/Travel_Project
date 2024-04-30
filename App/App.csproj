@@ -415,7 +415,6 @@
     <Content Include="Content\pages\rtl.html" />
     <Content Include="Content\pages\sign-in.html" />
     <Content Include="Content\pages\sign-up.html" />
-    <Content Include="Content\pages\tables.html" />
     <Content Include="Content\pages\virtual-reality.html" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -754,6 +753,7 @@
     <Content Include="Views\Shared\AdminDashboard.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_AdminAside.cshtml" />
+    <Content Include="Views\Admin\tables.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
