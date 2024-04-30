@@ -28,6 +28,7 @@ namespace App
                 cfg.CreateMap<UDbTable, UserMinimal>();
                 cfg.CreateMap<userLogin, ULoginData>();
                 cfg.CreateMap<userRegister, URegisterData>();
+                cfg.CreateMap<UAdresses,bookingAddress>();
             });
         }
     }
