@@ -41,7 +41,6 @@ namespace App.Controllers
             if (ModelState.IsValid)
             {
                 var data = Mapper.Map<ULoginData>(login);
-                data.LoginIp = Request.UserHostAddress.ToString();
                 data.LoginDateTime = DateTime.Now;
 
                 ActionStatus resp = _session.UserLogin(data);

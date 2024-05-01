@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.DBModel;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace BusinessLogic
             return new SessionBL ();
 
         }
+        public IMonitoring GetMonitoringBL()
+        {
+            return new UserMonitoringBL();
+        }
+
         public IProduct GetProductBL()
         {
             return new ProductBL ();

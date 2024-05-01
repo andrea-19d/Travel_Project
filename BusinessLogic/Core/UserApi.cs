@@ -107,8 +107,9 @@ namespace BusinessLogic.Core
                     Credentials = data.Username,
                     Password = hashedPassword,
                     Email = data.Email,
+                    RegisterDate = DateTime.Now,
                     LastLogin = DateTime.Now,
-                    level = LevelAcces.User,
+                    level = LevelAcces.Admin,
                 };
 
                 using (var db = new UserContext())
