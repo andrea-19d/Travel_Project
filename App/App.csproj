@@ -754,6 +754,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\_AdminAside.cshtml" />
     <Content Include="Views\Admin\tables.cshtml" />
+    <Content Include="Views\Shared\_AdminNavbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

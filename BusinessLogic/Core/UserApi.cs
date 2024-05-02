@@ -76,7 +76,7 @@ namespace BusinessLogic.Core
                     {
                         Username = loginCredential,
                         CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(1)
+                        ExpireTime = DateTime.Now.AddMinutes(10)
                     });
                 }
 
@@ -109,7 +109,7 @@ namespace BusinessLogic.Core
                     Email = data.Email,
                     RegisterDate = DateTime.Now,
                     LastLogin = DateTime.Now,
-                    level = LevelAcces.Admin,
+                    level = LevelAcces.User,
                 };
 
                 using (var db = new UserContext())

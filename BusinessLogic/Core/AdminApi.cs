@@ -51,15 +51,10 @@ namespace BusinessLogic.Core
 
             using (var dbContext = new UserContext())
             {
-                var user = dbContext.Users.FirstOrDefaultAsync(u => u.level == LevelAcces.User);
-                if (user != null)
-                {
                     var newClientsCount = dbContext.Users
                         .Count(c => c.RegisterDate >= startDate && c.RegisterDate <= endDate);
 
                     return newClientsCount;
-                }
-                return -1;
             }
         }
 
