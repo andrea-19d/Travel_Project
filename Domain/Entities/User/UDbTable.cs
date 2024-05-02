@@ -32,7 +32,9 @@ namespace Domain.Entities.User
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Password cannot be shorter than 8 characters.")]
         public string Password { get; set; }
 
-     
+        public DateTime RegisterDate { get; set; }
+
+
         [DataType(DataType.Date)]
         public DateTime LastLogin { get; set; }
 
