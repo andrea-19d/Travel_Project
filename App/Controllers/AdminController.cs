@@ -38,5 +38,13 @@ namespace App.Controllers
             return View();
         }
 
+        public ActionResult profile()
+        {
+            return View();
+        }
+        public ActionResult tables()
+        {
+            return View();
+        }
     }
 }
