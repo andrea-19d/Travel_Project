@@ -13,13 +13,15 @@ using System.Web;
 using Domain.Entities.Enums;
 using AutoMapper;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.Configuration;
 
 
 namespace BusinessLogic.Core
 {
     public class UserApi
     {
-        internal ActionStatus UserLogData(ULoginData login)
+        public ActionStatus UserLogData(ULoginData login)
         {
             UDbTable result;
 
@@ -27,19 +29,17 @@ namespace BusinessLogic.Core
             /*var isValidEmail = new EmailAddressAttribute().IsValid(login.Email);*/
             using (var db = new UserContext())
             {
-                result = db.Users.FirstOrDefault(e => e.Email == login.Email);
+                result = db.Users.FirstOrDefault(e => e.Email == login.Email );
             }
             if (result.Email != null && result.Password == pass)
             {
                 using (var todo = new UserContext())
-                {
-
-                    /*  result. = login.LoginIp;*/
+                { 
                     result.LastLogin = login.LoginDateTime;
                     todo.Entry(result).State = EntityState.Modified;
                     todo.SaveChanges();
                 }
-                return new ActionStatus { Status = true, StatusMessage = result.level.ToString() };
+                return new ActionStatus { Status = true, StatusMessage = result.Level.ToString() };
 
             }
             else
@@ -88,12 +88,16 @@ namespace BusinessLogic.Core
 
         public ActionStatus RegisterUserAction(URegisterData data)
         {
+
+            string predefinedPhotoPath = "D:\\andre\\Univer\\Anul II\\sem II\\pr\\TravelWebsite\\App\\Content\\ADMINNN\\assets\\img\\curved-images\\curved-8.jpg";
+            byte[] predefinedPhotoBytes = File.ReadAllBytes(predefinedPhotoPath);
+
             try
             {
                 using (var db = new UserContext())
                 {
                     bool emailExists = db.Users.Any(u => u.Email == data.Email);
-                    bool usernameExists = db.Users.Any(u => u.Credentials == data.Username);
+                    bool usernameExists = db.Users.Any(u => u.Username == data.Username);
 
                     if (emailExists || usernameExists)
                     {
@@ -102,15 +106,15 @@ namespace BusinessLogic.Core
                 }
 
                 var hashedPassword = LoginHelper.HashGen(data.Password);
-                var newUser = new UDbTable
-                {
-                    Credentials = data.Username,
-                    Password = hashedPassword,
-                    Email = data.Email,
-                    RegisterDate = DateTime.Now,
-                    LastLogin = DateTime.Now,
-                    level = LevelAcces.Admin,
-                };
+
+                var newUser = Mapper.Map<UDbTable>(data);
+                newUser.Password = hashedPassword;
+                newUser.LastLogin = DateTime.Now;
+                newUser.RegisterDate = DateTime.Now;
+                newUser.UserPhoto = predefinedPhotoBytes;
+                newUser.Level = LevelAcces.Admin;
+
+
 
                 using (var db = new UserContext())
                 {
@@ -122,7 +126,6 @@ namespace BusinessLogic.Core
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it in an appropriate way
                 return new ActionStatus { Status = false, StatusMessage = $"An error occurred: {ex.Message}" };
             }
         }
@@ -147,7 +150,7 @@ namespace BusinessLogic.Core
                 }
                 else
                 {
-                    curentUser = db.Users.FirstOrDefault(u => u.Credentials == session.Username);
+                    curentUser = db.Users.FirstOrDefault(u => u.Username == session.Username);
                 }
             }
 
@@ -156,6 +159,76 @@ namespace BusinessLogic.Core
 
             return userminimal;
         }
+
+        public string GetUserPhotoBase64(int userId)
+        {
+            try
+            {
+                byte[] userPhotoBytes;
+                using (var db = new UserContext())
+                {
+                    var user = db.Users.FirstOrDefault(u => u.UserId == userId);
+                    if (user != null && user.UserPhoto != null)
+                    {
+                        userPhotoBytes = user.UserPhoto;
+                    }
+                    else
+                    {
+                        string defaultPhotoPath = "path_to_default_photo.jpg";
+                        userPhotoBytes = File.ReadAllBytes(defaultPhotoPath);
+                    }
+                }
+
+                string base64String = Convert.ToBase64String(userPhotoBytes);
+
+                return base64String;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public ActionStatus UpdateUserProfile(UpdateUserData user)
+        {
+            try
+            {
+                if (user == null)
+                {
+                    return new ActionStatus { Status = false, StatusMessage = "User data is null." };
+                }
+
+                using (var db = new UserContext())
+                {
+                    var existingUser = db.Users.FirstOrDefault(u => u.Email == user.Email);
+
+                    if (existingUser == null)
+                    {
+                        return new ActionStatus { Status = false, StatusMessage = "User not found." };
+                    }
+
+                    Mapper.Map(user, existingUser);
+
+                    var entry = db.Entry(existingUser);
+                    if (entry.State == EntityState.Unchanged)
+                    {
+                        return new ActionStatus { Status = true, StatusMessage = "No changes detected." };
+                    }
+
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return new ActionStatus { Status = true, StatusMessage = "Profile updated successfully." };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+            }
+        }
+
+
+
 
         internal LevelStatus CheckLevelLogic(string keySession)
         {

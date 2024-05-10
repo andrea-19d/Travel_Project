@@ -51,10 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinesLogic.cs" />
-    <Compile Include="DBModel\Seed\BookingContext.cs" />
     <Compile Include="DBModel\Seed\SessionContext.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />
-    <Compile Include="DBModel\UserMonitoringBL.cs" />
+    <Compile Include="UserMonitoringBL.cs" />
     <Compile Include="Interfaces\IMonitoring.cs" />
     <Compile Include="ProductBL.cs" />
     <Compile Include="Core\AdminApi.cs" />

@@ -42,6 +42,16 @@ namespace BusinessLogic
             return UserCookie(apiCookieValue);
         }
 
+        public string GetUserPhoto(int userID)
+        {
+            return GetUserPhotoBase64(userID);
+        }
+
+        public ActionStatus UpdateProfile(UpdateUserData data)
+        {
+            return UpdateUserProfile(data);
+        }
+
         /*        object ISession.ServiceToList()
                 {
                     throw new System.NotImplementedException();

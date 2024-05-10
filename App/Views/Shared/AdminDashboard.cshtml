@@ -1,32 +1,42 @@
 ﻿@using System.Web.Optimization;
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <title>Travela - Tourism Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
-    @Styles.Render("~/bundle/bootstrap/min/css")
-    @Styles.Render("~/bundles/register/css")
     @Styles.Render("~/bundles/css")
+    @Styles.Render("~/bundles/argon-dashboard/css")
+    @Styles.Render("~/bundle/argon-dashboard/scss")
 
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
-</head>
 
+</head>
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
         @Html.Partial("_AdminAside")
     </aside>
-
     <main class="main-content position-relative border-radius-lg ">
-        @RenderBody()
+        @Html.Partial("_AdminNavbar")
+        <div class="container-fluid py-4">
+            @RenderBody()
+
+            @Html.Partial("_AdminFooter")
+
+        </div>
     </main>
 
-    @Scripts.Render("~/bundles/scripts")
-    @RenderSection("scripts", required: false)
 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -38,7 +48,9 @@
         }
     </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
-
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
 </body>
+</html>

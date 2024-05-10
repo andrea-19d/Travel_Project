@@ -19,5 +19,7 @@ namespace BusinessLogic.Interfaces
         UserMinimal GetUserByCookie(string apiCookieValue);
         HttpCookie GenCookie(string loginCredential);
         ActionStatus RegisterNewUserAction(URegisterData regData);
+        string GetUserPhoto(int userID);
+        ActionStatus UpdateProfile(UpdateUserData user);
     };
 }

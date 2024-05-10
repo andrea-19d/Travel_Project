@@ -389,6 +389,36 @@
         transition: 0.5s;
     }
 }
+
+/*** Cards ***/
+.card {
+    --bs-card-spacer-y: 1rem;
+    --bs-card-spacer-x: 1rem;
+    --bs-card-title-spacer-y: 0.5rem;
+    --bs-card-border-width: 0;
+    --bs-card-border-color: rgba(0, 0, 0, 0.125);
+    --bs-card-border-radius: 1rem;
+    --bs-card-box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+    --bs-card-inner-border-radius: 1rem;
+    --bs-card-cap-padding-y: 0.5rem;
+    --bs-card-cap-padding-x: 1rem;
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.card-mask {
+    padding: 20px;
+    width: 450px;
+    height: 250px;
+    background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)), url(../../Content/ADMIN/assets/img/card/card-visa.jpg);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16);
+}
+
+
 /*** Carousel Hero Header End ***/
 
 
@@ -402,7 +432,7 @@
     padding: 150px 0 50px 0;
 }
 .bg-breadcrumb-2 {
-    background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)),url(../../Content/ADMINNN/assets/img/curved-images/curved-10.jpg);
+    background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)),url(../../Content/ADMIN/assets/img/curved-images/curved-10.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1212,6 +1242,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 .subscribe .subscribe-title {
     position: relative;

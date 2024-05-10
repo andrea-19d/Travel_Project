@@ -32,9 +32,9 @@ namespace App.Controllers
             SessionStatus();
 
             var NrOfUsers = _monitoring.ManageNrOfUsers();
-            ViewBag.NrOfUsers = NrOfUsers;
-
             var NrOfNewUsers = _monitoring.ManageNewUsersCount();
+
+            ViewBag.NrOfUsers = NrOfUsers;
             ViewBag.NewUsersCount = NrOfNewUsers;
 
             return View(NrOfUsers);
@@ -60,6 +60,7 @@ namespace App.Controllers
         {
             return View();
         }
+
 
         [AdminMod]
         public ActionResult tables()

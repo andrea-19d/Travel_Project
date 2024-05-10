@@ -1,22 +1,27 @@
-﻿using Microsoft.ApplicationInsights.Extensibility.Implementation;
-using System;
-using System.Collections.Generic;
+﻿using BusinessLogic.DBModel.Seed;
+using BusinessLogic.Interfaces;
+using BusinessLogic;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.DBModel.Seed;
+using App.Models;
+using AutoMapper;
+using Domain.Entities.User;
+using Domain.Entities.Res;
 
 namespace App.Controllers
 {
     public class MyProfilePageController : Controller
     {
-        private BusinessLogic.DBModel.Seed.UserContext _userContext; 
+        private BusinessLogic.DBModel.Seed.UserContext _userContext;
+        private ISession _session;
 
         public MyProfilePageController()
         {
+            var bl = new BussinesLogic();
             _userContext = new BusinessLogic.DBModel.Seed.UserContext();
+            _session = bl.GetSessionBL();
         }
-
 
         [HttpGet]
         [Authorize]
@@ -27,12 +32,37 @@ namespace App.Controllers
 
             if (user != null)
             {
-                ViewBag.Username = user.Credentials;
+                string base64String = _session.GetUserPhoto(user.UserId);
+                ViewBag.UserPhoto = base64String;
+                ViewBag.UserFirstName = user.FirstName;
+                ViewBag.UserLastName = user.LastName;
+                ViewBag.Username = user.Username;
                 ViewBag.Email = user.Email;
-                ViewBag.Role = user.level;
+                ViewBag.Role = user.Level;
             }
 
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UpdateUserProfile(user currentUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var updateUser = Mapper.Map<UpdateUserData>(currentUser);
+
+                if (updateUser != null)
+                {
+                    ActionStatus resp = _session.UpdateProfile(updateUser);
+                    if (resp.Status)
+                    {
+                        ViewBag.Status = resp.Status;
+                    }
+                }
+            }
+            
+            return RedirectToAction("MyProfile");
         }
     }
 }
