@@ -776,6 +776,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\AcountSettings\" />
     <Folder Include="Content\lib\LogIn\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\LogOut\" />
     <Folder Include="Views\Topuri\" />

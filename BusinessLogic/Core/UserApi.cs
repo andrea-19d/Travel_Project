@@ -29,9 +29,9 @@ namespace BusinessLogic.Core
             /*var isValidEmail = new EmailAddressAttribute().IsValid(login.Email);*/
             using (var db = new UserContext())
             {
-                result = db.Users.FirstOrDefault(e => e.Email == login.Email );
+                result = db.Users.FirstOrDefault(e => e.Email == login.Email || e.Username == login.Username );
             }
-            if (result.Email != null && result.Password == pass)
+            if (result.Email != null || result.Username != null && result.Password == pass)
             {
                 using (var todo = new UserContext())
                 { 
@@ -189,15 +189,10 @@ namespace BusinessLogic.Core
             }
         }
 
-        public ActionStatus UpdateUserProfile(UpdateUserData user)
+        public ActionStatus UpdateUserProfile(UpdateUserData user, HttpPostedFileBase file)
         {
             try
             {
-                if (user == null)
-                {
-                    return new ActionStatus { Status = false, StatusMessage = "User data is null." };
-                }
-
                 using (var db = new UserContext())
                 {
                     var existingUser = db.Users.FirstOrDefault(u => u.Email == user.Email);
@@ -205,6 +200,23 @@ namespace BusinessLogic.Core
                     if (existingUser == null)
                     {
                         return new ActionStatus { Status = false, StatusMessage = "User not found." };
+                    }
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        // Handle file upload
+                        string filename = Path.GetFileName(file.FileName);
+                        string filepath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
+                        file.SaveAs(filepath);
+
+                        // Convert the uploaded image to byte array
+                        byte[] imageBytes = File.ReadAllBytes(filepath);
+
+                        user.UserPhoto = imageBytes;
+                    }
+                    else
+                    {
+                        user.UserPhoto = existingUser.UserPhoto;
                     }
 
                     Mapper.Map(user, existingUser);
@@ -226,6 +238,15 @@ namespace BusinessLogic.Core
                 return new ActionStatus { Status = false, StatusMessage = ex.Message };
             }
         }
+
+
+        private string ConvertToBase64(string filepath)
+        {
+            byte[] imageBytes = File.ReadAllBytes(filepath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
+
 
 
 

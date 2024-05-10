@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Domain.Entities.User
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        /*public byte[] UserPhoto { get; set; }*/
+        public LevelAcces Level { get; set; }
+        public byte[] UserPhoto { get; set; }
     }
 }

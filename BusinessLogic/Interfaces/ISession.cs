@@ -20,6 +20,6 @@ namespace BusinessLogic.Interfaces
         HttpCookie GenCookie(string loginCredential);
         ActionStatus RegisterNewUserAction(URegisterData regData);
         string GetUserPhoto(int userID);
-        ActionStatus UpdateProfile(UpdateUserData user);
+        ActionStatus UpdateProfile(UpdateUserData user, HttpPostedFileBase file);
     };
 }

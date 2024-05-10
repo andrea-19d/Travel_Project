@@ -24,8 +24,8 @@
 
                     <div class="col-auto my-auto">
                         <div class="h-100">
-                            <h5 class="mb-1">@ViewBag.Username</h5>
-                            <p class="mb-0 font-weight-bold text-sm">@ViewBag.Role</p>
+                            <h5 class="mb-1">@Html.ViewData["Username"]</h5>
+                            <p class="mb-0 font-weight-bold text-sm">@Html.ViewData["Level"]</p>
                         </div>
                     </div>
                     @* User information *@
@@ -40,20 +40,28 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <form id="profileForm" method="post" action="@Url.Action("UpdateUserProfile", "MyProfilePage")">
+                                        @using (Ajax.BeginForm("UpdateUserProfile", "MyProfilePage", new AjaxOptions
+                                        {
+                                            HttpMethod = "POST",
+                                            OnSuccess = "success",
+                                            OnFailure = "fail",
+                                            UpdateTargetId = "resultTarget"
+                                        }, new { enctype = "multipart/form-data", id = "profileForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
 
                                             <p class="text-uppercase text-sm">User Information</p>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="username" class="form-control-label">Username</label>
-                                                        <input id="username" class="form-control" type="text" value="@ViewBag.Username" name="Username" disabled>
+                                                        <input id="username" class="form-control" type="text" value="@Html.ViewData["Username"]" name="Username" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="email" class="form-control-label">Email</label>
-                                                        <input id="email" class="form-control" type="email" value="@ViewBag.Email" name="Email" disabled>
+                                                        <input id="email" class="form-control" type="email" value="@Html.ViewData["Email"]" name="Email" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -102,26 +110,22 @@
                                                 </div>
                                             </div>
 
-                                            @*TO DO:  TO MAKE THE USER CHANGE THE PICTURE*@
+                                           @* <label for="profilePicture" class="form-control-label">Profile Picture</label>*@
+                                            <input id="profilePicture" type="file" accept="image/*" name="ProfilePicture">
 
-                                            <!-- Profile picture input -->
-                                            @*<div class="form-group" id="profilePictureGroup">
-                            <label for="profilePicture" class="form-control-label">Profile Picture</label>
-                            <input id="profilePicture" class="form-control" type="file" accept="" name="ProfilePicture">
-                        </div>*@
+                                            <button type="submit" id="saveButton" class="btn btn-primary btn-sm" style="display: none;">Save</button>
 
-                                            <button id="saveButton" type="submit" class="btn btn-primary btn-lg" style="display: none;">Save</button>
-                                        </form>
+                                        }
                                     </div>
                                 </div>
                             </div>
-                            @* Cards that is on the side *@
+                            @* Cards that are on the side *@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-header pb-0">
                                         <div class="d-flex align-items-center">
                                             <p class="mb-0">Cards</p>
-                                            <button id="editButton" class="btn btn-primary btn-sm ms-auto">Edit</button>
+                                            <button id="editButtonCard" class="btn btn-primary btn-sm ms-auto">Edit</button>
                                         </div>
                                     </div>
 
@@ -150,76 +154,67 @@
             </div>
         </div>
     </div>
-
-
     <script>
-    // Function to toggle the visibility of the profile picture input
-    function toggleProfilePictureInput(visible) {
-        var profilePictureGroup = document.getElementById("profilePictureGroup");
-        profilePictureGroup.style.display = visible ? "block" : "none";
-    }
-
-    // Function to toggle the button text and enable/disable form fields
-    function toggleEditMode() {
-        var editButton = document.getElementById("editButton");
-        var saveButton = document.getElementById("saveButton");
-        var formFields = document.querySelectorAll("input");
-
-        if (editButton.innerText === "Edit") {
-            editButton.innerText = "Cancel";
-            saveButton.style.display = "block";
-            formFields.forEach(function (field) {
-                field.disabled = false;
-            });
-            // Show the profile picture input when in editing mode
-            toggleProfilePictureInput(true);
-        } else {
-            editButton.innerText = "Edit";
-            saveButton.style.display = "none";
-            formFields.forEach(function (field) {
-                field.disabled = true;
-            });
-            // Hide the profile picture input when not in editing mode
-            toggleProfilePictureInput(false);
-        }
-    }
-
-    // Event listener for the edit button
-    document.getElementById("editButton").addEventListener("click", function (event) {
-        event.preventDefault();
-        toggleEditMode();
-    });
-
-    // Event listener for the form submission (save button)
-    $("#profileForm").submit(function (event) {
-        // Prevent the default form submission behavior
-        event.preventDefault();
-
-        // Create FormData object to handle file uploads
-        var formData = new FormData($(this)[0]); // Select the form itself
-
-        // If a current profile picture exists, append it to the FormData object
-        var currentProfilePicture = $("#currentProfilePicture").val();
-        if (currentProfilePicture) {
-            formData.append("CurrentProfilePicture", currentProfilePicture);
+        // Function to toggle the visibility of the profile picture input
+        function toggleProfilePictureInput(visible) {
+            var profilePicture = document.getElementById("profilePicture");
+            profilePicture.style.display = visible ? "block" : "none";
         }
 
-        // Implement AJAX request to update user details
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("UpdateUserProfile", "MyProfilePage")", // Use Razor syntax to generate the correct URL
-            data: formData, // Use the FormData object for file uploads
-            contentType: false, // Set contentType to false for file uploads
-            processData: false, // Set processData to false for file uploads
-            success: function (response) {
-                // Reload the page to reflect the changes
-                window.location.reload();
-            },
-            error: function (xhr, status, error) {
-                alert("An error occurred while updating the profile.");
-                console.error(xhr, status, error);
+        // Function to toggle the button text and enable/disable form fields
+        function toggleEditMode() {
+            var editButton = document.getElementById("editButton");
+            var saveButton = document.getElementById("saveButton");
+            var formFields = document.querySelectorAll("input, textarea");
+
+            if (editButton.innerText === "Edit") {
+                editButton.innerText = "Cancel";
+                saveButton.style.display = "block";
+                formFields.forEach(function (field) {
+                    field.disabled = false;
+                });
+                // Show the profile picture input when in editing mode
+                toggleProfilePictureInput(true);
+            } else {
+                editButton.innerText = "Edit";
+                saveButton.style.display = "none";
+                formFields.forEach(function (field) {
+                    field.disabled = true;
+                });
+                // Hide the profile picture input when not in editing mode
+                toggleProfilePictureInput(false);
             }
+        }
+
+        // Event listener for the edit button
+        document.getElementById("editButton").addEventListener("click", function (event) {
+            event.preventDefault();
+            toggleEditMode();
         });
-    });
+
+        // Event listener for the form submission (save button)
+        $("#profileForm").submit(function (event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Function to prompt the user before submitting the form
+            function confirmChanges() {
+                // Prompt the user with a confirmation dialog
+                var confirmMsg = "Are you sure you want to save changes?";
+                if (confirm(confirmMsg)) {
+                    // If the user confirms, submit the form
+                    $("#profileForm").off("submit").submit(); // Remove previous submit event listener and submit the form
+                } else {
+                    // If the user cancels, do nothing
+                    return false;
+                }
+            }
+
+            // Call the function to prompt the user for confirmation
+            confirmChanges();
+        });
     </script>
+
+
+
 </body>

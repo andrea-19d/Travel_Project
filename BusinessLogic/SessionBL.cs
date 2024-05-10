@@ -47,9 +47,9 @@ namespace BusinessLogic
             return GetUserPhotoBase64(userID);
         }
 
-        public ActionStatus UpdateProfile(UpdateUserData data)
+        public ActionStatus UpdateProfile(UpdateUserData data, HttpPostedFileBase file)
         {
-            return UpdateUserProfile(data);
+            return UpdateUserProfile(data, file);
         }
 
         /*        object ISession.ServiceToList()

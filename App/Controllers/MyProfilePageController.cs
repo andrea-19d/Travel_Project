@@ -8,6 +8,7 @@ using App.Models;
 using AutoMapper;
 using Domain.Entities.User;
 using Domain.Entities.Res;
+using System.Web;
 
 namespace App.Controllers
 {
@@ -46,15 +47,18 @@ namespace App.Controllers
 
         [HttpPost]
         [Authorize]
+        [Route("Create")]
         public ActionResult UpdateUserProfile(user currentUser)
         {
+            HttpPostedFileBase file = Request.Files["profilePicture"];
+
             if (ModelState.IsValid)
             {
                 var updateUser = Mapper.Map<UpdateUserData>(currentUser);
 
                 if (updateUser != null)
                 {
-                    ActionStatus resp = _session.UpdateProfile(updateUser);
+                    ActionStatus resp = _session.UpdateProfile(updateUser, file);
                     if (resp.Status)
                     {
                         ViewBag.Status = resp.Status;
