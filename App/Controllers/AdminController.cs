@@ -11,6 +11,8 @@ using System.EnterpriseServices;
 using BusinessLogic.Interfaces;
 using BusinessLogic;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using Domain.Entities.Bookings;
+using Domain.Entities.Res;
 
 namespace App.Controllers
 {
@@ -45,7 +47,7 @@ namespace App.Controllers
         {
             SessionStatus();
 
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
             {
 
                 return RedirectToAction("", "Login");
@@ -78,6 +80,64 @@ namespace App.Controllers
             ViewBag.OnlineStatuses = onlineStatuses;
 
             return View(allUsers);
+        }
+
+/*TO DO CAUSE IT AIN'T WORKING */
+        public ActionResult addDestination(aDestination data)
+        {
+            SessionStatus();
+            HttpPostedFileBase file = Request.Files["destinationPicture"];
+            if (ModelState.IsValid)
+            {
+                var destination = Mapper.Map<ADestinations>(data);
+
+                ActionStatus resp = _monitoring.AddDestination(destination, file);
+
+                if (resp.Status)
+                {
+                    ViewBag.Message = resp.StatusMessage;
+                    // Redirect to a different action after successful submission
+                    return View(); // Redirect to the GET action
+                }
+                else
+                {
+                    ViewBag.Message = resp.StatusMessage;
+                    // Return the same view if there's an error
+                    return View(data); // Pass data back to the view
+                }
+            }
+            // Return the same view if model state is not valid
+            return View(data);
+        }
+
+        [AdminMod]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addDestinations(aDestination data)
+        {
+            SessionStatus();
+            HttpPostedFileBase file = Request.Files["destinationPicture"];
+            if (ModelState.IsValid)
+            {
+                var destination = Mapper.Map<ADestinations>(data);
+
+                ActionStatus resp = _monitoring.AddDestination(destination, file);
+
+                if (resp.Status)
+                {
+                    ViewBag.Message = resp.StatusMessage;
+                    // Redirect to a different action after successful submission
+                    return View(); // Redirect to the GET action
+                }
+                else
+                {
+                    ViewBag.Message = resp.StatusMessage;
+                    // Return the same view if there's an error
+                    return View( data); // Pass data back to the view
+                }
+            }
+            // Return the same view if model state is not valid
+            return View( data);
         }
     }
 }

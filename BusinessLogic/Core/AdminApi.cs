@@ -1,15 +1,19 @@
 ﻿using AutoMapper;
 using BusinessLogic.DBModel.Seed;
+using Domain.Entities.Bookings;
 using Domain.Entities.Enums;
+using Domain.Entities.Res;
 using Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BusinessLogic.Core
 {
@@ -69,8 +73,50 @@ namespace BusinessLogic.Core
             
         }
 
+        public ActionStatus AddNewDestination(ADestinations destination, HttpPostedFileBase file)
+        {
 
+            try
+            {
+                using (var db = new DestinationContext())
+                {
+                    bool destinationExists = db.Destination.Any(u => u.DestinationName == destination.DestinationName);
+                    if (destinationExists)
+                    {
+                        return new ActionStatus { Status = false, StatusMessage = "Destination already exists" };
+                    }
+                }
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    // Handle file upload
+                    string filename = Path.GetFileName(file.FileName);
+                    string filepath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads/Destination"), filename);
+                    file.SaveAs(filepath);
 
+                    // Convert the uploaded image to byte array
+                    byte[] imageBytes = File.ReadAllBytes(filepath);
+
+                    destination.Img = imageBytes;
+                }
+                else
+                {
+                    destination.Img = null;
+                }
+
+                var newDestination = Mapper.Map<DestDbTable>(destination);
+
+                using (var db = new DestinationContext())
+                {
+                    db.Destination.Add(newDestination);
+                    db.SaveChanges();
+                }
+                return new ActionStatus { Status = true, StatusMessage = "Destinations Added Succesfully" };
+            }
+            catch (Exception ex)
+            {
+                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+            }
+        }
     }
 }

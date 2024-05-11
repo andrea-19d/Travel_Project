@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bookings\ADestinations.cs" />
+    <Compile Include="Entities\Bookings\DestDbTable.cs" />
     <Compile Include="Entities\Enums\LevelAcces.cs" />
     <Compile Include="Entities\Product\ProductDetail.cs" />
     <Compile Include="Entities\Res\ActionStatus.cs" />

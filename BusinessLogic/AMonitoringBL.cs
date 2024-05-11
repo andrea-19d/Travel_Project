@@ -1,15 +1,18 @@
 ﻿using BusinessLogic.Core;
 using BusinessLogic.Interfaces;
+using Domain.Entities.Bookings;
+using Domain.Entities.Res;
 using Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BusinessLogic.DBModel
 {
-    public class UserMonitoringBL : AdminApi, IMonitoring
+    public class AMonitoringBL : AdminApi, IMonitoring
     {
         public List<UserMinimal> GetCount()
         {
@@ -24,6 +27,11 @@ namespace BusinessLogic.DBModel
         public int NewUsers()
         {
             return ManageNewUsersCount();
+        }
+
+        public ActionStatus AddDestination(ADestinations data, HttpPostedFileBase file)
+        {
+            return AddNewDestination(data, file);
         }
 
     }

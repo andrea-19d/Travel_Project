@@ -337,6 +337,7 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Admin\addDestination.cshtml" />
     <None Include="Views\Admin\billing.cshtml" />
     <Content Include="Content\ADMIN\pages\profile.html" />
     <Content Include="Content\ADMIN\pages\rtl.html" />
@@ -460,6 +461,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\aDestination.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\userLogin.cs" />
@@ -776,7 +778,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\AcountSettings\" />
     <Folder Include="Content\lib\LogIn\" />
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\Destination\" />
+    <Folder Include="Uploads\User\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\LogOut\" />
     <Folder Include="Views\Topuri\" />

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Domain.Entities.Bookings
+namespace App.Models
 {
-    public class ADestinations
+    public class aDestination
     {
         public string DestinationID { get; set; }
         public string DestinationName { get; set; }
@@ -16,8 +15,7 @@ namespace Domain.Entities.Bookings
         public int NrOfPersons { get; set; }
         public float Price { get; set; }
         public string Description { get; set; }
-        public int Review {  get; set; }
+        public int Review { get; set; }
         public byte[] Img { get; set; }
-
     }
 }

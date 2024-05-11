@@ -17,7 +17,7 @@ namespace BusinessLogic
         }
         public IMonitoring GetMonitoringBL()
         {
-            return new UserMonitoringBL();
+            return new AMonitoringBL();
         }
 
         public IProduct GetProductBL()

@@ -76,7 +76,7 @@ namespace BusinessLogic.Core
                     {
                         Username = loginCredential,
                         CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(1)
+                        ExpireTime = DateTime.Now.AddMinutes(60)
                     });
                 }
 
@@ -206,7 +206,7 @@ namespace BusinessLogic.Core
                     {
                         // Handle file upload
                         string filename = Path.GetFileName(file.FileName);
-                        string filepath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
+                        string filepath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads/User"), filename);
                         file.SaveAs(filepath);
 
                         // Convert the uploaded image to byte array
@@ -238,18 +238,6 @@ namespace BusinessLogic.Core
                 return new ActionStatus { Status = false, StatusMessage = ex.Message };
             }
         }
-
-
-        private string ConvertToBase64(string filepath)
-        {
-            byte[] imageBytes = File.ReadAllBytes(filepath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
-        }
-
-
-
-
 
         internal LevelStatus CheckLevelLogic(string keySession)
         {
