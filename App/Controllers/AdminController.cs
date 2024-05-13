@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using App.Controllers.Attributes;
 using AutoMapper;
 using BusinessLogic.Interfaces;
 using BusinessLogic;
@@ -10,6 +9,8 @@ using Domain.Entities.Res;
 using App.Models;
 using System.Net.Http;
 using System.Collections.Generic;
+using System.Security.Permissions;
+using proiect.Attributes;
 
 namespace App.Controllers
 {
@@ -25,7 +26,7 @@ namespace App.Controllers
             _session = bl.GetSessionBL();
         }
 
-        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        [AdminMod]
         public ActionResult Admin()
         {
             SessionStatus();
@@ -39,7 +40,7 @@ namespace App.Controllers
             return View(NrOfUsers);
         }
 
-        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        [AdminMod]
         public ActionResult Index()
         {
             SessionStatus();
@@ -51,13 +52,13 @@ namespace App.Controllers
             return View();
         }
 
-        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        [AdminMod]
         public ActionResult Billing()
         {
             return View();
         }
 
-        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        [AdminMod]
         public ActionResult Tables()
         {
             SessionStatus();
@@ -74,12 +75,18 @@ namespace App.Controllers
             return View(allUsers);
         }
 
-    /*    [HttpPost]*/
-        [AdminMod(AdminModAttribute.HttpMethod.Post)]
-        /*[ValidateAntiForgeryToken]*/
+/*        [AdminMod]
+        public ActionResult AddDestinations()
+        {
+            return View();
+        }*/
+
+
+        [AdminMod]
         public ActionResult AddDestinations(aDestination data)
         {
             HttpPostedFileBase file = Request.Files["destinationPicture"];
+
             if (ModelState.IsValid)
             {
                 var destination = Mapper.Map<ADestinations>(data);

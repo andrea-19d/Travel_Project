@@ -1,62 +1,24 @@
-﻿using BusinessLogic.Interfaces;
+﻿using App.Extension;
+using BusinessLogic.Interfaces;
 using Domain.Entities.Enums;
-using App.Extension;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Net.Http;
-using System;
 
-namespace App.Controllers.Attributes
+namespace proiect.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method)]
     public class AdminModAttribute : ActionFilterAttribute
     {
-        public enum HttpMethod
+        private readonly ISession _sessionBusinessLogic;
+
+        public AdminModAttribute()
         {
-            Get,
-            Post,
-            Put,
-            Delete
-        }
-
-
-        private readonly ISession _session;
-        private readonly HttpMethod[] _allowedHttpMethods;
-
-        public AdminModAttribute(params HttpMethod[] allowedHttpMethods)
-        {
-            _allowedHttpMethods = allowedHttpMethods;
             var businessLogic = new BusinessLogic.BussinesLogic();
-            _session = businessLogic.GetSessionBL();
+            _sessionBusinessLogic = businessLogic.GetSessionBL();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (_allowedHttpMethods == null || _allowedHttpMethods.Length == 0)
-            {
-                base.OnActionExecuting(filterContext);
-                return;
-            }
-
-            var httpMethod = filterContext.HttpContext.Request.HttpMethod.ToUpper();
-            var isMethodAllowed = false;
-
-            foreach (var allowedMethod in _allowedHttpMethods)
-            {
-                if (httpMethod == allowedMethod.ToString().ToUpper())
-                {
-                    isMethodAllowed = true;
-                    break;
-                }
-            }
-
-            if (!isMethodAllowed)
-            {
-                RedirectToErrorAccessDenied(filterContext);
-                return;
-            }
-
             var apiCookie = HttpContext.Current.Request.Cookies["X-KEY"];
             if (apiCookie == null)
             {
@@ -64,14 +26,12 @@ namespace App.Controllers.Attributes
                 return;
             }
 
-            var profile = _session.GetUserByCookie(apiCookie.Value);
-            if (profile == null || profile.Level != LevelAcces.Admin)
+            var profile = _sessionBusinessLogic.GetUserByCookie(apiCookie.Value);
+            if (profile == null)
             {
-                RedirectToErrorAccessDenied(filterContext);
+                RedirectToLogin(filterContext);
                 return;
             }
-
-            HttpContext.Current.SetMySessionObject(profile);
 
             if (profile.Level == LevelAcces.Admin)
             {
@@ -82,7 +42,6 @@ namespace App.Controllers.Attributes
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary(
                         new { controller = "Home", action = "ErrorAccessDenied" }));
-
             }
         }
 
@@ -92,13 +51,5 @@ namespace App.Controllers.Attributes
                 new RouteValueDictionary(
                     new { controller = "LogInPage", action = "LogIn" }));
         }
-
-        private void RedirectToErrorAccessDenied(ActionExecutingContext filterContext)
-        {
-            filterContext.Result = new RedirectToRouteResult(
-                new RouteValueDictionary(
-                    new { controller = "Home", action = "ErrorAccessDenied" }));
-        }
-
     }
 }
