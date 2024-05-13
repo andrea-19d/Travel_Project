@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Controllers.Attributes;
 using AutoMapper;
-using App.Models;
-using System.EnterpriseServices;
 using BusinessLogic.Interfaces;
 using BusinessLogic;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using Domain.Entities.Bookings;
 using Domain.Entities.Res;
+using App.Models;
+using System.Net.Http;
+using System.Collections.Generic;
 
 namespace App.Controllers
 {
@@ -27,8 +24,8 @@ namespace App.Controllers
             _monitoring = bl.GetMonitoringBL();
             _session = bl.GetSessionBL();
         }
-        
-        [AdminMod]
+
+        [AdminMod(AdminModAttribute.HttpMethod.Get)]
         public ActionResult Admin()
         {
             SessionStatus();
@@ -42,30 +39,26 @@ namespace App.Controllers
             return View(NrOfUsers);
         }
 
-        [AdminMod]
+        [AdminMod(AdminModAttribute.HttpMethod.Get)]
         public ActionResult Index()
         {
             SessionStatus();
 
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
             {
-
                 return RedirectToAction("", "Login");
             }
             return View();
-
-
         }
-        
-        [AdminMod]
-        public ActionResult billing() 
+
+        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        public ActionResult Billing()
         {
             return View();
         }
 
-
-        [AdminMod]
-        public ActionResult tables()
+        [AdminMod(AdminModAttribute.HttpMethod.Get)]
+        public ActionResult Tables()
         {
             SessionStatus();
             var allUsers = _monitoring.GetCount();
@@ -74,7 +67,6 @@ namespace App.Controllers
             foreach (var user in allUsers)
             {
                 var isOnline = (DateTime.Now - user.LastLogin).TotalMinutes < 1;
-
                 onlineStatuses.Add(user.Id, isOnline);
             }
             ViewBag.OnlineStatuses = onlineStatuses;
@@ -82,10 +74,11 @@ namespace App.Controllers
             return View(allUsers);
         }
 
-/*TO DO CAUSE IT AIN'T WORKING */
-        public ActionResult addDestination(aDestination data)
+    /*    [HttpPost]*/
+        [AdminMod(AdminModAttribute.HttpMethod.Post)]
+        /*[ValidateAntiForgeryToken]*/
+        public ActionResult AddDestinations(aDestination data)
         {
-            SessionStatus();
             HttpPostedFileBase file = Request.Files["destinationPicture"];
             if (ModelState.IsValid)
             {
@@ -96,48 +89,15 @@ namespace App.Controllers
                 if (resp.Status)
                 {
                     ViewBag.Message = resp.StatusMessage;
-                    // Redirect to a different action after successful submission
-                    return View(); // Redirect to the GET action
+                    return View();
                 }
                 else
                 {
                     ViewBag.Message = resp.StatusMessage;
-                    // Return the same view if there's an error
-                    return View(data); // Pass data back to the view
+                    return View(data);
                 }
             }
-            // Return the same view if model state is not valid
             return View(data);
-        }
-
-        [AdminMod]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult addDestinations(aDestination data)
-        {
-            SessionStatus();
-            HttpPostedFileBase file = Request.Files["destinationPicture"];
-            if (ModelState.IsValid)
-            {
-                var destination = Mapper.Map<ADestinations>(data);
-
-                ActionStatus resp = _monitoring.AddDestination(destination, file);
-
-                if (resp.Status)
-                {
-                    ViewBag.Message = resp.StatusMessage;
-                    // Redirect to a different action after successful submission
-                    return View(); // Redirect to the GET action
-                }
-                else
-                {
-                    ViewBag.Message = resp.StatusMessage;
-                    // Return the same view if there's an error
-                    return View( data); // Pass data back to the view
-                }
-            }
-            // Return the same view if model state is not valid
-            return View( data);
         }
     }
 }

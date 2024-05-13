@@ -4,21 +4,59 @@ using App.Extension;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Net.Http;
+using System;
 
 namespace App.Controllers.Attributes
 {
+    [AttributeUsage(AttributeTargets.Method)]
     public class AdminModAttribute : ActionFilterAttribute
     {
-        private readonly ISession _session;
-
-        public AdminModAttribute()
+        public enum HttpMethod
         {
+            Get,
+            Post,
+            Put,
+            Delete
+        }
+
+
+        private readonly ISession _session;
+        private readonly HttpMethod[] _allowedHttpMethods;
+
+        public AdminModAttribute(params HttpMethod[] allowedHttpMethods)
+        {
+            _allowedHttpMethods = allowedHttpMethods;
             var businessLogic = new BusinessLogic.BussinesLogic();
             _session = businessLogic.GetSessionBL();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (_allowedHttpMethods == null || _allowedHttpMethods.Length == 0)
+            {
+                base.OnActionExecuting(filterContext);
+                return;
+            }
+
+            var httpMethod = filterContext.HttpContext.Request.HttpMethod.ToUpper();
+            var isMethodAllowed = false;
+
+            foreach (var allowedMethod in _allowedHttpMethods)
+            {
+                if (httpMethod == allowedMethod.ToString().ToUpper())
+                {
+                    isMethodAllowed = true;
+                    break;
+                }
+            }
+
+            if (!isMethodAllowed)
+            {
+                RedirectToErrorAccessDenied(filterContext);
+                return;
+            }
+
             var apiCookie = HttpContext.Current.Request.Cookies["X-KEY"];
             if (apiCookie == null)
             {
@@ -27,11 +65,13 @@ namespace App.Controllers.Attributes
             }
 
             var profile = _session.GetUserByCookie(apiCookie.Value);
-            if (profile == null)
+            if (profile == null || profile.Level != LevelAcces.Admin)
             {
-                RedirectToLogin(filterContext);
+                RedirectToErrorAccessDenied(filterContext);
                 return;
             }
+
+            HttpContext.Current.SetMySessionObject(profile);
 
             if (profile.Level == LevelAcces.Admin)
             {
@@ -52,5 +92,13 @@ namespace App.Controllers.Attributes
                 new RouteValueDictionary(
                     new { controller = "LogInPage", action = "LogIn" }));
         }
+
+        private void RedirectToErrorAccessDenied(ActionExecutingContext filterContext)
+        {
+            filterContext.Result = new RedirectToRouteResult(
+                new RouteValueDictionary(
+                    new { controller = "Home", action = "ErrorAccessDenied" }));
+        }
+
     }
 }

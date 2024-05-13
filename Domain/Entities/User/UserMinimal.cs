@@ -16,5 +16,6 @@ namespace Domain.Entities.User
         public DateTime LastLogin { get; set; }
         public string LasIp { get; set; }
         public LevelAcces Level { get; set; }
+        public byte[] UserPhoto { get; set; }
     }
 }
