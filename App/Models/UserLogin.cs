@@ -10,13 +10,13 @@ namespace App.Models
 {
         public class userLogin
         {
+
             public string Username { get; set; }
             [Required(ErrorMessage = "Email is required")]
             public string Email { get; set; }
             [Required(ErrorMessage = "Password is required")]
             public string Password { get; set; }
-            public DateTime RegisterDate { get; set; }
-            public LevelAcces level { get; set; }
+            public LevelAcces Level { get; set; }
             public DateTime LoginDateTime { get; set; }
         }
 }

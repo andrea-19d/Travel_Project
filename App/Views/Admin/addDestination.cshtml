@@ -1,0 +1,133 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+    ViewBag.Title = "Add Destination";
+}
+
+@model App.Models.aDestination
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card mt-5">
+            <div class="card-header">
+                <h3 class="mb-0">Add Destination</h3>
+            </div>
+            <div class="card-body">
+                <form id="destinationForm" method="post">
+                    @using (Html.BeginForm("addDestination", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DestinationName)
+                            @Html.TextBoxFor(model => model.DestinationName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DestinationName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Country)
+                            @Html.DropDownListFor(model => model.Country, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Italy", Value = "Italy" },
+                                new SelectListItem { Text = "France", Value = "France" },
+                                new SelectListItem { Text = "Romania", Value = "Romania" }
+                            }, "Select Country", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.City)
+                            @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Days)
+                            @Html.DropDownListFor(model => model.Days, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "1", Value = "1" },
+                                new SelectListItem { Text = "2", Value = "2" },
+                                new SelectListItem { Text = "3", Value = "3" }
+                            }, "Select Days", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NrOfPersons)
+                            @Html.DropDownListFor(model => model.NrOfPersons, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "1", Value = "1" },
+                                new SelectListItem { Text = "2", Value = "2" },
+                                new SelectListItem { Text = "3", Value = "3" },
+                                new SelectListItem { Text = "4", Value = "4" }
+                            }, "Select Number of Persons", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NrOfPersons, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price)
+                            @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description)
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 4 })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Review)
+                            @Html.DropDownListFor(model => model.Review, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "1", Value = "1" },
+                                new SelectListItem { Text = "2", Value = "2" },
+                                new SelectListItem { Text = "3", Value = "3" },
+                                new SelectListItem { Text = "4", Value = "4" },
+                                new SelectListItem { Text = "5", Value = "5" }
+                            }, "Select Review", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Review, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <input id="destinationPicture" type="file" accept="image/*" name="destinationPicture">
+                            @*  @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })*@
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                            Add destination
+                        </button>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div id="notification" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            @ViewBag.Message
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+*@
+@*<script>
+    $(document).ready(function () {
+        $("#destinationForm").submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: "@Url.Action("addDestination", "Admin")",
+                type: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Display notification
+                    $(".toast").toast({ delay: 3000 }).toast('show');
+
+                    // Clear input fields
+                    $("#destinationName").val("");
+                    $("#country").val("");
+                    // Clear other input fields similarly
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                }
+            });
+        });
+    });
+</script>*@

@@ -1,5 +1,6 @@
 ﻿using App.Models;
 using AutoMapper;
+using Domain.Entities.Bookings;
 using Domain.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,8 @@ namespace App
                 cfg.CreateMap<UDbTable, UserMinimal>();
                 cfg.CreateMap<userLogin, ULoginData>();
                 cfg.CreateMap<userRegister, URegisterData>();
-                cfg.CreateMap<UAdresses,bookingAddress>();
+                cfg.CreateMap<UpdateUserData, UDbTable>();
+                cfg.CreateMap<aDestination, ADestinations>();
             });
         }
     }

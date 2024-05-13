@@ -38,24 +38,27 @@ namespace App
                 "~/Content/lib/lightbox/js/lightbox.min.js"));
             bundles.Add(new ScriptBundle("~/bundle/main").Include(
                 "~/Content/js/main.js"));
-            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                "~/Content/ADMINNN/assets/js/core/bootstrap.bundle.min.js",
-                "~/Content/ADMINNN/assets/js/core/bootstrap.min.js",
-                "~/Content/ADMINNN/assets/js/core/popper.min.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                "~/Content/ADMINNN/assets/js/plugins/bootstrap-notify.js",
-                "~/Content/ADMINNN/assets/js/plugins/Chart.extention.js",
-                "~/Content/ADMINNN/assets/js/plugins/chartjs.js",
-                "~/Content/ADMINNN/assets/js/plugins/perfect-scrollbar.js",
-                "~/Content/ADMINNN/assets/js/plugins/smooth-scrollbar.js",
-                "~/Content/ADMINNN/assets/js/argon-dashboard.min.js?v=2.0.4"));
+                        "~/Content/ADMIN/assets/js/core/bootstrap.bundle.min.js",
+                        "~/Content/ADMIN/assets/js/core/bootstrap.min.js",
+                        "~/Content/ADMIN/assets/js/core/popper.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                /*"~/Content/ADMINNN/assets/js/argon-dashboard.js",
-                "~/Content/ADMINNN/assets/js/argon-dashboard.min.js"*/
-                "~/Content/ADMINNN/assets/js/*.js"
-            )) ;
+                "~/Content/ADMIN/assets/js/plugins/bootstrap-notify.js",
+                "~/Content/ADMIN/assets/js/plugins/Chart.extention.js",
+                "~/Content/ADMIN/assets/js/plugins/chartjs.js",
+                "~/Content/ADMIN/assets/js/plugins/perfect-scrollbar.js",
+                "~/Content/ADMIN/assets/js/plugins/smooth-scrollbar.js",
+                "~/Content/ADMIN/assets/js/argon-dashboard.min.js?v=2.0.4"));
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Content/ADMIN/assets/js/argon-dashboard.js",
+                "~/Content/ADMIN/assets/js/argon-dashboard.min.js"
+            /*"~/Content/ADMIN/assets/js/*.js"*/
+            ));
+
 
             // Styles 
             bundles.Add(new StyleBundle("~/bundle/owlcarousel/css").Include(
@@ -74,10 +77,19 @@ namespace App
             bundles.Add(new StyleBundle("~/bundle/accountSettings/css").Include(
                 "~/Content/css/AcountSettings.css"));
 
+            bundles.Add(new StyleBundle("~/bundles/argon-dashboard/css").Include(
+                 "~/Content/ADMIN/assets/css/nucleo-svg.css",
+                 "~/Content/ADMIN/assets/css/nucleo-icons.css"
+             ));
+
+            bundles.Add(new StyleBundle("~/bundle/argon-dashboard/scss").Include(
+                "~/Content/ADMIN/assets/scss/argon-dashboard.scss"));
+
+
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-                "~/Content/ADMINNN/assets/css/*.css",
-                "~/Content/ADMINNN/assets/css/argon-dashboard.css?v=2.0.4"
-           ));
+               "~/Content/ADMIN/assets/css/*.css",
+               "~/Content/ADMIN/assets/css/argon-dashboard.css?v=2.0.4"
+          ));
 
 
             BundleTable.EnableOptimizations = true;

@@ -12,11 +12,15 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using BusinessLogic.DBModel.Seed;
 using System.Web.UI.WebControls;
 using AutoMapper;
+using System.IO;
+
+
 namespace App.Controllers
 {
     public class RegisterPageController : Controller
     {
         private readonly ISession _session;
+
 
         public RegisterPageController()
         {
@@ -34,9 +38,11 @@ namespace App.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(userRegister registerData)
         {
+
             if (ModelState.IsValid)
             {
                 var registredUser = Mapper.Map<URegisterData>(registerData);
+                registredUser.UserIP = Request.UserHostAddress;
 
                 var userRegister = _session.RegisterNewUserAction(registredUser);
                 if (userRegister.Status)
@@ -54,5 +60,6 @@ namespace App.Controllers
 
             return View(registerData);
         }
+
     }
 }
