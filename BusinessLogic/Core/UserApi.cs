@@ -89,7 +89,7 @@ namespace BusinessLogic.Core
         public ActionStatus RegisterUserAction(URegisterData data)
         {
 
-            string predefinedPhotoPath = "D:\\andre\\Univer\\Anul II\\sem II\\pr\\TravelWebsite\\App\\Content\\ADMINNN\\assets\\img\\curved-images\\curved-8.jpg";
+            string predefinedPhotoPath = "C:\\Users\\adria\\Desktop\\WebApllication\\Travel_Project\\App\\Content\\ADMIN\\assets\\img\\bg-profile.jpg";
             byte[] predefinedPhotoBytes = File.ReadAllBytes(predefinedPhotoPath);
 
             try

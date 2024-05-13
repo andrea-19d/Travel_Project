@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Core;
 using BusinessLogic.Interfaces;
 using Domain.Entities.Bookings;
+using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
 using System;
@@ -32,6 +33,14 @@ namespace BusinessLogic.DBModel
         public ActionStatus AddDestination(ADestinations data, HttpPostedFileBase file)
         {
             return AddNewDestination(data, file);
+        }
+        public ActionStatus DeleteUser(int userId)
+        {
+            return DeleteAUser(userId);
+        }
+        public ActionStatus ChangeUserLevel(int userId, LevelAcces newLevel)
+        {
+            return ChangeAUserLevel(userId, newLevel);
         }
 
     }
