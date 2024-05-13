@@ -75,16 +75,21 @@ namespace App.Controllers
             return View(allUsers);
         }
 
-/*        [AdminMod]
-        public ActionResult AddDestinations()
-        {
-            return View();
-        }*/
 
 
         [AdminMod]
+        public ActionResult AddDestinations()
+        {
+            SessionStatus();
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddDestinations(aDestination data)
         {
+
             HttpPostedFileBase file = Request.Files["destinationPicture"];
 
             if (ModelState.IsValid)

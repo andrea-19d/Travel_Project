@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
@@ -123,7 +124,6 @@ namespace BusinessLogic.Core
 
         public ActionStatus AddNewDestination(ADestinations destination, HttpPostedFileBase file)
         {
-
             try
             {
                 using (var db = new DestinationContext())
@@ -159,12 +159,20 @@ namespace BusinessLogic.Core
                     db.Destination.Add(newDestination);
                     db.SaveChanges();
                 }
-                return new ActionStatus { Status = true, StatusMessage = "Destinations Added Succesfully" };
+                return new ActionStatus { Status = true, StatusMessage = "Destination added successfully" };
+            }
+            catch (DbUpdateException ex)
+            {
+                // Retrieve the inner exception for more details
+                var innerException = ex.InnerException;
+                // Log or handle the inner exception appropriately
+                return new ActionStatus { Status = false, StatusMessage = "Database update error: " + innerException.Message };
             }
             catch (Exception ex)
             {
-                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+                return new ActionStatus { Status = false, StatusMessage = "An error occurred: " + ex.Message };
             }
         }
+
     }
 }

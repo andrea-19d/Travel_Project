@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/LayoutNoHeader.cshtml";
 }
 
+@model App.Models.aDestination
 
     <!-- Carousel Start -->
 <div>
@@ -588,10 +589,15 @@
                 <h5 class="section-title px-3">Packages</h5>
                 <h1 class="mb-0">Awesome Packages</h1>
             </div>
+
+@* ---DESTINATION PACKAGES--- *@
+
             <div class="packages-carousel owl-carousel">
                 <div class="packages-item">
                     <div class="packages-img">
-                        <img src="~/Content/img/packages-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                        @foreach (var destination in Model)
+                        {
+                        <img src="@destination.Img" class="img-fluid w-100 rounded-top" alt="Image">
                         <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -622,6 +628,8 @@
                         </div>
                     </div>
                 </div>
+        }
+
                 <div class="packages-item">
                     <div class="packages-img">
                         <img src="~/Content/img/packages-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">

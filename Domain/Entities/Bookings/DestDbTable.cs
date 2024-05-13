@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,9 @@ namespace Domain.Entities.Bookings
     public class DestDbTable
     {
         [Key]
-        [Required]
-        public string DestinationID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int DestinationID { get; set; }
+
         [Required]
         [Display(Name = "Destination")]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "Destination cannot be longer than 30 characters.")]
