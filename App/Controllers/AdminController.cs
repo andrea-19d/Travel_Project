@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Security.Permissions;
 using proiect.Attributes;
+using Domain.Entities.User.Global;
+using Domain.Entities.Enums;
 
 namespace App.Controllers
 {
@@ -75,6 +77,16 @@ namespace App.Controllers
             return View(allUsers);
         }
 
+        [AdminMod] 
+        public ActionResult DeleteUser(int id)
+        {
+            var currentUser = Session["Username"]; 
+            ActionStatus status = _monitoring.DeleteUser(id);
+            ViewBag.Status = status.Status;
+            return RedirectToAction("Tables");
+        }
+    
+/*        [AdminMod]
 
 
         [AdminMod]
@@ -111,5 +123,14 @@ namespace App.Controllers
             }
             return View(data);
         }
+        [HttpPost]
+
+        public ActionResult ChangeUserRole(int userId, string newUserRole)
+        {
+            LevelAcces status = _monitoring.ChangeUserRole(userId, newUserRole);
+            ViewBag.Status = status.ToString() ;
+            return RedirectToAction("Tables");
+        }
+
     }
 }

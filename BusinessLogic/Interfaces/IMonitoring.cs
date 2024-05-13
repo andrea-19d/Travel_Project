@@ -18,7 +18,7 @@ namespace BusinessLogic.Interfaces
         int ManageNewUsersCount();
         ActionStatus AddDestination(ADestinations destination, HttpPostedFileBase file);
         ActionStatus DeleteUser(int userId);
-        ActionStatus ChangeUserLevel(int userId, LevelAcces newLevel);
+        LevelAcces ChangeUserRole(int userId, string newUserRole);
     }
   
     

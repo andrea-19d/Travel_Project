@@ -38,9 +38,10 @@ namespace BusinessLogic.DBModel
         {
             return DeleteAUser(userId);
         }
-        public ActionStatus ChangeUserLevel(int userId, LevelAcces newLevel)
+       
+        public LevelAcces ChangeUserRole(int userId, string newUserRole)
         {
-            return ChangeAUserLevel(userId, newLevel);
+            return ChangeAUserRole(userId, newUserRole);
         }
 
     }

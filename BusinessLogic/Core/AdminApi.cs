@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
 namespace BusinessLogic.Core
 {
     public class AdminApi
@@ -43,29 +44,42 @@ namespace BusinessLogic.Core
                 return new ActionStatus { Status = false, StatusMessage = ex.Message };
             }
         }
-        public ActionStatus ChangeAUserLevel(int userId, LevelAcces newLevel)
+        public LevelAcces ChangeAUserRole(int userId, string newUserRole)
         {
             try
             {
                 using (var dbContext = new UserContext())
                 {
-                    var userToUpdate = dbContext.Users.FirstOrDefault(u => u.UserId == userId);
-                    if (userToUpdate == null)
+                    var user = dbContext.Users.FirstOrDefault(u => u.UserId == userId);
+                    if (user != null)
                     {
-                        return new ActionStatus { Status = false, StatusMessage = "User not found." };
+                        if (Enum.TryParse(newUserRole, out LevelAcces newRole))
+                        {
+                            user.Level = newRole;
+                            dbContext.SaveChanges();
+                            return newRole;
+                        }
+                        else
+                        {
+                            // Returnăm nivelul de acces curent dacă nu se poate face conversia
+                            return user.Level;
+                        }
                     }
-
-                    userToUpdate.Level = newLevel;
-                    dbContext.SaveChanges();
-
-                    return new ActionStatus { Status = true, StatusMessage = "User level updated successfully." };
+                    else
+                    {
+                        // Returnăm nivelul de acces curent dacă utilizatorul nu este găsit
+                        return LevelAcces.User;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+                // În caz de eroare, returnăm nivelul de acces curent și afișăm un mesaj de eroare
+                Console.WriteLine($"Error: {ex.Message}");
+                return LevelAcces.User;
             }
         }
+    
 
 
     public List<UserMinimal> GetAllUsers()
