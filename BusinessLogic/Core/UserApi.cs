@@ -112,7 +112,7 @@ namespace BusinessLogic.Core
                 newUser.LastLogin = DateTime.Now;
                 newUser.RegisterDate = DateTime.Now;
                 newUser.UserPhoto = predefinedPhotoBytes;
-                newUser.Level = LevelAcces.Admin;
+                newUser.Level = LevelAcces.User;
 
 
 
