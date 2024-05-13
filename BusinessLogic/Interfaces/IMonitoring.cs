@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Bookings;
+using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
 using System;
@@ -16,6 +17,9 @@ namespace BusinessLogic.Interfaces
         int ManageNrOfUsers();
         int ManageNewUsersCount();
         ActionStatus AddDestination(ADestinations destination, HttpPostedFileBase file);
+        ActionStatus DeleteUser(int userId);
+        ActionStatus ChangeUserLevel(int userId, LevelAcces newLevel);
     }
-
+  
+    
 }

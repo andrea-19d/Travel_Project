@@ -56,7 +56,7 @@ namespace App.Controllers
         {
             return View();
         }
-
+       
         [AdminMod(AdminModAttribute.HttpMethod.Get)]
         public ActionResult Tables()
         {

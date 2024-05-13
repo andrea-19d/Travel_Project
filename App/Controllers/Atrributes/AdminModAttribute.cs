@@ -1,57 +1,38 @@
-﻿using BusinessLogic.Interfaces;
+﻿using App.Extension;
+using BusinessLogic.Interfaces;
 using Domain.Entities.Enums;
-using App.Extension;
+using System;
+using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Net.Http;
-using System;
 
 namespace App.Controllers.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class AdminModAttribute : ActionFilterAttribute
     {
-        public enum HttpMethod
-        {
-            Get,
-            Post,
-            Put,
-            Delete
-        }
-
-
+        internal const object HttpMethod;
         private readonly ISession _session;
         private readonly HttpMethod[] _allowedHttpMethods;
 
         public AdminModAttribute(params HttpMethod[] allowedHttpMethods)
         {
             _allowedHttpMethods = allowedHttpMethods;
-            var businessLogic = new BusinessLogic.BussinesLogic();
-            _session = businessLogic.GetSessionBL();
+            _session = DependencyResolver.Current.GetService<ISession>();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (_allowedHttpMethods == null || _allowedHttpMethods.Length == 0)
+            if (_allowedHttpMethods == null || !_allowedHttpMethods.Any())
             {
                 base.OnActionExecuting(filterContext);
                 return;
             }
 
             var httpMethod = filterContext.HttpContext.Request.HttpMethod.ToUpper();
-            var isMethodAllowed = false;
-
-            foreach (var allowedMethod in _allowedHttpMethods)
-            {
-                if (httpMethod == allowedMethod.ToString().ToUpper())
-                {
-                    isMethodAllowed = true;
-                    break;
-                }
-            }
-
-            if (!isMethodAllowed)
+            if (!_allowedHttpMethods.Select(m => m.ToString().ToUpper()).Contains(httpMethod))
             {
                 RedirectToErrorAccessDenied(filterContext);
                 return;
@@ -72,18 +53,6 @@ namespace App.Controllers.Attributes
             }
 
             HttpContext.Current.SetMySessionObject(profile);
-
-            if (profile.Level == LevelAcces.Admin)
-            {
-                HttpContext.Current.SetMySessionObject(profile);
-            }
-            else
-            {
-                filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary(
-                        new { controller = "Home", action = "ErrorAccessDenied" }));
-
-            }
         }
 
         private void RedirectToLogin(ActionExecutingContext filterContext)
@@ -99,6 +68,5 @@ namespace App.Controllers.Attributes
                 new RouteValueDictionary(
                     new { controller = "Home", action = "ErrorAccessDenied" }));
         }
-
     }
 }

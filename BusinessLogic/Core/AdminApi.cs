@@ -19,7 +19,55 @@ namespace BusinessLogic.Core
 {
     public class AdminApi
     {
-        public List<UserMinimal> GetAllUsers()
+        public ActionStatus DeleteAUser(int userId)
+        {
+            try
+            {
+                using (var dbContext = new UserContext())
+                {
+                    var userToDelete = dbContext.Users.FirstOrDefault(u => u.UserId == userId);
+                    if (userToDelete == null)
+                    {
+                        return new ActionStatus { Status = false, StatusMessage = "User not found." };
+                    }
+
+                    dbContext.Users.Remove(userToDelete);
+                    dbContext.SaveChanges();
+
+                    return new ActionStatus { Status = true, StatusMessage = "User deleted successfully." };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+            }
+        }
+        public ActionStatus ChangeAUserLevel(int userId, LevelAcces newLevel)
+        {
+            try
+            {
+                using (var dbContext = new UserContext())
+                {
+                    var userToUpdate = dbContext.Users.FirstOrDefault(u => u.UserId == userId);
+                    if (userToUpdate == null)
+                    {
+                        return new ActionStatus { Status = false, StatusMessage = "User not found." };
+                    }
+
+                    userToUpdate.Level = newLevel;
+                    dbContext.SaveChanges();
+
+                    return new ActionStatus { Status = true, StatusMessage = "User level updated successfully." };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+            }
+        }
+
+
+    public List<UserMinimal> GetAllUsers()
         {
             using (var dbContext = new UserContext())
             {
