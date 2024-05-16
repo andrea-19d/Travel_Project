@@ -31,6 +31,7 @@ namespace App
                 cfg.CreateMap<userRegister, URegisterData>();
                 cfg.CreateMap<UpdateUserData, UDbTable>();
                 cfg.CreateMap<aDestination, ADestinations>();
+                cfg.CreateMap<DestDbTable, ADestinations>();
             });
         }
     }

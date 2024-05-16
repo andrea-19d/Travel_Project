@@ -6,14 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities.Product;
+using Domain.Entities.Bookings;
 
 namespace BusinessLogic
 {
-    class ProductBL : UserApi, IProduct
+    public class ProductBL : BookingApi, IProduct
     {
-        public ProductDetail GetDetailProduct(int id)
+        public List<ADestinations> GetPackages()
         {
-            return GetProdUser(id);
+            return GetDestinationPackages();
+        }
+
+        public int GetCount() 
+        { 
+            return GetDestinationCount(); 
         }
     }
 }

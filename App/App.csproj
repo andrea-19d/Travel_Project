@@ -462,6 +462,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\aDestination.cs" />
+    <Compile Include="Models\HomePageModels.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\userLogin.cs" />
@@ -767,6 +768,12 @@
     <Content Include="Views\Admin\tables.cshtml" />
     <Content Include="Views\Shared\_AdminFooter.cshtml" />
     <Content Include="Views\Shared\_AdminNavbar.cshtml" />
+    <Content Include="Views\Home\PackagePage.cshtml" />
+    <Content Include="Views\Home\Carousel.cshtml" />
+    <Content Include="Views\Home\SearchBar.cshtml" />
+    <Content Include="Views\Home\Destination.cshtml" />
+    <Content Include="Views\Home\ExploreTur.cshtml" />
+    <Content Include="Views\Home\TurBooking.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

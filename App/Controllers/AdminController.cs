@@ -20,12 +20,14 @@ namespace App.Controllers
     {
         private readonly IMonitoring _monitoring;
         private readonly ISession _session;
+        private readonly IProduct _product;
 
         public AdminController()
         {
             var bl = new BussinesLogic();
             _monitoring = bl.GetMonitoringBL();
             _session = bl.GetSessionBL();
+            _product = bl.GetProductBL();
         }
 
         [AdminMod]
@@ -65,6 +67,7 @@ namespace App.Controllers
         {
             SessionStatus();
             var allUsers = _monitoring.GetCount();
+            var allDestinationsPackages = _product.GetPackages();
             var onlineStatuses = new Dictionary<int, bool>();
 
             foreach (var user in allUsers)
@@ -85,17 +88,12 @@ namespace App.Controllers
             ViewBag.Status = status.Status;
             return RedirectToAction("Tables");
         }
-    
-/*        [AdminMod]
-
 
         [AdminMod]
         public ActionResult AddDestinations()
         {
-            SessionStatus();
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -113,7 +111,7 @@ namespace App.Controllers
                 if (resp.Status)
                 {
                     ViewBag.Message = resp.StatusMessage;
-                    return View();
+                    return RedirectToAction("AddDestinations", "Admin");
                 }
                 else
                 {

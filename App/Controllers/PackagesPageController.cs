@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Interfaces;
+using Domain.Entities.Bookings;
 using Domain.Entities.Product;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,18 @@ namespace App.Controllers
     {
         // GET: PackagesPage
         private IProduct _product;
-        PackagesPageController()
+        public PackagesPageController()
         {
-            BussinesLogic bussinesl = new BussinesLogic();
-            _product = bussinesl.GetProductBL();
-        }
-        public ActionResult Packages()
-        {
-            return View();
+            var bussinesl = new BussinesLogic();
+            _product = bussinesl.GetProductBL();    
         }
 
-        [HttpPost]
-        public ActionResult GetProduct(int id)
+        [HttpGet]
+        public ActionResult PackagePage()
         {
-            ProductDetail prodDetail = _product.GetDetailProduct(id);
-            return View();
+            var prodDetail = _product.GetPackages();
+            return View(prodDetail);
         }
+
     }
 }

@@ -82,7 +82,7 @@ namespace BusinessLogic.Core
     
 
 
-    public List<UserMinimal> GetAllUsers()
+        public List<UserMinimal> GetAllUsers()
         {
             using (var dbContext = new UserContext())
             {
@@ -92,7 +92,8 @@ namespace BusinessLogic.Core
                     Email = u.Email,
                     Id = u.UserId,
                     LastLogin = u.LastLogin,
-                    Level = u.Level,
+                    UserPhoto = u.UserPhoto,
+                    Level = u.Level
                 }).ToList();
 
                 return users;

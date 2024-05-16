@@ -1,43 +1,64 @@
-﻿using App.Models;
-using dotless.Core.Parser.Tree;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using BusinessLogic;
+using BusinessLogic.Interfaces;
+using Domain.Entities.Bookings;
 
 namespace App.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IProduct _product;
+
+        public HomeController()
+        {
+            var bl = new BussinesLogic();
+            _product = bl.GetProductBL();
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
-            string role = SessionStatus();
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
-            {
-                return View();
-            }
+            SessionStatus();
+            var prodDetail = _product.GetPackages();
+            return View(prodDetail);
+        }
+
+        [HttpGet]
+        public ActionResult PackagePage()
+        {
+            var prodDetail = _product.GetPackages();
+            var count = _product.GetCount();
+            ViewBag.Count = count; 
+            return PartialView("PackagePage", prodDetail);
+        }
+
+        public ActionResult Carousel()
+        {
+
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult SearchBar()
         {
-            string role = SessionStatus();
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
-            {
-                return View();
-            }
             return View();
         }
 
-        public ActionResult AccountSettings()
+        public ActionResult Destination()
         {
-            string role = SessionStatus();
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
-            {
-                return View();
-            }
             return View();
         }
+
+        public ActionResult ExploreTur()
+        {
+            return View();
+        }
+
+        public ActionResult TurBooking()
+        {
+            return View();
+        }
+
+
     }
 }

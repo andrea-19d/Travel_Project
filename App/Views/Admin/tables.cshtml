@@ -3,7 +3,7 @@
     ViewBag.Title = "tables";
 }
 
-@model List<Domain.Entities.User.UserMinimal>
+@model List<App.Models.HomePageModels>
 
 <div class="row">
     <div class="col-12">
@@ -29,22 +29,23 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="@user.UserPhoto" class="avatar avatar-sm me-3 rounded-circle" alt="@user.Username">
+                                            <img src="data:image/png;base64,@Convert.ToBase64String(user.UserMinimal.UserPhoto)" class="avatar avatar-sm me-3 rounded-circle" alt="@user.Username">
+
                                             <div>
-                                                <h6 class="mb-0 text-sm">@user.Username</h6>
-                                                <p class="text-xs text-secondary mb-0">@user.Email</p>
+                                                <h6 class="mb-0 text-sm">@user.UserMinimal.Username</h6>
+                                                <p class="text-xs text-secondary mb-0">@user.UserMinimal.Email</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column">
                                             <span class="text-xs font-weight-bold mb-1">Level:</span>
-                                            <p class="text-xs mb-0">@user.Level</p>
+                                            <p class="text-xs mb-0">@user.UserMinimal.Level</p>
                                         </div>
                                         <div class="mt-2">
                                             <form method="post" action="@Url.Action("ChangeUserRole", "Admin")">
                                                 <!-- Inputul ascuns pentru ID-ul utilizatorului -->
-                                                <input type="hidden" name="userId" value="@user.Id" />
+                                                <input type="hidden" name="userId" value="@user.UserMinimal.Id" />
                                                 <!-- Select pentru alege noul nivel de acces -->
                                                 <select name="newAccessLevel" class="form-select form-select-sm">
                                                     <option value="Admin">Admin</option>
@@ -95,7 +96,7 @@
                     <table class="table align-items-center justify-content-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Budget</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
