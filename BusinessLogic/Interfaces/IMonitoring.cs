@@ -2,6 +2,7 @@
 using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
+using Domain.Entities.User.Global;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace BusinessLogic.Interfaces
     public interface IMonitoring
     {
         List<UserMinimal> GetCount();
+        List<ADestinations> GetDestinations();
+        ADestinations GetADestination(int ID);
+        ActionStatus DeleteDestination(int ID);
         int ManageNrOfUsers();
         int ManageNewUsersCount();
         ActionStatus AddDestination(ADestinations destination, HttpPostedFileBase file);

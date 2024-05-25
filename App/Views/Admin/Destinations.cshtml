@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+    ViewBag.Title = "Destinations";
+}
+
+@model List<Domain.Entities.Bookings.ADestinations>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6>Destinations</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center justify-content-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Destination name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Location</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dest in Model)
+                            {
+                                <tr id="destination-@dest.DestinationID">
+                                    <td>
+                                        <div class="d-flex px-2">
+                                            <div>
+                                                <img src="data:image/png;base64,@Convert.ToBase64String(dest.Img)" class="avatar avatar-sm rounded-circle me-2" alt="destination">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-xs font-weight-bold">@dest.Country - @dest.City</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-xs font-weight-bold">@dest.DestinationName</span>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-bold mb-0">$@dest.Price</p>
+                                    </td>
+                                    <td>
+                                        <span class="text-xs font-weight-bold align-content-center">@dest.Status</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("EditDestination", "Admin", new { id = dest.DestinationID })" class="btn btn-sm btn-primary">Edit</a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("DeleteDestination", "Admin", new { id = dest.DestinationID })" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteDestination(id) {
+        if (confirm('Are you sure you want to delete this destination?')) {
+            $.ajax({
+                url: '@Url.Action("DeleteDestination", "Admin")/' + id,
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        $('#destination-' + id).remove();
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while deleting the destination: ' + error);
+                }
+            });
+        }
+    }
+</script>

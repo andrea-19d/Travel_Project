@@ -774,6 +774,8 @@
     <Content Include="Views\Home\Destination.cshtml" />
     <Content Include="Views\Home\ExploreTur.cshtml" />
     <Content Include="Views\Home\TurBooking.cshtml" />
+    <Content Include="Views\Admin\Destinations.cshtml" />
+    <Content Include="Views\Admin\EditDestination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

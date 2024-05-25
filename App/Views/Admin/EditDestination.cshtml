@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminDashboard.cshtml";
+    ViewBag.Title = "Edit Destination";
+}
+
+@model Domain.Entities.Bookings.ADestinations
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card mt-5">
+            <div class="card-header">
+                <h3 class="mb-0">Edit Destination</h3>
+            </div>
+
+            <div class="card-body">
+                @using (Html.BeginForm("UpdateDest", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="DestinationID" value="@Model.DestinationID" />
+
+                    <div>
+                        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Img)" class="img-thumbnail" alt="destination" style="cursor: pointer;">
+                    </div>
+                    <div class="form-group">
+                        <input id="destinationPicture" type="file" accept="image/*" name="destinationPicture">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destinationName">Destination Name</label>
+                        <input type="text" class="form-control" id="destinationName" name="DestinationName" value="@Model.DestinationName" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="Country" value="@Model.Country" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="City" value="@Model.City" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" name="Price" value="@Model.Price" />
+                    </div> 
+
+                    <div class="form-group">
+                        <label for="days">Days</label>
+                        <input type="text" class="form-control" id="days" name="Days" value="@Model.Days" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nrofpersons">Number of People</label>
+                        <input type="text" class="form-control" id="nrofpersons" name="NrOfPersons" value="@Model.NrOfPersons" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" name="Status" value="@Model.Status" />
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <input type="text" class="form-control" id="rating" name="Rating" value="@Model.Rating" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="Description" value="@Model.Description" />
+                    </div>
+
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script> 
+
+    // Function to update the image preview when a new file is selected
+    document.getElementById('destinationPicture').addEventListener('change', function (event) {
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('destinationImage').src = e.target.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+
+            // Pass the selected file to the form submission
+            var fileInput = document.getElementById('destinationPicture');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('Img', file);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '@Url.Action("UpdateDest", "Admin")', true);
+            xhr.send(formData);
+        }
+    });
+</script>
+

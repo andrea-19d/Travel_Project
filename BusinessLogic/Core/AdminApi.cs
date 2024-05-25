@@ -15,12 +15,35 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-
+using Domain.Entities.User.Global;
 
 namespace BusinessLogic.Core
 {
     public class AdminApi
     {
+
+        public ActionStatus DeleteSelectedDestination(int destId)
+        {
+            try
+            {
+                using (var db = new DestinationContext())
+                {
+                    var destinationToDelete = db.Destination.FirstOrDefault(d => d.DestinationID == destId);
+                    if (destinationToDelete == null)
+                    {
+                        return new ActionStatus { Status = false, StatusMessage = "Destination not found" };
+                    }
+                    db.Destination.Remove(destinationToDelete);
+                    db.SaveChanges();
+                    return new ActionStatus { Status = true, StatusMessage = "Destination deleted successfully." };
+                }
+            }
+            catch ( Exception ex) 
+            {
+                return new ActionStatus { Status = false, StatusMessage = ex.Message };
+            }
+        }
+
         public ActionStatus DeleteAUser(int userId)
         {
             try
@@ -79,24 +102,40 @@ namespace BusinessLogic.Core
                 return LevelAcces.User;
             }
         }
-    
+
 
 
         public List<UserMinimal> GetAllUsers()
         {
             using (var dbContext = new UserContext())
             {
-                var users = dbContext.Users.Select(u => new UserMinimal
-                {
-                    Username = u.Username,
-                    Email = u.Email,
-                    Id = u.UserId,
-                    LastLogin = u.LastLogin,
-                    UserPhoto = u.UserPhoto,
-                    Level = u.Level
-                }).ToList();
+               
+                var users = dbContext.Users.ToList();
 
-                return users;
+                // Map User to UserMinimal
+                var userMinimals = Mapper.Map<List<UserMinimal>>(users);
+
+                return userMinimals;
+            }
+        }
+
+        public List<ADestinations> GetAllDestinations() { 
+            using ( var dbContext = new DestinationContext())
+            {
+                var dest = dbContext.Destination.ToList();
+
+                var destination = Mapper.Map<List<ADestinations>>(dest);
+                return destination;
+            }
+        }
+
+        public ADestinations GetDestinationDetails(int id)
+        {
+            using (var dbContext = new DestinationContext())
+            {
+                var dest = dbContext.Destination.FirstOrDefault(d => d.DestinationID == id);
+                var destiantion = Mapper.Map<ADestinations>(dest);
+                return destiantion;
             }
         }
 
@@ -136,6 +175,8 @@ namespace BusinessLogic.Core
             }
             
         }
+
+
 
         public ActionStatus AddNewDestination(ADestinations destination, HttpPostedFileBase file)
         {

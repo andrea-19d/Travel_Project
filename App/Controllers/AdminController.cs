@@ -1,18 +1,17 @@
-﻿using System;
+﻿using App.Models;
+using AutoMapper;
+using BusinessLogic;
+using BusinessLogic.DBModel.Seed;
+using BusinessLogic.Interfaces;
+using Domain.Entities.Bookings;
+using Domain.Entities.Enums;
+using Domain.Entities.Res;
+using proiect.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using BusinessLogic.Interfaces;
-using BusinessLogic;
-using Domain.Entities.Bookings;
-using Domain.Entities.Res;
-using App.Models;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Security.Permissions;
-using proiect.Attributes;
-using Domain.Entities.User.Global;
-using Domain.Entities.Enums;
 
 namespace App.Controllers
 {
@@ -21,6 +20,7 @@ namespace App.Controllers
         private readonly IMonitoring _monitoring;
         private readonly ISession _session;
         private readonly IProduct _product;
+
 
         public AdminController()
         {
@@ -67,23 +67,66 @@ namespace App.Controllers
         {
             SessionStatus();
             var allUsers = _monitoring.GetCount();
-            var allDestinationsPackages = _product.GetPackages();
-            var onlineStatuses = new Dictionary<int, bool>();
-
-            foreach (var user in allUsers)
-            {
-                var isOnline = (DateTime.Now - user.LastLogin).TotalMinutes < 1;
-                onlineStatuses.Add(user.Id, isOnline);
-            }
-            ViewBag.OnlineStatuses = onlineStatuses;
-
             return View(allUsers);
         }
 
-        [AdminMod] 
+
+        [HttpGet]
+        public ActionResult Destinations()
+        {
+            var allDestinations = _monitoring.GetDestinations();
+            return View(allDestinations);
+        }
+
+        [HttpGet]
+        public ActionResult EditDestination(int ID)
+        {
+            var destination = _monitoring.GetADestination(ID);
+            return View(destination);
+
+        }
+
+
+        // POST: EditDestination
+        [HttpPost]
+        [Route("Create")]
+        public ActionResult UpdateDest(ADestinations destination)
+        {
+            HttpPostedFileBase file = Request.Files["destinationPicture"];
+
+            if (ModelState.IsValid)
+            {
+                var updateDestination = Mapper.Map<ADestinations>(destination);
+
+                if (updateDestination != null)
+                {
+                    ActionStatus resp = _product.UpdateDestination(updateDestination, file);
+                    if (resp.Status)
+                    {
+                        return RedirectToAction("EditDestination", new { ID = updateDestination.DestinationID });
+                    }
+                }
+            }
+
+            return View(destination);
+        }
+
+        [AdminMod]
+        public ActionResult DeleteDestination(int id)
+        {
+            ActionStatus destinationStatus = _monitoring.DeleteDestination(id);
+            if (destinationStatus.Status)
+            {
+                ViewBag.Status = destinationStatus.StatusMessage;
+                return RedirectToAction("Destinations");
+            }
+                return RedirectToAction("Destinations");
+        }
+
+        [AdminMod]
         public ActionResult DeleteUser(int id)
         {
-            var currentUser = Session["Username"]; 
+            var currentUser = Session["Username"];
             ActionStatus status = _monitoring.DeleteUser(id);
             ViewBag.Status = status.Status;
             return RedirectToAction("Tables");
@@ -126,7 +169,7 @@ namespace App.Controllers
         public ActionResult ChangeUserRole(int userId, string newUserRole)
         {
             LevelAcces status = _monitoring.ChangeUserRole(userId, newUserRole);
-            ViewBag.Status = status.ToString() ;
+            ViewBag.Status = status.ToString();
             return RedirectToAction("Tables");
         }
 

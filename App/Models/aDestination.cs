@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.User.Global;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,5 +18,6 @@ namespace App.Models
         public string Description { get; set; }
         public int Rating { get; set; }
         public byte[] Img { get; set; }
+        public DestinationStatus Status { get; set; }
     }
 }

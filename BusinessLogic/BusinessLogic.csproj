@@ -57,6 +57,15 @@
     <Compile Include="DBModel\Seed\UserContext.cs" />
     <Compile Include="AMonitoringBL.cs" />
     <Compile Include="Interfaces\IMonitoring.cs" />
+    <Compile Include="Migrations\202405131648543_InitialCreate.cs" />
+    <Compile Include="Migrations\202405131648543_InitialCreate.Designer.cs">
+      <DependentUpon>202405131648543_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405201630123_UpdateDestinationSchema.cs" />
+    <Compile Include="Migrations\202405201630123_UpdateDestinationSchema.Designer.cs">
+      <DependentUpon>202405201630123_UpdateDestinationSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductBL.cs" />
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\UserApi.cs" />
@@ -90,7 +99,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\Destination\" />
+    <Folder Include="Uploads\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202405131648543_InitialCreate.resx">
+      <DependentUpon>202405131648543_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405201630123_UpdateDestinationSchema.resx">
+      <DependentUpon>202405201630123_UpdateDestinationSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

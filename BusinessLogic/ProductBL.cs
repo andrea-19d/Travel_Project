@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities.Product;
 using Domain.Entities.Bookings;
+using Domain.Entities.Res;
+using System.Web;
 
 namespace BusinessLogic
 {
@@ -20,6 +22,11 @@ namespace BusinessLogic
         public int GetCount() 
         { 
             return GetDestinationCount(); 
+        }
+
+        public ActionStatus UpdateDestination(ADestinations dest, HttpPostedFileBase file)
+        {
+            return UpdateDestinationPackages(dest, file);
         }
     }
 }

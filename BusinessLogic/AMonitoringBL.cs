@@ -4,6 +4,7 @@ using Domain.Entities.Bookings;
 using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
+using Domain.Entities.User.Global;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,21 @@ namespace BusinessLogic.DBModel
         public List<UserMinimal> GetCount()
         {
             return GetAllUsers();
+        }
+
+        public List<ADestinations> GetDestinations()
+        {
+            return GetAllDestinations();
+        }
+
+        public ADestinations GetADestination(int id)
+        {
+            return GetDestinationDetails(id);
+        }
+
+        public ActionStatus DeleteDestination(int id) 
+        {
+            return DeleteSelectedDestination(id);   
         }
 
         public int GetNumberOfUsers()
@@ -43,6 +59,5 @@ namespace BusinessLogic.DBModel
         {
             return ChangeAUserRole(userId, newUserRole);
         }
-
     }
 }
