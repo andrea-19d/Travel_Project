@@ -239,6 +239,22 @@ namespace BusinessLogic.Core
             }
         }
 
+ /*       public UserMinimal GetCurrentUser(string email)
+        {
+            using (var dbcontext = new UserContext())
+            {
+                var user = dbcontext.Users.FirstOrDefault(x => x.Email == email);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                var currentUser  = Mapper.Map<UserMinimal>(user);
+                return currentUser; 
+            }
+        }*/
+
+
         internal LevelStatus CheckLevelLogic(string keySession)
         {
             return new LevelStatus();

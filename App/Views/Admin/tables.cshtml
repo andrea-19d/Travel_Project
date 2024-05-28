@@ -1,10 +1,35 @@
-﻿@{
+﻿@model List<Domain.Entities.User.UserMinimal>
+
+@{
     Layout = "~/Views/Shared/AdminDashboard.cshtml";
-    ViewBag.Title = "Tables";
+    ViewBag.Title = "Users";
 }
 
+<style>
+    .custom-dropdown {
+        -webkit-appearance: none; /* Hides default dropdown arrow in Chrome/Safari */
+        -moz-appearance: none; /* Hides default dropdown arrow in Firefox */
+        appearance: none; /* Hides default dropdown arrow in other browsers */
+        border: none; /* Removes border */
+        background: none; /* Removes background */
+        padding: 0; /* Removes padding */
+        margin: 0; /* Removes margin */
+        font-size: inherit; /* Ensures font size is inherited */
+        color: inherit; /* Ensures text color is inherited */
+        cursor: pointer; /* Changes cursor to pointer */
+    }
 
-@model List<Domain.Entities.User.UserMinimal>
+        /* Optional: Adding a custom arrow */
+        .custom-dropdown::after {
+            content: '▼'; /* Custom arrow character */
+            padding-left: 5px; /* Space between text and arrow */
+        }
+
+        .custom-dropdown option {
+            color: black; /* Ensures dropdown options are visible */
+        }
+</style>
+
 
 <div class="row">
     <div class="col-12">
@@ -18,56 +43,54 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Level</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Last Logged in</th>
-                                <th class="text-secondary opacity-7"></th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Online</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var user in Model)
                             {
-                                <tr>
+                                <tr id="user-@user.Id">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="data:image/png;base64,@Convert.ToBase64String(user.UserPhoto)" class="avatar avatar-sm me-3 rounded-circle" alt="@user.Username">
+                                            <img src="data:image/png;base64,@Convert.ToBase64String(user.UserPhoto)" class="avatar avatar-scale-up me-3 rounded-circle " alt="@user.Username">
                                             <div>
                                                 <h6 class="mb-0 text-sm">@user.Username</h6>
-                                                <p class="text-xs text-secondary mb-0">@user.Email</p>
+
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="d-flex flex-column">
-                                            <span class="text-xs font-weight-bold mb-1">Level:</span>
-                                            <p class="text-xs mb-0">@user.Level</p>
-                                        </div>
-                                        <div class="mt-2">
-                                            <form method="post" action="@Url.Action("ChangeUserRole", "Admin")">
-                                                <input type="hidden" name="userId" value="@user.Id" />
-                                                <select name="newAccessLevel" class="form-select form-select-sm">
-                                                    <option value="Admin">Admin</option>
-                                                    <option value="User">User</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-sm btn-primary mt-1">Change</button>
-                                            </form>
-                                        </div>
+                                        <span class="text-secondary text-xs font-weight-bold">@user.Email</span>
                                     </td>
-                                    @* <td>
-                                            @if (ViewBag.OnlineStatuses.ContainsKey(user.Id) && ViewBag.OnlineStatuses[user.Id])
-                                            {
-                                                <span class="badge bg-gradient-success">Online</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-gradient-secondary">Offline</span>
-                                            }
-                                        </td>*@
+                                    <td>
+
+                                        <form method="post" action="@Url.Action("ChangeRole", "Admin")" class="d-sm-block">
+                                            <input type="hidden" name="id" value="@user.Id" />
+                                            <select name="newUserRole" class="custom-dropdown text-secondary text-xs font-weight-bold" onchange="showChangeButton(this)">
+                                                <option value="" selected disabled hidden>Select Role</option>
+                                                <option value="User" @(user.Level == Domain.Entities.Enums.LevelAcces.User ? "selected" : "")>User</option>
+                                                <option value="Admin" @(user.Level == Domain.Entities.Enums.LevelAcces.Admin ? "selected" : "")>Admin</option>
+                                            </select>
+                                            <button type="submit" id="changeButton" class="btn btn-xs btn-square mt-1 d-none">Change</button>
+                                        </form>
+
+                                    </td>
                                     <td class="text-center">
                                         <span class="text-secondary text-xs font-weight-bold">@user.LastLogin</span>
                                     </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="text-xs font-weight-bold @(user.IsOnline ? "text-success" : "text-secondary")">
+                                                @(user.IsOnline ? "Online" : "Offline")
+                                            </span>
+                                        </div>
+                                    </td>
                                     <td class="text-center">
-                                        <a href="@Url.Action("DeleteUser", "Admin", new { id = user.Id })" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="@Url.Action("DeleteUser", "Admin", new {id = user.Id })" onclick="deleteUser('@user.Id')" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -79,3 +102,29 @@
     </div>
 </div>
 
+<script>
+    function showChangeButton(select) {
+        var button = document.getElementById("changeButton");
+        button.classList.remove("d-none");
+    }
+
+    function deleteUser(id) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            $.ajax({
+                url: '@Url.Action("DeleteUser", "Admin")',
+                type: 'POST',
+                data: { id: id },
+                success: function (result) {
+                    if (result.success) {
+                        $('#user-' + id).remove();
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while deleting the user: ' + error);
+                }
+            });
+        }
+    }
+</script>

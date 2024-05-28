@@ -10,8 +10,11 @@ namespace App.Controllers
     public class BookingPageController : Controller
     {
         // GET: BookingPage
+        [HttpGet]
         public ActionResult Booking()
         {
+            var currentUser = Session["Username"].ToString();
+
             return View();
         }
     }

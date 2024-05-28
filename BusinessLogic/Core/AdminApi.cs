@@ -67,6 +67,7 @@ namespace BusinessLogic.Core
                 return new ActionStatus { Status = false, StatusMessage = ex.Message };
             }
         }
+
         public LevelAcces ChangeAUserRole(int userId, string newUserRole)
         {
             try
@@ -109,22 +110,30 @@ namespace BusinessLogic.Core
         {
             using (var dbContext = new UserContext())
             {
-               
-                var users = dbContext.Users.ToList();
-
-                // Map User to UserMinimal
-                var userMinimals = Mapper.Map<List<UserMinimal>>(users);
+                var userMinimals = dbContext.Users
+                    .Select(user => new UserMinimal
+                    {
+                        Id = user.UserId,
+                        Username = user.Username,
+                        Email = user.Email,
+                        LastLogin = user.LastLogin,
+                        LasIp = user.UserIP,
+                        Level = user.Level,
+                        UserPhoto = user.UserPhoto
+                    })
+                    .ToList();
 
                 return userMinimals;
             }
         }
 
+        /* --- TO DO: TRANSFER THIS FUNCTION TO BOOKINGAPI.CS---*/
         public List<ADestinations> GetAllDestinations() { 
             using ( var dbContext = new DestinationContext())
             {
                 var dest = dbContext.Destination.ToList();
-
                 var destination = Mapper.Map<List<ADestinations>>(dest);
+
                 return destination;
             }
         }
@@ -135,6 +144,7 @@ namespace BusinessLogic.Core
             {
                 var dest = dbContext.Destination.FirstOrDefault(d => d.DestinationID == id);
                 var destiantion = Mapper.Map<ADestinations>(dest);
+
                 return destiantion;
             }
         }
@@ -209,6 +219,7 @@ namespace BusinessLogic.Core
                 }
 
                 var newDestination = Mapper.Map<DestDbTable>(destination);
+                newDestination.Status = DestinationStatus.Public;
 
                 using (var db = new DestinationContext())
                 {
@@ -219,9 +230,7 @@ namespace BusinessLogic.Core
             }
             catch (DbUpdateException ex)
             {
-                // Retrieve the inner exception for more details
                 var innerException = ex.InnerException;
-                // Log or handle the inner exception appropriately
                 return new ActionStatus { Status = false, StatusMessage = "Database update error: " + innerException.Message };
             }
             catch (Exception ex)

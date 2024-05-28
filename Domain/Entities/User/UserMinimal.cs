@@ -17,5 +17,6 @@ namespace Domain.Entities.User
         public string LasIp { get; set; }
         public LevelAcces Level { get; set; }
         public byte[] UserPhoto { get; set; }
+        public bool IsOnline { get; set; }
     }
 }

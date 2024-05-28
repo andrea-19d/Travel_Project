@@ -6,6 +6,7 @@ using BusinessLogic.Interfaces;
 using Domain.Entities.Bookings;
 using Domain.Entities.Enums;
 using Domain.Entities.Res;
+using dotless.Core.Parser.Functions;
 using proiect.Attributes;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,6 @@ namespace App.Controllers
         [AdminMod]
         public ActionResult Admin()
         {
-            SessionStatus();
 
             var NrOfUsers = _monitoring.ManageNrOfUsers();
             var NrOfNewUsers = _monitoring.ManageNewUsersCount();
@@ -49,7 +49,7 @@ namespace App.Controllers
         {
             SessionStatus();
 
-            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
             {
                 return RedirectToAction("", "Login");
             }
@@ -62,12 +62,36 @@ namespace App.Controllers
             return View();
         }
 
-        [AdminMod]
+        [HttpGet]
         public ActionResult Tables()
         {
-            SessionStatus();
             var allUsers = _monitoring.GetCount();
+            var onlineThreshold = DateTime.Now.AddMinutes(-5);
+
+            foreach (var user in allUsers)
+            {
+                user.IsOnline = user.LastLogin > onlineThreshold;
+            }
             return View(allUsers);
+        }
+
+
+        [AdminMod]
+        public ActionResult DeleteUser(int id)
+        {
+            ActionStatus status = _monitoring.DeleteUser(id);
+            ViewBag.Status = status.Status;
+            return RedirectToAction("Tables");
+        }
+
+
+        [HttpPost]
+        public ActionResult ChangeRole( int id, string newUserRole)
+        {
+           
+                LevelAcces status = _monitoring.ChangeUserRole(id, newUserRole);
+                ViewBag.Status = status.ToString();
+                return RedirectToAction("Tables");
         }
 
 
@@ -123,14 +147,6 @@ namespace App.Controllers
                 return RedirectToAction("Destinations");
         }
 
-        [AdminMod]
-        public ActionResult DeleteUser(int id)
-        {
-            var currentUser = Session["Username"];
-            ActionStatus status = _monitoring.DeleteUser(id);
-            ViewBag.Status = status.Status;
-            return RedirectToAction("Tables");
-        }
 
         [AdminMod]
         public ActionResult AddDestinations()
@@ -164,14 +180,15 @@ namespace App.Controllers
             }
             return View(data);
         }
-        [HttpPost]
 
-        public ActionResult ChangeUserRole(int userId, string newUserRole)
+/* ---TO DO: UPDATE THE CHART SO THAT IT MATCHES THE NECESSARY DATA--- */
+
+        [HttpGet]
+        public ActionResult GetUpdatedData()
         {
-            LevelAcces status = _monitoring.ChangeUserRole(userId, newUserRole);
-            ViewBag.Status = status.ToString();
-            return RedirectToAction("Tables");
+            // Logic to fetch updated data
+            var updatedData = new { NrOfUsers = _monitoring.GetCount() };
+            return Json(updatedData, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

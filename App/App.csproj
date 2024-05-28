@@ -462,7 +462,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\aDestination.cs" />
-    <Compile Include="Models\HomePageModels.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\userLogin.cs" />
@@ -765,7 +764,7 @@
     <Content Include="Views\Shared\AdminDashboard.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_AdminAside.cshtml" />
-    <Content Include="Views\Admin\tables.cshtml" />
+    <Content Include="Views\Admin\Tables.cshtml" />
     <Content Include="Views\Shared\_AdminFooter.cshtml" />
     <Content Include="Views\Shared\_AdminNavbar.cshtml" />
     <Content Include="Views\Home\PackagePage.cshtml" />
@@ -791,8 +790,6 @@
     <Folder Include="Uploads\User\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\LogOut\" />
-    <Folder Include="Views\Topuri\" />
-    <Folder Include="Views\Top\" />
     <Folder Include="Views\UserModAttributes\" />
   </ItemGroup>
   <ItemGroup>
