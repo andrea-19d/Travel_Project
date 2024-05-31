@@ -1,159 +1,126 @@
 ﻿@{
-    Layout = "~/Views/Shared/LayoutNoHeader.cshtml";
     ViewBag.Title = "Packages";
 }
 
 <!-- Packages Start -->
 @model List<Domain.Entities.Bookings.ADestinations>
 
-<div class="packages-carousel owl-carousel">
-    @foreach (var destination in Model)
-    {
-        <div class="packages-item">
-            <div class="packages-img">
-                <img src="@Convert.ToBase64String(destination.Img)" class="img-fluid w-100 rounded-top" alt="Image">
-                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>@destination.DestinationName</small>
-                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>@destination.Days</small>
-                    <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                </div>
-                <div class="packages-price py-2 px-4">@destination.Price</div>
-            </div>
-            <div class="packages-content bg-light">
-                <div class="p-4 pb-0">
-                    <h5 class="mb-0">@destination.City - @destination.Country</h5>
-                    <small class="text-uppercase">@destination.Rating</small>
-                    <div class="mb-3">
-                        @for (int i = 0; i < destination.Rating; i++)
-                        {
-                            <small class="fa fa-star text-primary"></small>
-                        }
-                    </div>
-                    <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                </div>
-                <div class="row bg-primary rounded-bottom mx-0">
-                    <div class="col-6 text-start px-0">
-                        <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                    </div>
-                    <div class="col-6 text-end px-0">
-                        <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<style>
+    .description {
+        display: -webkit-box; /* Use WebKit box model */
+        -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+        -webkit-line-clamp: 3; /* Limit to 3 lines */
+        overflow: hidden; /* Hide overflow content */
+        text-overflow: ellipsis; /* Show ellipsis (...) for overflow content */
+        height: 100px; /* Set the fixed height */
+        width: 100%; /* Ensure the width is 100% of the parent element */
+        line-height: 1.5; /* Set line height (adjust as needed) */
+        max-height: calc(1.5em * 3); /* Ensure the max height aligns with line clamping */
     }
-</div>
-@*
-<div class="row bg-primary rounded-bottom mx-0">
-    <div class="col-6 text-start px-0">
-        <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-    </div>
-    <div class="col-6 text-end px-0">
-        <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-    </div>
-</div>
+</style>
+
+<div class="container-fluid packages py-5">
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+            @foreach (var destination in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-item" id="destination-@destination.DestinationID">
+                        <div class="blog-img">
+                            <div class="blog-img-inner">
+                                <img src="data:image/png;base64,@Convert.ToBase64String(destination.Img)" class="img-fluid w-100 rounded-top" style="height: 220px" alt="Image">
+                                <div class="blog-icon">
+                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
+                                </div>
+                            </div>
+                            <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>@destination.Country - @destination.City</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>@destination.Days</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>@destination.NrOfPersons</small>
+                            </div>
+                        </div>
+                        <div class="blog-content border border-top-0 rounded-bottom p-4">
+                            <h5 class="mb-0">@destination.DestinationName</h5>
+                            <small class="text-uppercase">Rating</small>
+                            <div class="mb-3">
+                                @for (int i = 0; i < destination.Rating; i++)
+                                {
+                                    <small class="fa fa-star text-primary"></small>
+                                }
+                            </div>
+                            <p class="description mb-3">@destination.Description</p>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-primary rounded-pill py-2 px-4 me-auto read-more"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#tripModal"
+                                   data-id="@destination.DestinationID"
+                                   data-destination-name="@destination.DestinationName"
+                                   data-city="@destination.City"
+                                   data-country="@destination.Country"
+                                   data-days="@destination.Days"
+                                   data-nr-of-persons="@destination.NrOfPersons"
+                                   data-price="@destination.Price"
+                                   data-description="@destination.Description"
+                                   data-rating="@destination.Rating"
+                                   data-img="data:image/png;base64,@Convert.ToBase64String(destination.Img)">Read More</a>
+                                <a href="@Url.Action("Booking", "BookingPage", new { id = destination.DestinationID})" class="btn btn-primary rounded-pill py-2 px-4">Book Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-<div class="packages-item">
-    <div class="packages-img">
-        <img src="img/packages-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-        <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-            <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
+            }
         </div>
-        <div class="packages-price py-2 px-4">$449.00</div>
     </div>
-    <div class="packages-content bg-light">
-        <div class="p-4 pb-0">
-            <h5 class="mb-0">The New California</h5>
-            <small class="text-uppercase">Hotel Deals</small>
-            <div class="mb-3">
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
+</div>
+<!-- Packages End -->
+<!-- Modal -->
+<div class="modal fade" id="tripModal" tabindex="-1" aria-labelledby="tripModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="data-destination-name"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-        </div>
-        <div class="row bg-primary rounded-bottom mx-0">
-            <div class="col-6 text-start px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-            </div>
-            <div class="col-6 text-end px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+            <div class="modal-body">
+                <img id="modal-img" class="img-fluid w-100 rounded mb-3" alt="Image">
+                <h5 id="modal-city-country"></h5>
+                <p id="modal-description"></p>
+                <h5>Rating</h5>
+                <div id="modal-rating"></div>
+                <h5>Price</h5>
+                <div id="modal-price"></div>
             </div>
         </div>
     </div>
 </div>
-<div class="packages-item">
-    <div class="packages-img">
-        <img src="img/packages-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-        <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-            <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-        </div>
-        <div class="packages-price py-2 px-4">$549.00</div>
-    </div>
-    <div class="packages-content bg-light">
-        <div class="p-4 pb-0">
-            <h5 class="mb-0">Discover Japan</h5>
-            <small class="text-uppercase">Hotel Deals</small>
-            <div class="mb-3">
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-            </div>
-            <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-        </div>
-        <div class="row bg-primary rounded-bottom mx-0">
-            <div class="col-6 text-start px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-            </div>
-            <div class="col-6 text-end px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="packages-item">
-    <div class="packages-img">
-        <img src="img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-        <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
-            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-            <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-        </div>
-        <div class="packages-price py-2 px-4">$649.00</div>
-    </div>
-    <div class="packages-content bg-light">
-        <div class="p-4 pb-0">
-            <h5 class="mb-0">Thayland Trip</h5>
-            <small class="text-uppercase">Hotel Deals</small>
-            <div class="mb-3">
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-                <small class="fa fa-star text-primary"></small>
-            </div>
-            <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-        </div>
-        <div class="row bg-primary rounded-bottom mx-0">
-            <div class="col-6 text-start px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-            </div>
-            <div class="col-6 text-end px-0">
-                <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
-*@<!-- Packages End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const readMoreButtons = document.querySelectorAll('.read-more');
+        readMoreButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const city = this.getAttribute('data-city');
+                const country = this.getAttribute('data-country');
+                const description = this.getAttribute('data-description');
+                const rating = this.getAttribute('data-rating');
+                const price = this.getAttribute('data-price');
+                const img = this.getAttribute('data-img');
+                const title = this.getAttribute('data-destination-name');
+
+                document.getElementById('data-destination-name').textContent = title;
+                document.getElementById('modal-city-country').textContent = `${city} - ${country}`;
+                document.getElementById('modal-description').textContent = description;
+                document.getElementById('modal-img').src = img;
+                document.getElementById('modal-price').textContent = price + "$";
+
+                const modalRating = document.getElementById('modal-rating');
+                modalRating.innerHTML = '';
+                for (let i = 0; i < rating; i++) {
+                    const star = document.createElement('small');
+                    star.className = 'fa fa-star text-primary';
+                    modalRating.appendChild(star);
+                }
+            });
+        });
+    });
+</script>

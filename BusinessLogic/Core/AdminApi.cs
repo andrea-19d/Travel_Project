@@ -127,27 +127,7 @@ namespace BusinessLogic.Core
             }
         }
 
-        /* --- TO DO: TRANSFER THIS FUNCTION TO BOOKINGAPI.CS---*/
-        public List<ADestinations> GetAllDestinations() { 
-            using ( var dbContext = new DestinationContext())
-            {
-                var dest = dbContext.Destination.ToList();
-                var destination = Mapper.Map<List<ADestinations>>(dest);
 
-                return destination;
-            }
-        }
-
-        public ADestinations GetDestinationDetails(int id)
-        {
-            using (var dbContext = new DestinationContext())
-            {
-                var dest = dbContext.Destination.FirstOrDefault(d => d.DestinationID == id);
-                var destiantion = Mapper.Map<ADestinations>(dest);
-
-                return destiantion;
-            }
-        }
 
         public int ManageNrOfUsers()
         {

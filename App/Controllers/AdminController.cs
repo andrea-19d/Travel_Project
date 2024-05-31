@@ -98,14 +98,14 @@ namespace App.Controllers
         [HttpGet]
         public ActionResult Destinations()
         {
-            var allDestinations = _monitoring.GetDestinations();
+            var allDestinations = _product.GetPackages();
             return View(allDestinations);
         }
 
         [HttpGet]
         public ActionResult EditDestination(int ID)
         {
-            var destination = _monitoring.GetADestination(ID);
+            var destination = _product.GetADestination(ID);
             return View(destination);
 
         }

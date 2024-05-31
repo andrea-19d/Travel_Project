@@ -9,7 +9,6 @@ using Domain.Entities.Enums;
 using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
-using Domain.Entities.Product;
 using System.Web;
 
 
@@ -21,10 +20,6 @@ namespace BusinessLogic
         public ActionStatus UserLogin(ULoginData data)
         {
             return UserLogData(data);
-        }
-        public LevelStatus CheckLevel(string key)
-        {
-            return CheckLevelLogic(key);
         }
 
         public HttpCookie GenCookie(string loginCredential)
@@ -52,10 +47,10 @@ namespace BusinessLogic
             return UpdateUserProfile(data, file);
         }
 
-        /*        object ISession.ServiceToList()
-                {
-                    throw new System.NotImplementedException();
-                }*/
+        public UserMinimal GetCurrentUser(string email)
+        {
+            return GetCurrentUserMinimal(email);
+        }
 
     }
 }

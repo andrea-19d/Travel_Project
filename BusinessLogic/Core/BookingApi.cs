@@ -16,26 +16,25 @@ namespace BusinessLogic.Core
 {
     public class BookingApi
     {
-        public List<ADestinations> GetDestinationPackages()
+        public List<ADestinations> GetAllDestinations()
         {
-            using (var db = new DestinationContext())
+            using (var dbContext = new DestinationContext())
             {
-                var destinations = db.Destination.Select( u => new ADestinations
-                {
-                    DestinationName = u.DestinationName,
-                    Country = u.Country,
-                    City = u.City,
-                    Days = u.Days,
-                    NrOfPersons = u.NrOfPersons,
-                    Price = u.Price,
-                    Description = u.Description,
-                    Rating = u.Rating,
-                    Img = u.Img,
-                    Status = u.Status,
-                }).ToList(); 
+                var dest = dbContext.Destination.ToList();
+                var destination = Mapper.Map<List<ADestinations>>(dest);
 
+                return destination;
+            }
+        }
 
-                return destinations;
+        public ADestinations GetDestinationDetails(int id)
+        {
+            using (var dbContext = new DestinationContext())
+            {
+                var dest = dbContext.Destination.FirstOrDefault(d => d.DestinationID == id);
+                var destiantion = Mapper.Map<ADestinations>(dest);
+
+                return destiantion;
             }
         }
 
@@ -48,7 +47,7 @@ namespace BusinessLogic.Core
                 return usersCount;
             }
         }
-/* ---TO DO--- */
+
         public ActionStatus UpdateDestinationPackages(ADestinations dest, HttpPostedFileBase file)
         {
             try

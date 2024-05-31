@@ -21,6 +21,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Location</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Status</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Action</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -49,8 +50,6 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="@Url.Action("EditDestination", "Admin", new { id = dest.DestinationID })" class="btn btn-sm btn-primary">Edit</a>
-                                    </td>
-                                    <td class="text-center">
                                         <a href="@Url.Action("DeleteDestination", "Admin", new { id = dest.DestinationID })" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>

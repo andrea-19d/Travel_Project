@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities.Product;
 using Domain.Entities.Bookings;
 using Domain.Entities.Res;
 using System.Web;
@@ -16,7 +15,7 @@ namespace BusinessLogic
     {
         public List<ADestinations> GetPackages()
         {
-            return GetDestinationPackages();
+            return GetAllDestinations();
         }
 
         public int GetCount() 
@@ -27,6 +26,10 @@ namespace BusinessLogic
         public ActionStatus UpdateDestination(ADestinations dest, HttpPostedFileBase file)
         {
             return UpdateDestinationPackages(dest, file);
+        }
+        public ADestinations GetADestination(int id)
+        {
+            return GetDestinationDetails(id);
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
-using Domain.Entities.Product;
 using BusinessLogic.DBModel.Seed;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -239,38 +238,20 @@ namespace BusinessLogic.Core
             }
         }
 
- /*       public UserMinimal GetCurrentUser(string email)
+        public UserMinimal GetCurrentUserMinimal(string username)
         {
             using (var dbcontext = new UserContext())
             {
-                var user = dbcontext.Users.FirstOrDefault(x => x.Email == email);
+                var user = dbcontext.Users.FirstOrDefault(x => x.Username == username);
                 if (user == null)
                 {
                     return null;
                 }
 
-                var currentUser  = Mapper.Map<UserMinimal>(user);
-                return currentUser; 
+                var currentUser = Mapper.Map<UserMinimal>(user);
+                return currentUser;
             }
-        }*/
-
-
-        internal LevelStatus CheckLevelLogic(string keySession)
-        {
-            return new LevelStatus();
         }
-
-        internal ProductDetail GetProdUser(int id)
-        {
-            return new ProductDetail();
-        }
-
-
-        public bool UserSessionStatus()
-        {
-            return true;
-        }
-
 
     }
 }

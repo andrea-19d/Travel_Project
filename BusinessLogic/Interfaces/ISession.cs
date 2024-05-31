@@ -15,11 +15,11 @@ namespace BusinessLogic.Interfaces
     public interface ISession
     {
         ActionStatus UserLogin(ULoginData data);
-        LevelStatus CheckLevel(string key);
         UserMinimal GetUserByCookie(string apiCookieValue);
         HttpCookie GenCookie(string loginCredential);
         ActionStatus RegisterNewUserAction(URegisterData regData);
         string GetUserPhoto(int userID);
         ActionStatus UpdateProfile(UpdateUserData user, HttpPostedFileBase file);
+        UserMinimal GetCurrentUser(string email);
     };
 }

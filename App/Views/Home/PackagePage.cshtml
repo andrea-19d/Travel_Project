@@ -21,13 +21,13 @@
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>@destination.Days</small>
                             <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
                         </div>
-                        <div class="packages-price py-2 px-4">@destination.Price</div>
+                        <div class="packages-price py-2 px-4">@destination.Price $</div>
                         <div class="packages-price py-2 px-4">@ViewBag.Count</div>
                     </div>
                     <div class="packages-content bg-light">
                         <div class="p-4 pb-0">
                             <h5 class="mb-0">@destination.City - @destination.Country</h5>
-                            <small class="text-uppercase">@destination.Rating</small>
+                            <small class="text-uppercase">Rating</small>
                             <div class="mb-3">
                                  @for (int i = 0; i < destination.Rating; i++)
                                     {

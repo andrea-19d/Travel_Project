@@ -15,8 +15,6 @@ namespace BusinessLogic.Interfaces
     public interface IMonitoring
     {
         List<UserMinimal> GetCount();
-        List<ADestinations> GetDestinations();
-        ADestinations GetADestination(int ID);
         ActionStatus DeleteDestination(int ID);
         int ManageNrOfUsers();
         int ManageNewUsersCount();

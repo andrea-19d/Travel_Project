@@ -21,16 +21,6 @@ namespace BusinessLogic.DBModel
             return GetAllUsers();
         }
 
-        public List<ADestinations> GetDestinations()
-        {
-            return GetAllDestinations();
-        }
-
-        public ADestinations GetADestination(int id)
-        {
-            return GetDestinationDetails(id);
-        }
-
         public ActionStatus DeleteDestination(int id) 
         {
             return DeleteSelectedDestination(id);   

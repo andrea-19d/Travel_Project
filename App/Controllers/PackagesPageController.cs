@@ -1,10 +1,10 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Interfaces;
 using Domain.Entities.Bookings;
-using Domain.Entities.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,10 +20,15 @@ namespace App.Controllers
             _product = bussinesl.GetProductBL();    
         }
 
-        [HttpGet]
-        public ActionResult PackagePage()
+        public ActionResult Index() 
         {
-            var prodDetail = _product.GetPackages();
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Packages()
+        {
+            var prodDetail =  _product.GetPackages();
             return View(prodDetail);
         }
 
