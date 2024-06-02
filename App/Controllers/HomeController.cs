@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLogic;
 using BusinessLogic.Interfaces;
@@ -17,17 +18,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            SessionStatus();
-            var prodDetail = _product.GetPackages();
+            string role = SessionStatus();
+            ViewData["UserRole"] = role;
+            var prodDetail = await _product.GetPackages();
             return View(prodDetail);
         }
 
         [HttpGet]
-        public ActionResult PackagePage()
+        public async Task<ActionResult> PackagePage()
         {
-            var prodDetail = _product.GetPackages();
+            var prodDetail = await _product.GetPackages();
             var count = _product.GetCount();
             ViewBag.Count = count; 
             return PartialView("PackagePage", prodDetail);

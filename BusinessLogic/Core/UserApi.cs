@@ -88,7 +88,7 @@ namespace BusinessLogic.Core
         public ActionStatus RegisterUserAction(URegisterData data)
         {
 
-            string predefinedPhotoPath = "C:\\Users\\adria\\Desktop\\WebApllication\\Travel_Project\\App\\Content\\ADMIN\\assets\\img\\bg-profile.jpg";
+            string predefinedPhotoPath = "D:\\andre\\Univer\\Anul II\\sem II\\pr\\TravelWebsite\\App\\Content\\ADMIN\\assets\\img\\ivana-square.jpg";
             byte[] predefinedPhotoBytes = File.ReadAllBytes(predefinedPhotoPath);
 
             try
@@ -238,7 +238,7 @@ namespace BusinessLogic.Core
             }
         }
 
-        public UserMinimal GetCurrentUserMinimal(string username)
+        public UpdateUserData GetCurrentUserMinimal(string username)
         {
             using (var dbcontext = new UserContext())
             {
@@ -248,7 +248,7 @@ namespace BusinessLogic.Core
                     return null;
                 }
 
-                var currentUser = Mapper.Map<UserMinimal>(user);
+                var currentUser = Mapper.Map<UpdateUserData>(user);
                 return currentUser;
             }
         }

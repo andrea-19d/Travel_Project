@@ -47,7 +47,7 @@ namespace BusinessLogic
             return UpdateUserProfile(data, file);
         }
 
-        public UserMinimal GetCurrentUser(string email)
+        public UpdateUserData GetCurrentUser(string email)
         {
             return GetCurrentUserMinimal(email);
         }

@@ -62,6 +62,7 @@ namespace App.Controllers
                         string userRole = "User"; // Default role
                         if (resp.StatusMessage == "Admin")
                         {
+                            User.IsInRole("Admin");
                             userRole = "Admin";
                         }
 

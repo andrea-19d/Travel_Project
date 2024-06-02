@@ -1,5 +1,4 @@
-﻿
-@model List<Domain.Entities.Bookings.ADestinations>
+﻿@model List<Domain.Entities.Bookings.ADestinations>
 
 <div class="container-fluid packages py-5">
     <div class="container py-5">
@@ -19,7 +18,7 @@
                         <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>@destination.DestinationName</small>
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>@destination.Days</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
+                            <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>@destination.NrOfPeople</small>
                         </div>
                         <div class="packages-price py-2 px-4">@destination.Price $</div>
                         <div class="packages-price py-2 px-4">@ViewBag.Count</div>

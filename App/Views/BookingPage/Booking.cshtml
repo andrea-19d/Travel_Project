@@ -23,53 +23,67 @@
                 <h1 class="text-white mb-3">Book A Tour Deal</h1>
                 <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
 
-                @using (Html.BeginForm("Booking", "BookingPage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UCreateBooking", "BookingPage", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <input type="hidden" name="DestinationID" value="@Model.DestinationID" />
+                    <input type="hidden" name="UserId" value="@ViewBag.UserId" /> <!-- Ensure UserId is set in ViewBag -->
+                    <input type="hidden" id="basePrice" value="@Model.Price" />
 
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="firstName" name="FirstName" placeholder="First Name" required>
+                                <input type="text" class="form-control bg-white border-0" id="firstName" name="FirstName" placeholder="First Name" value="@ViewBag.firstName" required>
                                 <label for="firstName">First Name</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="lastName" name="LastName" placeholder="Last Name" required>
+                                <input type="text" class="form-control bg-white border-0" id="lastName" name="LastName" placeholder="Last Name" value="@ViewBag.lastName" required>
                                 <label for="lastName">Last Name</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control bg-white border-0" id="email" name="Email" placeholder="Your Email" required>
+                                <input type="email" class="form-control bg-white border-0" id="email" name="Email" placeholder="Your Email" value="@ViewBag.email" required>
                                 <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input type="text" class="form-control bg-white border-0 datetimepicker-input" id="datetime" name="DateTime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" required />
-                                <label for="datetime">Date & Time</label>
+                                <input type="text" class="form-control bg-white border-0 datetimepicker-input" id="datetime" name="DateTime" placeholder="Start Date & Time" data-target="#date3" data-toggle="datetimepicker" required />
+                                <label for="datetime">Start Date & Time</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-white border-0" id="endDate" name="EndDate" placeholder="End Date & Time" readonly>
+                                <label for="endDate">End Date & Time</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-white border-0" id="destinationName" name="DestinationName" value="@Model.DestinationName" placeholder="Destination Name" readonly>
                                 <label for="destinationName">Destination Name</label>
-                                <input type="text" class="form-control" id="destinationName" name="DestinationName" value="@Model.DestinationName" />
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nrofpersons">Number of People</label>
-                                <input type="text" class="form-control" id="nrofpersons" name="NrOfPersons" value="@Model.NrOfPersons" />
+                            <div class="form-floating">
+                                <input type="number" class="form-control bg-white border-0" id="nrofpeople" name="NrOfPeople" value="1" min="1" max="@Model.NrOfPeople" placeholder="Number of People" required>
+                                <label for="nrofpeople">Number of People</label>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-white border-0" id="totalPrice" name="TotalPrice" value="@Model.Price" placeholder="Total Price" readonly>
+                                <label for="totalPrice">Total Price</label>
+                            </div>
+                        </div>
+                     @*   <div class="col-12">
                             <div class="form-floating">
                                 <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" name="SpecialRequest" style="height: 100px"></textarea>
                                 <label for="message">Special Request</label>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="col-12">
                             <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
                         </div>
@@ -83,17 +97,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        fetch('/api/destinations')
-            .then(response => response.json())
-            .then(data => {
-                const destinationSelect = document.getElementById('destination');
-                data.forEach(destination => {
-                    const option = document.createElement('option');
-                    option.value = destination.Id;
-                    option.textContent = destination.Name;
-                    destinationSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error fetching destinations:', error));
+        const nrOfDays = @Model.Days;
+        const basePrice = parseFloat(document.getElementById('basePrice').value);
+        const nrofpeopleInput = document.getElementById('nrofpeople');
+        const totalPriceInput = document.getElementById('totalPrice');
+
+        document.getElementById('datetime').addEventListener('change', function () {
+            const startDate = new Date(this.value);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + nrOfDays);
+
+            const formattedEndDate = endDate.toISOString().substring(0, 16).replace("T", " ");
+            document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        nrofpeopleInput.addEventListener('input', function () {
+            const nrOfPeople = parseInt(this.value);
+            const maxPersons = parseInt(nrofpeopleInput.getAttribute('max'));
+            if (nrOfPeople > maxPersons) {
+                this.value = maxPersons;
+                alert('Number of people cannot exceed the limit of ' + maxPersons);
+            }
+            const totalPrice = basePrice * nrOfPeople;
+            totalPriceInput.value = totalPrice.toFixed(2);
+        });
     });
 </script>

@@ -11,6 +11,7 @@ using proiect.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -96,9 +97,9 @@ namespace App.Controllers
 
 
         [HttpGet]
-        public ActionResult Destinations()
+        public async Task<ActionResult> Destinations()
         {
-            var allDestinations = _product.GetPackages();
+            var allDestinations = await _product.GetPackages();
             return View(allDestinations);
         }
 
@@ -127,7 +128,7 @@ namespace App.Controllers
                     ActionStatus resp = _product.UpdateDestination(updateDestination, file);
                     if (resp.Status)
                     {
-                        return RedirectToAction("EditDestination", new { ID = updateDestination.DestinationID });
+                        return RedirectToAction("Destinations");
                     }
                 }
             }

@@ -16,7 +16,7 @@
                         Country = c.String(nullable: false),
                         City = c.String(),
                         Days = c.Int(nullable: false),
-                        NrOfPersons = c.Int(nullable: false),
+                        NrOfPeople = c.Int(nullable: false),
                         Price = c.Single(nullable: false),
                         Description = c.String(nullable: false),
                         Rating = c.Int(nullable: false),

@@ -14,7 +14,7 @@ namespace Domain.Entities.Bookings
         public string Country { get; set; }
         public string City { get; set; }
         public int Days { get; set; }
-        public int NrOfPersons { get; set; }
+        public int NrOfPeople { get; set; }
         public float Price { get; set; }
         public string Description { get; set; }
         public int Rating {  get; set; }

@@ -68,5 +68,7 @@ namespace App.Controllers
             
             return RedirectToAction("MyProfile");
         }
+
+        public ActionResult Booked
     }
 }

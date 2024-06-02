@@ -26,9 +26,10 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public ActionResult Packages()
+        public async Task<ActionResult> Packages()
         {
-            var prodDetail =  _product.GetPackages();
+            await Task.Delay(1000);
+            var prodDetail =  await _product.GetPackages();
             return View(prodDetail);
         }
 

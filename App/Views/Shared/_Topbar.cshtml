@@ -24,8 +24,8 @@
                         <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
                         <div class="dropdown-menu rounded">
                             <a href="@Url.Action("Notifications", "Notifications")" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
-                          
-                            @if (!User.IsInRole("Admin"))
+                            
+                            @if (ViewData["UserRole"] != null && ViewData["UserRole"].ToString() == "Admin")
                             {
                                 <!-- If user is admin, show admin dashboard link -->
                                 <a href="@Url.Action("Admin", "Admin")" class="dropdown-item"><i class="fas fa-user-alt me-2"></i>Dashboard</a>
@@ -37,6 +37,7 @@
                             }
 
                             <a href="javascript:void(0);" onclick="logout()" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+
 
                         </div>
                     </div>

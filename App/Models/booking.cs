@@ -1,13 +1,11 @@
-﻿using Domain.Entities.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Domain.Entities.Bookings
+namespace App.Models
 {
-    public class Booking
+    public class booking
     {
         public int BookingId { get; set; }
         public int DestinationID { get; set; }

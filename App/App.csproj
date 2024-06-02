@@ -462,6 +462,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\aDestination.cs" />
+    <Compile Include="Models\booking.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\userLogin.cs" />

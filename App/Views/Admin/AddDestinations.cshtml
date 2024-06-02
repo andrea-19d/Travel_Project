@@ -47,15 +47,15 @@
                         @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.NrOfPersons)
-                        @Html.DropDownListFor(model => model.NrOfPersons, new List<SelectListItem>
+                        @Html.LabelFor(model => model.NrOfPeople)
+                        @Html.DropDownListFor(model => model.NrOfPeople, new List<SelectListItem>
                         {
                             new SelectListItem { Text = "1", Value = "1" },
                             new SelectListItem { Text = "2", Value = "2" },
                             new SelectListItem { Text = "3", Value = "3" },
                             new SelectListItem { Text = "4", Value = "4" }
                         }, "Select Number of Persons", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.NrOfPersons, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NrOfPeople, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Price)

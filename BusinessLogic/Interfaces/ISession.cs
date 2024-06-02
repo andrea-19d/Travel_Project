@@ -20,6 +20,6 @@ namespace BusinessLogic.Interfaces
         ActionStatus RegisterNewUserAction(URegisterData regData);
         string GetUserPhoto(int userID);
         ActionStatus UpdateProfile(UpdateUserData user, HttpPostedFileBase file);
-        UserMinimal GetCurrentUser(string email);
+        UpdateUserData GetCurrentUser(string email);
     };
 }

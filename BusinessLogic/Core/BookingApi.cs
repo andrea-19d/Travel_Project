@@ -16,11 +16,11 @@ namespace BusinessLogic.Core
 {
     public class BookingApi
     {
-        public List<ADestinations> GetAllDestinations()
+        public async Task<List<ADestinations>> GetAllDestinations()
         {
             using (var dbContext = new DestinationContext())
             {
-                var dest = dbContext.Destination.ToList();
+                var dest = await dbContext.Destination.ToListAsync();
                 var destination = Mapper.Map<List<ADestinations>>(dest);
 
                 return destination;
@@ -91,6 +91,24 @@ namespace BusinessLogic.Core
             {
                 return new ActionStatus { Status = false, StatusMessage = ex.Message };
             }
+        }
+
+        public ActionStatus CreateTheBooking(int destId, int userId, int nrOfPeople)
+        {
+            BookingDB booking;
+            using (var db = new BookingContext())
+            {
+                booking = new BookingDB
+                {
+                    DestinationID = destId,
+                    UserId = userId,
+                    NrOfPeople = nrOfPeople,
+                };
+                
+                db.Bookings.Add(booking);
+                db.SaveChanges();
+            }
+            return new ActionStatus { Status = true, StatusMessage="Destination saved succesfully" };
         }
     }
 }

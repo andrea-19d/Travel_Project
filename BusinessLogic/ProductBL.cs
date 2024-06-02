@@ -13,9 +13,9 @@ namespace BusinessLogic
 {
     public class ProductBL : BookingApi, IProduct
     {
-        public List<ADestinations> GetPackages()
+        public async Task<List<ADestinations>> GetPackages()
         {
-            return GetAllDestinations();
+            return await GetAllDestinations();
         }
 
         public int GetCount() 
@@ -30,6 +30,11 @@ namespace BusinessLogic
         public ADestinations GetADestination(int id)
         {
             return GetDestinationDetails(id);
+        }
+
+        public ActionStatus CreateBooking(int destId, int UserId, int nrOfPeople)
+        {
+            return CreateTheBooking(destId, UserId, nrOfPeople);
         }
     }
 }

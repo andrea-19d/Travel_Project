@@ -36,6 +36,7 @@ namespace App
                 cfg.CreateMap<UpdateUserData, UDbTable>();
                 cfg.CreateMap<aDestination, ADestinations>();
                 cfg.CreateMap<DestDbTable, ADestinations>();
+                cfg.CreateMap<ADestinations, Booking>();
             });
         }
     }
