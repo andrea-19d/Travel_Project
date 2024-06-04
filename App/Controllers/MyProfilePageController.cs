@@ -69,6 +69,10 @@ namespace App.Controllers
             return RedirectToAction("MyProfile");
         }
 
-        public ActionResult Booked
+   /*     public async Task<ActionResult> ShowUserBookings(int id)
+        {
+
+            return View();
+        }*/
     }
 }

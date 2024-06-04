@@ -74,6 +74,10 @@
     <Compile Include="Migrations\202406011203114_RenameNrOfPersonsToNrIfPeople.Designer.cs">
       <DependentUpon>202406011203114_RenameNrOfPersonsToNrIfPeople.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406032307527_CreateBookingDBTable.cs" />
+    <Compile Include="Migrations\202406032307527_CreateBookingDBTable.Designer.cs">
+      <DependentUpon>202406032307527_CreateBookingDBTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductBL.cs" />
     <Compile Include="Core\AdminApi.cs" />
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202406011203114_RenameNrOfPersonsToNrIfPeople.resx">
       <DependentUpon>202406011203114_RenameNrOfPersonsToNrIfPeople.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406032307527_CreateBookingDBTable.resx">
+      <DependentUpon>202406032307527_CreateBookingDBTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

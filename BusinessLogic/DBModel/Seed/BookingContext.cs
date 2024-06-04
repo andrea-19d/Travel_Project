@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Bookings;
+﻿using Domain.Entities;
+using Domain.Entities.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

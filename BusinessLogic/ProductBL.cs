@@ -32,9 +32,9 @@ namespace BusinessLogic
             return GetDestinationDetails(id);
         }
 
-        public ActionStatus CreateBooking(int destId, int UserId, int nrOfPeople)
+        public ActionStatus CreateBooking(UBooking model)
         {
-            return CreateTheBooking(destId, UserId, nrOfPeople);
+            return CreateTheBooking(model);
         }
     }
 }

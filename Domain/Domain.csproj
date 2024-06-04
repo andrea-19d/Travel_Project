@@ -52,9 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bookings\ADestinations.cs" />
-    <Compile Include="Entities\Bookings\Booking.cs" />
+    <Compile Include="Entities\Bookings\UBooking.cs" />
     <Compile Include="Entities\Bookings\BookingDB.cs" />
     <Compile Include="Entities\Bookings\DestDbTable.cs" />
+    <Compile Include="Entities\Enums\BookingStatus.cs" />
     <Compile Include="Entities\Enums\LevelAcces.cs" />
     <Compile Include="Entities\Res\ActionStatus.cs" />
     <Compile Include="Entities\Enums\DestinationStatus.cs" />

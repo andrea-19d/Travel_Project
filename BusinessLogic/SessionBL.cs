@@ -10,6 +10,7 @@ using Domain.Entities.Res;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
 using System.Web;
+using Domain.Entities.Bookings;
 
 
 
@@ -50,6 +51,18 @@ namespace BusinessLogic
         public UpdateUserData GetCurrentUser(string email)
         {
             return GetCurrentUserMinimal(email);
+        }
+
+        public UpdateUserData GetUserByID(int id) 
+        {
+            return GetAUserData(id);
+        }
+
+
+/* ---TO DO: THIS TO MODIIFY BASED ON THE NEW TABLE CREATED--- */
+        public async Task<List<UBooking>> CreatedBookings(int userId)
+        {
+            return await /*UserCreatedBookings(userId);*/ CreatedBookings(userId);
         }
 
     }

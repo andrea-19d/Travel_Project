@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.DBModel.Seed;
+using Domain.Entities;
 using Domain.Entities.Bookings;
 using Domain.Entities.Enums;
 using Domain.Entities.Res;
@@ -93,22 +94,31 @@ namespace BusinessLogic.Core
             }
         }
 
-        public ActionStatus CreateTheBooking(int destId, int userId, int nrOfPeople)
+        public ActionStatus CreateTheBooking(UBooking model)
         {
             BookingDB booking;
-            using (var db = new BookingContext())
-            {
-                booking = new BookingDB
+
+            using (var context = new BookingContext()) {
+
+    /*            var existingBooking = context.Bookings.FirstOrDefault(b =>
+                       b.DestinationID == model.DestinationID &&
+                       b.UserId == model.UserId &&
+                       b.StartDate == model.StartDate &&
+                       b.EndDate == model.EndDate &&
+                       b.TotalPeople == model.TotalPeople);
+                if (existingBooking != null)
                 {
-                    DestinationID = destId,
-                    UserId = userId,
-                    NrOfPeople = nrOfPeople,
-                };
-                
-                db.Bookings.Add(booking);
-                db.SaveChanges();
+                    return new ActionStatus { Status = false, StatusMessage = "A similar booking already exists." };
+                }*/
+
+                booking = Mapper.Map<BookingDB>(model);
+                booking.Status = "PENDING";
+
+                context.Entry(booking);
+                context.SaveChanges();
+
+                return new ActionStatus { Status = true, StatusMessage = "Destination saved succesfully" };
             }
-            return new ActionStatus { Status = true, StatusMessage="Destination saved succesfully" };
         }
     }
 }

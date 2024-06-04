@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Domain.Entities.Bookings;
+using Domain.Entities.Res;
 
 namespace App.Controllers
 {
@@ -37,38 +39,48 @@ namespace App.Controllers
             return View();
         }
 
-
         [UserMod]
         [HttpGet]
-        public ActionResult Booking(int id)
+        public ActionResult Booking(int destinationId)
         {
-            SessionStatus();
-            var currentUserEmail = Session["Username"].ToString();
-            var user = _session.GetCurrentUser(currentUserEmail);
-            if (user == null)
+            var destination = _product.GetADestination(destinationId);
+            var email = Session["Username"].ToString();
+            var user = _session.GetCurrentUser(email);
+
+            var viewModel = new BookingViewModel
             {
-                return View();
-            }
-            var currentDestination = _product.GetADestination(id);
-            ViewData["userId"] = user.UserId;
-            ViewBag.firstName = user.FirstName;
-            ViewBag.lastName = user.LastName;
-            ViewBag.email = user.Email;
+                DestinationID = destination.DestinationID,
+                DestinationName = destination.DestinationName,
+                NrOfPeople = destination.NrOfPeople,
+                Price = destination.Price,
+                Days = destination.Days,
+                UserId = user.UserId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
 
-
-            return View(currentDestination);
+            return View(viewModel);
         }
 
+
         [HttpPost]
-        public ActionResult UCreateBooking(int destinationID, int userId, int nrOfPeople)
+        public ActionResult UCreateBooking(BookingViewModel model)
         {
-            var destination = _product.CreateBooking(destinationID, userId, nrOfPeople);
-            if (destination.Status)
+            if (ModelState.IsValid)
             {
-                ViewBag.Message = destination.StatusMessage;
-                return RedirectToAction("Packages", "PackagesPage");
+                var booking = Mapper.Map<UBooking>(model);
+
+                ActionStatus resp = _product.CreateBooking(booking);
+                if (resp.Status)
+                {
+                    ViewBag.BookingStatus = resp.Status;
+                    return RedirectToAction("Packages", "PackagesPage");
+                    /* --- TO DO: return RedirectToAction("BookingSuccess");*/
+                }
             }
-            return View("Booking");
+
+            return View(model);
         }
 
     }

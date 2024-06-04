@@ -1,0 +1,29 @@
+﻿
+@model List<App.Models.BookingViewModel>
+    
+@foreach (var trip in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header pb-0">
+            <div class="d-flex align-items-center">
+                <p class="mb-0">Saved Trip</p>
+            </div>
+        </div>
+        <div class="card bg-white shadow-xl m-4 card-mask">
+            <div class="card-body p-1" style="padding: 20px;">
+                <i class="fas fa-map-marker-alt text-primary mb-3"></i>
+                <h6 class="text-dark mb-3">@trip.DestinationName</h6>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="flex-grow-1">
+                        <p class="text-dark text-xl mb-1">Dates</p>
+                        <h6 class="text-dark mb-0">@trip.StartDate.ToString("MM/dd/yyyy") - @trip.EndDate.ToString("MM/dd/yyyy")</h6>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p class="text-dark text-xl mb-0">Number of People</p>
+                    <h6 class="text-dark mb-0">@trip.NrOfPeople</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+}

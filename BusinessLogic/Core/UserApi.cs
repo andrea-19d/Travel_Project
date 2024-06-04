@@ -14,6 +14,10 @@ using AutoMapper;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.Configuration;
+using System.Threading.Tasks;
+using Domain.Entities.Bookings;
+using System.CodeDom;
+using System.Runtime.Remoting.Contexts;
 
 
 namespace BusinessLogic.Core
@@ -203,12 +207,10 @@ namespace BusinessLogic.Core
 
                     if (file != null && file.ContentLength > 0)
                     {
-                        // Handle file upload
                         string filename = Path.GetFileName(file.FileName);
                         string filepath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads/User"), filename);
                         file.SaveAs(filepath);
 
-                        // Convert the uploaded image to byte array
                         byte[] imageBytes = File.ReadAllBytes(filepath);
 
                         user.UserPhoto = imageBytes;
@@ -252,6 +254,48 @@ namespace BusinessLogic.Core
                 return currentUser;
             }
         }
+
+        public UpdateUserData GetAUserData(int id)
+        {
+            using (var db = new UserContext()) { 
+
+                var user = db.Users.FirstOrDefault(u => u.Equals(id));
+                if (user == null) { return null; }
+                var userDetails = Mapper.Map<UpdateUserData>(user);
+
+                return userDetails;
+            }
+        }
+
+    /* ---TO DO--- */
+/*        public async Task<List<UBooking>> UserCreatedBookings(int userID)
+        {
+            using (var dbcontext = new BookingContext())
+            {
+                var booking = dbcontext.Bookings.FirstOrDefault(d => d.UserId == userID);
+                if (booking == null) { return null; }
+
+                using (var context = new DestinationContext())
+                {
+                    var destinations = await dbcontext.Bookings
+                        .Where(b => b.UserId == userID)
+                        .Join(context.Destination,
+                              bk => bk.DestinationID,
+                              destination => destination.DestinationID,
+                              (bk, destination) => new ADestinations
+                              {
+                                  DestinationID = destination.DestinationID,
+                                  DestinationName = destination.DestinationName,
+                                  City = destination.City,
+                                  Country = destination.Country,
+                                  Price = destination.Price,
+                              })
+                        .ToListAsync();
+
+                    return destinations;
+                }
+            }
+        }*/
 
     }
 }

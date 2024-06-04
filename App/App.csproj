@@ -462,7 +462,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\aDestination.cs" />
-    <Compile Include="Models\booking.cs" />
+    <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\userLogin.cs" />
@@ -776,6 +776,7 @@
     <Content Include="Views\Home\TurBooking.cshtml" />
     <Content Include="Views\Admin\Destinations.cshtml" />
     <Content Include="Views\Admin\EditDestination.cshtml" />
+    <Content Include="Views\MyProfilePage\ShowUserBookings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

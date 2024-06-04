@@ -15,6 +15,6 @@ namespace BusinessLogic.Interfaces
         int GetCount();
         ActionStatus UpdateDestination(ADestinations dest, HttpPostedFileBase file);
         ADestinations GetADestination(int id);
-        ActionStatus CreateBooking(int destId, int userId, int nrOfPeople);
+        ActionStatus CreateBooking(UBooking model);
     }
 }

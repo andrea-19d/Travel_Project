@@ -1,6 +1,7 @@
 ﻿using App.Models;
 using AutoMapper;
 using BusinessLogic.DBModel.Seed;
+using Domain.Entities;
 using Domain.Entities.Bookings;
 using Domain.Entities.User;
 using Domain.Entities.User.Global;
@@ -36,7 +37,13 @@ namespace App
                 cfg.CreateMap<UpdateUserData, UDbTable>();
                 cfg.CreateMap<aDestination, ADestinations>();
                 cfg.CreateMap<DestDbTable, ADestinations>();
-                cfg.CreateMap<ADestinations, Booking>();
+                cfg.CreateMap<ADestinations, UBooking>();
+
+                cfg.CreateMap<BookingViewModel, UBooking>();
+                cfg.CreateMap<UBooking, BookingViewModel>();
+
+                cfg.CreateMap<BookingDB, UBooking>();
+                cfg.CreateMap<UBooking, BookingDB>();
             });
         }
     }

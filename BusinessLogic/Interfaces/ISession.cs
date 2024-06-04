@@ -9,6 +9,7 @@ using Domain.Entities.User;
 using Domain.Entities.User.Global;
 using BusinessLogic.Core;
 using System.Web;
+using Domain.Entities.Bookings;
 
 namespace BusinessLogic.Interfaces
 {
@@ -21,5 +22,7 @@ namespace BusinessLogic.Interfaces
         string GetUserPhoto(int userID);
         ActionStatus UpdateProfile(UpdateUserData user, HttpPostedFileBase file);
         UpdateUserData GetCurrentUser(string email);
+        UpdateUserData GetUserByID(int id);
+        Task<List<UBooking>> CreatedBookings(int userId);
     };
 }
