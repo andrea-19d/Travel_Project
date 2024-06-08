@@ -1,18 +1,18 @@
-﻿using BusinessLogic.DBModel.Seed;
-using BusinessLogic.Interfaces;
-using BusinessLogic;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
-using System.Linq;
-using System.Web.Mvc;
+﻿using App.Controllers.Atrributes;
 using App.Models;
 using AutoMapper;
-using Domain.Entities.User;
+using BusinessLogic;
+using BusinessLogic.Interfaces;
 using Domain.Entities.Res;
+using Domain.Entities.User;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class MyProfilePageController : Controller
+    public class MyProfilePageController : BaseController
     {
         private BusinessLogic.DBModel.Seed.UserContext _userContext;
         private ISession _session;
@@ -24,33 +24,41 @@ namespace App.Controllers
             _session = bl.GetSessionBL();
         }
 
-        [HttpGet]
+        [UserMod]
         [Authorize]
         public ActionResult MyProfile()
         {
+            SessionStatus();
             var currentUser = User.Identity.Name;
             var user = _userContext.Users.FirstOrDefault(u => u.Email == currentUser);
 
-            if (user != null)
-            {
-                string base64String = _session.GetUserPhoto(user.UserId);
-                ViewBag.UserPhoto = base64String;
-                ViewBag.UserFirstName = user.FirstName;
-                ViewBag.UserLastName = user.LastName;
-                ViewBag.Username = user.Username;
-                ViewBag.Email = user.Email;
-                ViewBag.Role = user.Level;
-            }
+            // Retrieve bookings for the current user
+            List<Domain.Entities.Bookings.UBooking> bookings = _session.CreatedBookings(user.UserId); // Assuming such a method exists
 
-            return View();
+            var viewModel = new MyProfileViewModel
+            {
+                User = new user
+                {
+                    UserId = user.UserId,
+                    UserPhoto = user.UserPhoto,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Username = user.Username,
+                    Email = user.Email,
+                },
+                Bookings = bookings
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        [Authorize]
         [Route("Create")]
         public ActionResult UpdateUserProfile(user currentUser)
         {
+            SessionStatus();
             HttpPostedFileBase file = Request.Files["profilePicture"];
+          
 
             if (ModelState.IsValid)
             {
@@ -65,14 +73,15 @@ namespace App.Controllers
                     }
                 }
             }
-            
+
             return RedirectToAction("MyProfile");
         }
 
-   /*     public async Task<ActionResult> ShowUserBookings(int id)
+        public ActionResult ShowUserBookings(int id)
         {
-
-            return View();
-        }*/
+            SessionStatus();
+            var resp = _session.CreatedBookings(id);
+            return PartialView("ShowUserBookings", resp);
+        }
     }
 }

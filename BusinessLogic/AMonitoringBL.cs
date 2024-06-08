@@ -26,14 +26,24 @@ namespace BusinessLogic.DBModel
             return DeleteSelectedDestination(id);   
         }
 
-        public int GetNumberOfUsers()
+        public int TodaysSales()
         {
-            return ManageNrOfUsers();
+            return GetTodaysSalesAdmin();
+        }
+
+        public int TotalSales()
+        {
+            return GetTotalSalesAdmin(); 
+        }
+
+        public int TodaysUsers()
+        {
+            return ManageTodaysUsers();
         }
 
         public int NewUsers()
         {
-            return ManageNewUsersCount();
+            return ManageNrOfUsers();
         }
 
         public ActionStatus AddDestination(ADestinations data, HttpPostedFileBase file)

@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Domain.Entities.Bookings;
 using System.CodeDom;
 using System.Runtime.Remoting.Contexts;
+using Domain.Entities;
 
 
 namespace BusinessLogic.Core
@@ -267,35 +268,17 @@ namespace BusinessLogic.Core
             }
         }
 
-    /* ---TO DO--- */
-/*        public async Task<List<UBooking>> UserCreatedBookings(int userID)
+        /* ---TO DO--- */
+        public List<UBooking> UserCreatedBookings(int userID)
         {
-            using (var dbcontext = new BookingContext())
+            using (var db = new BookingContext())
             {
-                var booking = dbcontext.Bookings.FirstOrDefault(d => d.UserId == userID);
-                if (booking == null) { return null; }
-
-                using (var context = new DestinationContext())
-                {
-                    var destinations = await dbcontext.Bookings
-                        .Where(b => b.UserId == userID)
-                        .Join(context.Destination,
-                              bk => bk.DestinationID,
-                              destination => destination.DestinationID,
-                              (bk, destination) => new ADestinations
-                              {
-                                  DestinationID = destination.DestinationID,
-                                  DestinationName = destination.DestinationName,
-                                  City = destination.City,
-                                  Country = destination.Country,
-                                  Price = destination.Price,
-                              })
-                        .ToListAsync();
-
-                    return destinations;
-                }
+                var booking = db.Bookings.Where(b => b.UserId == userID).ToList();
+                var bookings = Mapper.Map<List<UBooking>>(booking);
+                
+                return bookings;
             }
-        }*/
-
+        }
     }
 }
+

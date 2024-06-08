@@ -36,5 +36,9 @@ namespace BusinessLogic
         {
             return CreateTheBooking(model);
         }
+        public List<UBooking> GetAllPendingBookings()
+        {
+            return GetBookingsAllPendingBookings();
+        }
     }
 }

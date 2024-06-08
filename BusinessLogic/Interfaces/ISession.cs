@@ -23,6 +23,6 @@ namespace BusinessLogic.Interfaces
         ActionStatus UpdateProfile(UpdateUserData user, HttpPostedFileBase file);
         UpdateUserData GetCurrentUser(string email);
         UpdateUserData GetUserByID(int id);
-        Task<List<UBooking>> CreatedBookings(int userId);
+        List<UBooking> CreatedBookings(int userId);
     };
 }

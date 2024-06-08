@@ -17,10 +17,13 @@ namespace BusinessLogic.Interfaces
         List<UserMinimal> GetCount();
         ActionStatus DeleteDestination(int ID);
         int ManageNrOfUsers();
-        int ManageNewUsersCount();
+        int TodaysUsers();
+        int TodaysSales();
+        int TotalSales();
         ActionStatus AddDestination(ADestinations destination, HttpPostedFileBase file);
         ActionStatus DeleteUser(int userId);
         LevelAcces ChangeUserRole(int userId, string newUserRole);
+
     }
   
     

@@ -59,10 +59,10 @@ namespace BusinessLogic
         }
 
 
-/* ---TO DO: THIS TO MODIIFY BASED ON THE NEW TABLE CREATED--- */
-        public async Task<List<UBooking>> CreatedBookings(int userId)
+        /* ---TO DO: THIS TO MODIIFY BASED ON THE NEW TABLE CREATED--- */
+        public List<UBooking> CreatedBookings(int userId)
         {
-            return await /*UserCreatedBookings(userId);*/ CreatedBookings(userId);
+            return UserCreatedBookings(userId);
         }
 
     }

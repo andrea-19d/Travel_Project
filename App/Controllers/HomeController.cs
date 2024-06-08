@@ -29,6 +29,7 @@ namespace App.Controllers
         [HttpGet]
         public async Task<ActionResult> PackagePage()
         {
+            SessionStatus();
             var prodDetail = await _product.GetPackages();
             var count = _product.GetCount();
             ViewBag.Count = count; 

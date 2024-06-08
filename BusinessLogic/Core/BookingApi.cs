@@ -100,7 +100,7 @@ namespace BusinessLogic.Core
 
             using (var context = new BookingContext()) {
 
-    /*            var existingBooking = context.Bookings.FirstOrDefault(b =>
+                var existingBooking = context.Bookings.FirstOrDefault(b =>
                        b.DestinationID == model.DestinationID &&
                        b.UserId == model.UserId &&
                        b.StartDate == model.StartDate &&
@@ -109,15 +109,26 @@ namespace BusinessLogic.Core
                 if (existingBooking != null)
                 {
                     return new ActionStatus { Status = false, StatusMessage = "A similar booking already exists." };
-                }*/
+                }
 
                 booking = Mapper.Map<BookingDB>(model);
                 booking.Status = "PENDING";
+                booking.CreationDate = DateTime.Now;
 
-                context.Entry(booking);
+                context.Bookings.Add(booking);
                 context.SaveChanges();
 
                 return new ActionStatus { Status = true, StatusMessage = "Destination saved succesfully" };
+            }
+        }
+
+        public List<UBooking> GetBookingsAllPendingBookings()
+        {
+            using (var context = new BookingContext()) 
+            {
+                var booking = context.Bookings.Where(d => d.Status == "PENDING").ToList();
+                var b = Mapper.Map<List<UBooking>>(booking);
+                return b;
             }
         }
     }

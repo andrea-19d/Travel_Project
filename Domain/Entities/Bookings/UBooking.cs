@@ -26,6 +26,7 @@ namespace Domain.Entities.Bookings
         public float TotalPrice { get; set; }
         public string Suggestions { get; set; }
         public BookingStatus Status { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }
 

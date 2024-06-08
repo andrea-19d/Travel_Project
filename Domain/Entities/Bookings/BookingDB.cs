@@ -57,5 +57,8 @@ namespace Domain.Entities
         [Required]
         [MaxLength(20)]
         public string Status { get; set; }
+
+        [Required]
+        public DateTime CreationDate { get; set; }
     }
 }

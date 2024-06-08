@@ -37,10 +37,14 @@ namespace App.Controllers
         {
 
             var NrOfUsers = _monitoring.ManageNrOfUsers();
-            var NrOfNewUsers = _monitoring.ManageNewUsersCount();
+            var NrOfNewUsers = _monitoring.TodaysUsers();
+            var TodaysSales = _monitoring.TodaysSales();
+            var TotalSales = _monitoring.TotalSales();
 
             ViewBag.NrOfUsers = NrOfUsers;
-            ViewBag.NewUsersCount = NrOfNewUsers;
+            ViewBag.NrOfTodaysUsers = NrOfNewUsers;
+            ViewBag.TodaysSales = TodaysSales;  
+            ViewBag.TotalSales = TotalSales;    
 
             return View(NrOfUsers);
         }
@@ -58,9 +62,12 @@ namespace App.Controllers
         }
 
         [AdminMod]
+        [HttpGet]
         public ActionResult Billing()
         {
-            return View();
+            SessionStatus();
+            var billingInformation = _product.GetAllPendingBookings();
+            return View(billingInformation);
         }
 
         [HttpGet]

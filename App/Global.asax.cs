@@ -35,6 +35,8 @@ namespace App
                 cfg.CreateMap<userLogin, ULoginData>();
                 cfg.CreateMap<userRegister, URegisterData>();
                 cfg.CreateMap<UpdateUserData, UDbTable>();
+                cfg.CreateMap<UpdateUserData, user>();
+                cfg.CreateMap<user, UpdateUserData>();
                 cfg.CreateMap<aDestination, ADestinations>();
                 cfg.CreateMap<DestDbTable, ADestinations>();
                 cfg.CreateMap<ADestinations, UBooking>();

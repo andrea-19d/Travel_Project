@@ -22,6 +22,7 @@ namespace BusinessLogic.Core
     public class AdminApi
     {
 
+        /* --- MANAGE USERS --- */
         public ActionStatus DeleteSelectedDestination(int destId)
         {
             try
@@ -128,7 +129,7 @@ namespace BusinessLogic.Core
         }
 
 
-
+        /* --- GET THE STATISTICS --- */
         public int ManageNrOfUsers()
         {
             using (var dbContext = new UserContext())
@@ -141,33 +142,53 @@ namespace BusinessLogic.Core
         }
 
         /* RETURNS ERRORS  TO DO  */
-        public int ManageNewUsersCount()
+        public int ManageTodaysUsers()
         {
-           /* UDbTable data;
-            DateTime currentDate = DateTime.Now;
-            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1); // Start of the current month
-            DateTime endDate = startDate.AddMonths(1).AddDays(-1); // End of the current month
-*/
+            DateTime currentDate = DateTime.Today;
             using (var dbContext = new UserContext())
             {
-                /*var user =  dbContext.Users.FirstOrDefaultAsync(u => u.Level == LevelAcces.User);
-                Mapper.Map(user, data);
-                if (user != null)
-                {
-                    var newClientsCount =  dbContext.Users
-                        .Count(c => c.RegisterDate >= startDate && c.RegisterDate <= endDate);
+                var usersCount = dbContext.Users
+                    .Where(s => DbFunctions.TruncateTime(s.RegisterDate) == currentDate.Date && s.Level == LevelAcces.User)
+                    .Count();
 
-                    return newClientsCount;
-                }*/
-
-                var usersCount = dbContext.Users.Count(u => u.Level == LevelAcces.User);
                 return usersCount;
             }
-            
         }
 
 
+        public int GetTotalSalesAdmin()
+        {
+            using (var dbContext = new BookingContext())
+            {
+                
+                var todaysSales = dbContext.Bookings.Sum(s => (decimal?)s.TotalPrice); 
+                // Check if todaysSales is null before casting to int
+                int todaysSalesInt = todaysSales.HasValue ? (int)todaysSales.Value : 0;
 
+                return todaysSalesInt;
+            }
+        }
+
+        public int GetTodaysSalesAdmin()
+        {
+            DateTime today = DateTime.Today; // Use DateTime.Today to get the current date without the time component
+            using (var dbContext = new BookingContext())
+            {
+                // Filter bookings by date and sum the TotalAmount property
+                var todaysSales = dbContext.Bookings
+                                            .Where(s => s.CreationDate == today)
+                                            .Sum(s => (decimal?)s.TotalPrice); // Use decimal? to handle nullable sum
+
+                // Check if todaysSales is null before casting to int
+                int todaysSalesInt = todaysSales.HasValue ? (int)todaysSales.Value : 0;
+
+                return todaysSalesInt;
+            }
+
+        }
+
+
+        /* --- MANAGE DESTINATIONS --- */
         public ActionStatus AddNewDestination(ADestinations destination, HttpPostedFileBase file)
         {
             try
