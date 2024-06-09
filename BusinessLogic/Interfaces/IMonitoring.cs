@@ -14,15 +14,22 @@ namespace BusinessLogic.Interfaces
 {
     public interface IMonitoring
     {
+        /* --- MANAGE USERS --- */
         List<UserMinimal> GetCount();
-        ActionStatus DeleteDestination(int ID);
         int ManageNrOfUsers();
         int TodaysUsers();
+        decimal GetUserPercentage();
+        LevelAcces ChangeUserRole(int userId, string newUserRole);
+
+        /* --- MANAGE SALES --- */
         int TodaysSales();
         int TotalSales();
+        decimal GetSalesPercentage();
+
+        /* --- MANAGE DESTINATIONS --- */
+        ActionStatus DeleteDestination(int ID);
         ActionStatus AddDestination(ADestinations destination, HttpPostedFileBase file);
         ActionStatus DeleteUser(int userId);
-        LevelAcces ChangeUserRole(int userId, string newUserRole);
 
     }
   

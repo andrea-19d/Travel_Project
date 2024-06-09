@@ -49,6 +49,8 @@ namespace App.Controllers
 
         public ActionResult Destination()
         {
+            SessionStatus();
+
             return View();
         }
 

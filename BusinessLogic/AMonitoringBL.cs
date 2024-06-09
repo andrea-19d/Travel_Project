@@ -16,16 +16,31 @@ namespace BusinessLogic.DBModel
 {
     public class AMonitoringBL : AdminApi, IMonitoring
     {
+        /* --- MANAGE USERS--- */
         public List<UserMinimal> GetCount()
         {
             return GetAllUsers();
         }
-
-        public ActionStatus DeleteDestination(int id) 
+        public int NewUsers()
         {
-            return DeleteSelectedDestination(id);   
+            return ManageNrOfUsers();
+        }
+        public int TodaysUsers()
+        {
+            return ManageTodaysUsers();
         }
 
+        public decimal GetUserPercentage()
+        {
+            return GetUsersPercentageChange();
+        }
+
+        public LevelAcces ChangeUserRole(int userId, string newUserRole)
+        {
+            return ChangeAUserRole(userId, newUserRole);
+        }
+
+        /* --- MANAGE SALES --- */
         public int TodaysSales()
         {
             return GetTodaysSalesAdmin();
@@ -36,14 +51,15 @@ namespace BusinessLogic.DBModel
             return GetTotalSalesAdmin(); 
         }
 
-        public int TodaysUsers()
+        public decimal GetSalesPercentage()
         {
-            return ManageTodaysUsers();
+            return GetSalesPercentageChange();
         }
 
-        public int NewUsers()
+        /* --- MANAGE DESTINATIONS --- */
+        public ActionStatus DeleteDestination(int id) 
         {
-            return ManageNrOfUsers();
+            return DeleteSelectedDestination(id);   
         }
 
         public ActionStatus AddDestination(ADestinations data, HttpPostedFileBase file)
@@ -55,9 +71,5 @@ namespace BusinessLogic.DBModel
             return DeleteAUser(userId);
         }
        
-        public LevelAcces ChangeUserRole(int userId, string newUserRole)
-        {
-            return ChangeAUserRole(userId, newUserRole);
-        }
     }
 }

@@ -1,0 +1,82 @@
+﻿
+<div class="card-header pb-0 pt-3 bg-transparent">
+    <h6 class="text-capitalize">Destination Frequencies</h6> <!-- Adjust chart title -->
+</div>
+<div class="card-body p-3">
+    <div class="chart">
+        <canvas id="donut-chart" width="400" height="400"></canvas> <!-- Set width and height -->
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("DestinationsChart", "Admin")',
+            type: 'GET',
+            success: function (data) {
+                var destinationsData = data.map(function (item) {
+                    return {
+                        destination: item.DestinationName,
+                        frequency: item.BookingCount
+                    };
+                });
+
+                var ctx = document.getElementById('donut-chart').getContext('2d');
+
+                var destinations = destinationsData.map(function (item) {
+                    return item.destination;
+                });
+
+                var frequencies = destinationsData.map(function (item) {
+                    return item.frequency;
+                });
+
+                var donutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: destinations,
+                        datasets: [{
+                            label: 'Destination Frequencies',
+                            data: frequencies,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)',
+                                'rgba(255, 206, 86, 0.5)',
+                                'rgba(75, 192, 192, 0.5)',
+                                'rgba(153, 102, 255, 0.5)',
+                                'rgba(255, 159, 64, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)', 
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)', 
+                               
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutoutPercentage: 70,
+                        plugins: {
+                            legend: {
+                                position: 'bottom', // Set legend position to bottom
+                            }
+                        }
+                    }
+                });
+            },
+            error: function () {
+                console.error("Failed to fetch destination data.");
+            }
+        });
+    });
+</script>
+

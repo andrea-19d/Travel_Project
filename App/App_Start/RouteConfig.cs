@@ -47,17 +47,13 @@ namespace App
             bundles.Add(new ScriptBundle("~/bundles/admin-js").Include(
                         "~/Content/ADMIN/assets/js/argon-dashboard.min.js",
                         "~/Content/ADMIN/assets/js/core/popper.min.js",
-                   
+                        "~/Content/ADMIN/assets/js/core/bootstrap.min.js",
                         "~/Content/ADMIN/assets/js/plugins/perfect-scrollbar.min.js",
                         "~/Content/ADMIN/assets/js/plugins/smooth-scrollbar.min.js",
-                        "~/Content/ADMIN/assets/js/plugins/chartjs.min.js"
+                        "~/Content/ADMIN/assets/js/plugins/chartjs.min.js",
+                        "~/Content/ADMIN/assets/js/plugins/Chart.extension.js"
                         ));
 
-            // Bundle for Bootstrap CSS
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                        "~/Content/bootstrap.css",
-                        "~/Content/bootstrap-theme.css"
-                        ));
 
             // Bundle for Argon Dashboard CSS
             bundles.Add(new StyleBundle("~/Content/admin-css").Include(

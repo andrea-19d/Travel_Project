@@ -22,29 +22,35 @@ namespace App.Controllers
         private readonly IMonitoring _monitoring;
         private readonly ISession _session;
         private readonly IProduct _product;
+        private readonly BookingContext _context;
 
 
         public AdminController()
         {
             var bl = new BussinesLogic();
+            var context = new BookingContext();
             _monitoring = bl.GetMonitoringBL();
             _session = bl.GetSessionBL();
             _product = bl.GetProductBL();
+            _context = context;
         }
 
         [AdminMod]
         public ActionResult Admin()
         {
-
             var NrOfUsers = _monitoring.ManageNrOfUsers();
             var NrOfNewUsers = _monitoring.TodaysUsers();
+            var UsersPercentage = _monitoring.GetUserPercentage();
             var TodaysSales = _monitoring.TodaysSales();
             var TotalSales = _monitoring.TotalSales();
+            var SalesPercentage = _monitoring.GetSalesPercentage();
 
             ViewBag.NrOfUsers = NrOfUsers;
             ViewBag.NrOfTodaysUsers = NrOfNewUsers;
             ViewBag.TodaysSales = TodaysSales;  
             ViewBag.TotalSales = TotalSales;    
+            ViewBag.UsersPercentage = UsersPercentage;
+            ViewBag.SalesPercentage = SalesPercentage;
 
             return View(NrOfUsers);
         }
@@ -198,5 +204,42 @@ namespace App.Controllers
             var updatedData = new { NrOfUsers = _monitoring.GetCount() };
             return Json(updatedData, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult CHART()
+        {
+            var salesData = _context.Bookings
+                                   .GroupBy(b => new { b.CreationDate.Year, b.CreationDate.Month })
+                                   .Select(g => new
+                                   {
+                                       Year = g.Key.Year,
+                                       Month = g.Key.Month,
+                                       TotalSales = g.Sum(b => b.TotalPrice)
+                                   })
+                                   .ToList();
+
+            return Json(salesData, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult DestinationsChart()
+        {
+            var destData = _context.Bookings
+                .GroupBy(b => new { b.DestinationID })
+                .Select(g => new
+                {
+                    DestinationID = g.Key.DestinationID,
+                    DestinationName = g.FirstOrDefault().DestinationName, // Assuming you have a navigation property to the destination table
+                    BookingCount = g.Count()
+                })
+                .OrderByDescending(x => x.BookingCount) // Order by booking count in descending order
+                .Take(10) // You can adjust the number of destinations you want to display
+                .ToList();
+
+            return Json(destData, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

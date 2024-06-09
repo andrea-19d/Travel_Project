@@ -141,7 +141,6 @@ namespace BusinessLogic.Core
 
         }
 
-        /* RETURNS ERRORS  TO DO  */
         public int ManageTodaysUsers()
         {
             DateTime currentDate = DateTime.Today;
@@ -155,6 +154,31 @@ namespace BusinessLogic.Core
             }
         }
 
+        private int GetYesterdayUsers()
+        {
+            DateTime yesterday = DateTime.Today.AddDays(-1);
+            using (var dbContext = new UserContext())
+            {
+                var usersCount = dbContext.Users
+                    .Where(s => DbFunctions.TruncateTime(s.RegisterDate) == yesterday.Date && s.Level == LevelAcces.User)
+                    .Count();
+
+                return usersCount;
+            }
+
+        }
+
+        public int GetUsersPercentageChange()
+        {
+            var todayUsers = ManageTodaysUsers();
+            var yesterdayUsers = GetYesterdayUsers();
+
+            var todayPercentage = (todayUsers * 100)/yesterdayUsers;
+            var performanceIndicator = (todayPercentage < 100) ? todayPercentage - 100 : todayPercentage - 100;
+
+            return performanceIndicator;
+        }
+
 
         public int GetTotalSalesAdmin()
         {
@@ -162,30 +186,61 @@ namespace BusinessLogic.Core
             {
                 
                 var todaysSales = dbContext.Bookings.Sum(s => (decimal?)s.TotalPrice); 
-                // Check if todaysSales is null before casting to int
                 int todaysSalesInt = todaysSales.HasValue ? (int)todaysSales.Value : 0;
 
                 return todaysSalesInt;
             }
         }
+
 
         public int GetTodaysSalesAdmin()
         {
-            DateTime today = DateTime.Today; // Use DateTime.Today to get the current date without the time component
+            DateTime today = DateTime.Today;
+            DateTime tomorrow = today.AddDays(1);
             using (var dbContext = new BookingContext())
             {
-                // Filter bookings by date and sum the TotalAmount property
                 var todaysSales = dbContext.Bookings
-                                            .Where(s => s.CreationDate == today)
-                                            .Sum(s => (decimal?)s.TotalPrice); // Use decimal? to handle nullable sum
+                                            .Where(s => s.CreationDate >= today && s.CreationDate < tomorrow)
+                                            .Sum(s => (decimal?)s.TotalPrice);
 
-                // Check if todaysSales is null before casting to int
                 int todaysSalesInt = todaysSales.HasValue ? (int)todaysSales.Value : 0;
 
                 return todaysSalesInt;
             }
-
         }
+
+        private int GetYersterdaySales()
+        {
+            DateTime yesterday = DateTime.Today.AddDays(-1);
+            DateTime today = DateTime.Today;
+            using (var dbContext = new BookingContext())
+            {
+                var yesterdaysSales = dbContext.Bookings
+                                                .Where(s => s.CreationDate >= yesterday && s.CreationDate < today)
+                                                .Sum(s => (decimal?)s.TotalPrice);
+
+                int yesterdaysSalesInt = yesterdaysSales.HasValue ? (int)yesterdaysSales.Value : 0;
+
+                return yesterdaysSalesInt;
+            }
+        }
+
+        public decimal GetSalesPercentageChange()
+        {
+            var todaySales = GetTodaysSalesAdmin();
+            var yesterdaySales = GetYersterdaySales();
+
+            if (yesterdaySales == 0)
+            {
+                return todaySales == 0 ? 0 : 100; 
+            }
+
+            var todayPercentage = (todaySales * 100) / yesterdaySales;
+            var performanceIndicator = (todayPercentage < 100) ? todayPercentage - 100 : todayPercentage - 100;
+
+            return performanceIndicator;
+        }
+
 
 
         /* --- MANAGE DESTINATIONS --- */

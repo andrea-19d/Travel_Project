@@ -272,7 +272,10 @@
     <Content Include="Content\ADMIN\assets\img\icons\flags\AU.png" />
     <Content Include="Content\ADMIN\assets\img\icons\flags\BR.png" />
     <Content Include="Content\ADMIN\assets\img\icons\flags\DE.png" />
+    <Content Include="Content\ADMIN\assets\img\icons\flags\FR.png" />
     <Content Include="Content\ADMIN\assets\img\icons\flags\GB.png" />
+    <Content Include="Content\ADMIN\assets\img\icons\flags\IT.png" />
+    <Content Include="Content\ADMIN\assets\img\icons\flags\RO.png" />
     <Content Include="Content\ADMIN\assets\img\icons\flags\US.png" />
     <Content Include="Content\ADMIN\assets\img\illustrations\icon-documentation.svg" />
     <Content Include="Content\ADMIN\assets\img\illustrations\rocket-white.png" />
@@ -321,12 +324,12 @@
     <Content Include="Content\ADMIN\assets\img\vr-bg.jpg" />
     <Content Include="Content\ADMIN\assets\js\argon-dashboard.js" />
     <Content Include="Content\ADMIN\assets\js\argon-dashboard.min.js" />
-    <Content Include="Content\ADMIN\assets\js\core\bootstrap.bundle.min.js" />
-    <Content Include="Content\ADMIN\assets\js\core\bootstrap.min.js" />
-    <Content Include="Content\ADMIN\assets\js\core\popper.min.js" />
     <Content Include="Content\ADMIN\assets\js\plugins\bootstrap-notify.js" />
     <Content Include="Content\ADMIN\assets\js\plugins\Chart.extension.js" />
     <Content Include="Content\ADMIN\assets\js\plugins\chartjs.min.js" />
+    <Content Include="Content\ADMIN\assets\js\plugins\core\bootstrap.bundle.min.js" />
+    <Content Include="Content\ADMIN\assets\js\plugins\core\bootstrap.min.js" />
+    <Content Include="Content\ADMIN\assets\js\plugins\core\popper.min.js" />
     <Content Include="Content\ADMIN\assets\js\plugins\perfect-scrollbar.min.js" />
     <Content Include="Content\ADMIN\assets\js\plugins\smooth-scrollbar.min.js" />
     <Content Include="Content\ADMIN\docs\documentation.html" />
@@ -779,6 +782,8 @@
     <Content Include="Views\Admin\Destinations.cshtml" />
     <Content Include="Views\Admin\EditDestination.cshtml" />
     <Content Include="Views\MyProfilePage\ShowUserBookings.cshtml" />
+    <Content Include="Views\Admin\CHART.cshtml" />
+    <Content Include="Views\Admin\DestinationsChart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
