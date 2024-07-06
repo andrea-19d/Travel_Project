@@ -56,7 +56,6 @@ namespace App.Controllers
         [Route("Create")]
         public ActionResult UpdateUserProfile(user currentUser)
         {
-            SessionStatus();
             HttpPostedFileBase file = Request.Files["profilePicture"];
           
 
@@ -79,7 +78,6 @@ namespace App.Controllers
 
         public ActionResult ShowUserBookings(int id)
         {
-            SessionStatus();
             var resp = _session.CreatedBookings(id);
             return PartialView("ShowUserBookings", resp);
         }

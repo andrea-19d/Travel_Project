@@ -43,6 +43,7 @@ namespace App.Controllers
         [HttpGet]
         public ActionResult Booking(int destinationId)
         {
+            SessionStatus();
             var destination = _product.GetADestination(destinationId);
             var email = Session["Username"].ToString();
             var user = _session.GetCurrentUser(email);
@@ -67,6 +68,7 @@ namespace App.Controllers
         [HttpPost]
         public ActionResult UCreateBooking(BookingViewModel model)
         {
+            SessionStatus();
             if (ModelState.IsValid)
             {
                 var booking = Mapper.Map<UBooking>(model);

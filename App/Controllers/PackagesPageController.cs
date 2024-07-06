@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class PackagesPageController : Controller
+    public class PackagesPageController : BaseController
     {
         // GET: PackagesPage
         private IProduct _product;
@@ -22,12 +22,14 @@ namespace App.Controllers
 
         public ActionResult Index() 
         {
+            SessionStatus();
             return View();
         }
 
         [HttpGet]
         public async Task<ActionResult> Packages()
         {
+            SessionStatus();
             await Task.Delay(1000);
             var prodDetail =  await _product.GetPackages();
             return View(prodDetail);

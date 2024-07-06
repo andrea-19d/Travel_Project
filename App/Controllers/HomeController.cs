@@ -38,7 +38,7 @@ namespace App.Controllers
 
         public ActionResult Carousel()
         {
-
+            SessionStatus();
             return View();
         }
 
@@ -56,11 +56,13 @@ namespace App.Controllers
 
         public ActionResult ExploreTur()
         {
+            SessionStatus();
             return View();
         }
 
         public ActionResult TurBooking()
         {
+            SessionStatus();
             return View();
         }
 

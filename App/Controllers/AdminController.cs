@@ -38,6 +38,7 @@ namespace App.Controllers
         [AdminMod]
         public ActionResult Admin()
         {
+            SessionStatus();
             var NrOfUsers = _monitoring.ManageNrOfUsers();
             var NrOfNewUsers = _monitoring.TodaysUsers();
             var UsersPercentage = _monitoring.GetUserPercentage();
@@ -79,6 +80,7 @@ namespace App.Controllers
         [HttpGet]
         public ActionResult Tables()
         {
+            SessionStatus();
             var allUsers = _monitoring.GetCount();
             var onlineThreshold = DateTime.Now.AddMinutes(-5);
 
@@ -93,6 +95,7 @@ namespace App.Controllers
         [AdminMod]
         public ActionResult DeleteUser(int id)
         {
+            SessionStatus();
             ActionStatus status = _monitoring.DeleteUser(id);
             ViewBag.Status = status.Status;
             return RedirectToAction("Tables");
@@ -102,8 +105,8 @@ namespace App.Controllers
         [HttpPost]
         public ActionResult ChangeRole( int id, string newUserRole)
         {
-           
-                LevelAcces status = _monitoring.ChangeUserRole(id, newUserRole);
+            SessionStatus();
+            LevelAcces status = _monitoring.ChangeUserRole(id, newUserRole);
                 ViewBag.Status = status.ToString();
                 return RedirectToAction("Tables");
         }
@@ -112,6 +115,7 @@ namespace App.Controllers
         [HttpGet]
         public async Task<ActionResult> Destinations()
         {
+            SessionStatus();
             var allDestinations = await _product.GetPackages();
             return View(allDestinations);
         }
@@ -119,6 +123,7 @@ namespace App.Controllers
         [HttpGet]
         public ActionResult EditDestination(int ID)
         {
+            SessionStatus();
             var destination = _product.GetADestination(ID);
             return View(destination);
 
@@ -152,6 +157,7 @@ namespace App.Controllers
         [AdminMod]
         public ActionResult DeleteDestination(int id)
         {
+            SessionStatus();
             ActionStatus destinationStatus = _monitoring.DeleteDestination(id);
             if (destinationStatus.Status)
             {
@@ -165,14 +171,14 @@ namespace App.Controllers
         [AdminMod]
         public ActionResult AddDestinations()
         {
+            SessionStatus();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddDestinations(aDestination data)
-        {
-
+        { 
             HttpPostedFileBase file = Request.Files["destinationPicture"];
 
             if (ModelState.IsValid)

@@ -15,7 +15,7 @@ using System.Web.Services.Description;
 
 namespace App.Controllers
 {
-    public class LogInPageController : Controller
+    public class LogInPageController : BaseController
     {
         private readonly ISession _session;
 
@@ -27,6 +27,7 @@ namespace App.Controllers
 
         public ActionResult LogIn()
         {
+            SessionStatus();
             return View();
         }
 

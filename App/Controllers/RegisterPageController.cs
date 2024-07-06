@@ -17,7 +17,7 @@ using System.IO;
 
 namespace App.Controllers
 {
-    public class RegisterPageController : Controller
+    public class RegisterPageController : BaseController
     {
         private readonly ISession _session;
 
@@ -31,6 +31,7 @@ namespace App.Controllers
         // GET: RegisterPage (assuming you want to display the registration form initially)
         public ActionResult Register()
         {
+            SessionStatus();
             return View();
         }
 

@@ -36,18 +36,17 @@ namespace App.Controllers.Atrributes
                 return;
             }
 
-            if (profile.Level == LevelAcces.User  || profile.Level == LevelAcces.Admin)
+            if ((profile.Level == LevelAcces.User || profile.Level == LevelAcces.Admin))
             {
                 HttpContext.Current.SetMySessionObject(profile);
             }
-
-            else
+         /*   else
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary(
-                        new { controller = "Home", action = "ErrorAccessDenied" }));
+                        new { controller = "LogInPage", action = "AccountBlock" }));
 
-            }
+            }*/
         }
 
         private void RedirectToLogin(ActionExecutingContext filterContext)

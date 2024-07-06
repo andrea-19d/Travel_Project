@@ -172,6 +172,10 @@ namespace BusinessLogic.Core
         {
             var todayUsers = ManageTodaysUsers();
             var yesterdayUsers = GetYesterdayUsers();
+            if (yesterdayUsers == 0)
+            {
+                return todayUsers == 0 ? 0 : 100;
+            }
 
             var todayPercentage = (todayUsers * 100)/yesterdayUsers;
             var performanceIndicator = (todayPercentage < 100) ? todayPercentage - 100 : todayPercentage - 100;
