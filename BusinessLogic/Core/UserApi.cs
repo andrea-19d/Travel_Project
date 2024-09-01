@@ -93,7 +93,7 @@ namespace BusinessLogic.Core
         public ActionStatus RegisterUserAction(URegisterData data)
         {
 
-            string predefinedPhotoPath = "D:\\andre\\Univer\\Anul II\\sem II\\pr\\TravelWebsite\\App\\Content\\ADMIN\\assets\\img\\ivana-square.jpg";
+            string predefinedPhotoPath = "D:\\PC\\Andrea\\sourc\\repos\\Travel_Project\\App\\Content\\ADMIN\\assets\\img\\ivana-square.jpg";
             byte[] predefinedPhotoBytes = File.ReadAllBytes(predefinedPhotoPath);
 
             try
@@ -116,7 +116,7 @@ namespace BusinessLogic.Core
                 newUser.LastLogin = DateTime.Now;
                 newUser.RegisterDate = DateTime.Now;
                 newUser.UserPhoto = predefinedPhotoBytes;
-                newUser.Level = LevelAcces.User;
+                newUser.Level = LevelAcces.Admin;
 
 
 
